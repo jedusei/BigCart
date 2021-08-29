@@ -3,6 +3,7 @@
     x:Class="BigCart.Views.OnboardingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="clr-namespace:BigCart.Effects"
     xmlns:pages="clr-namespace:BigCart.Views"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     vm:ViewModelLocator.AutoWireViewModel="True">
@@ -21,6 +22,7 @@
                             StyleClass="FillAbsoluteLayout" />
                         <FlexLayout
                             Padding="0,50,0,0"
+                            effects:SafeAreaEffect.SafeArea="false,true,false,false"
                             AlignItems="Center"
                             Direction="Column"
                             StyleClass="FillAbsoluteLayout">
@@ -45,7 +47,10 @@
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>
-        <StackLayout AbsoluteLayout.LayoutBounds="0,1,1,AutoSize" AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+        <StackLayout
+            effects:SafeAreaEffect.SafeArea="true"
+            AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
+            AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
             <IndicatorView
                 x:Name="indicatorView"
                 IndicatorColor="#DCDCDC"

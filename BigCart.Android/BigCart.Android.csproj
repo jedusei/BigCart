@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="AndroidModule.cs" />
     <Compile Include="ApplicationEx.cs" />
+    <Compile Include="Effects\SafeAreaEffectRouter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
