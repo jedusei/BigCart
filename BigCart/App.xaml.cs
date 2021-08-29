@@ -37,12 +37,7 @@ namespace BigCart
 
         protected override void OnStart()
         {
-            _ = StartAsync();
-        }
-
-        private async Task StartAsync()
-        {
-            await DependencyResolver.Get<INavigationService>().InitializeAsync();
+            DependencyResolver.Get<INavigationService>().Initialize();
             Status = AppStatus.Running;
         }
 
