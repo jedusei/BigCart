@@ -18,7 +18,7 @@ namespace BigCart.Services.Navigation
         public async Task PushAsync<T>(NavigationOptions options = null) where T : Page
         {
             T page = CreatePage<T>(options?.Data);
-            INavigation navigation = Application.Current.MainPage.Navigation;
+            INavigation navigation = GetNavigation();
             await navigation.PushAsync(page);
 
             if (options != null)
@@ -35,6 +35,11 @@ namespace BigCart.Services.Navigation
             }
         }
 
+        public Task PopAsync()
+        {
+            return GetNavigation().PopAsync();
+        }
+
         private T CreatePage<T>(object navigationData = null) where T : Page
         {
             T page = Activator.CreateInstance<T>();
@@ -42,6 +47,11 @@ namespace BigCart.Services.Navigation
                 viewModel.Initialize(navigationData);
 
             return page;
+        }
+
+        INavigation GetNavigation()
+        {
+            return Application.Current.MainPage.Navigation;
         }
     }
 }

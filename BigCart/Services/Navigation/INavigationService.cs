@@ -8,5 +8,6 @@ namespace BigCart.Services.Navigation
     {
         void Initialize();
         Task PushAsync<T>(NavigationOptions options = null) where T : Page;
+        Task PopAsync();
     }
 }
