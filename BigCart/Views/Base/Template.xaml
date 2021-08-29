@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:Page
-    x:Class="BigCart.Views.Template"
+    x:Class="BigCart.Pages.Template"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:BigCart.Views"
+    xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     vm:ViewModelLocator.AutoWireViewModel="True">
     <StackLayout>

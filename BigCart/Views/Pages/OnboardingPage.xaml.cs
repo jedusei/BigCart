@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace BigCart.Views
+namespace BigCart.Pages
 {
     public partial class OnboardingPage : Page
     {

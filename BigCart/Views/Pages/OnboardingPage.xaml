@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:Page
-    x:Class="BigCart.Views.OnboardingPage"
+    x:Class="BigCart.Pages.OnboardingPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:effects="clr-namespace:BigCart.Effects"
-    xmlns:pages="clr-namespace:BigCart.Views"
+    xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
-    vm:ViewModelLocator.AutoWireViewModel="True">
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:OnboardingViewModel">
     <AbsoluteLayout>
         <CarouselView
             x:Name="carouselView"
@@ -14,7 +15,7 @@
             Loop="False"
             StyleClass="FillAbsoluteLayout">
             <CarouselView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="{x:Null}">
                     <AbsoluteLayout>
                         <Image
                             Aspect="AspectFill"
@@ -56,7 +57,10 @@
                 IndicatorColor="#DCDCDC"
                 IndicatorSize="8"
                 SelectedIndicatorColor="{StaticResource PrimaryColor}" />
-            <Button Margin="20,14,20,30" Text="Get Started" />
+            <Button
+                Margin="20,14,20,30"
+                Command="{Binding GetStartedCommand}"
+                Text="Get Started" />
         </StackLayout>
     </AbsoluteLayout>
 </pages:Page>

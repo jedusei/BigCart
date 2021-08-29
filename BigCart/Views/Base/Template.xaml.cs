@@ -1,4 +1,4 @@
-﻿namespace BigCart.Views
+﻿namespace BigCart.Pages
 {
     public partial class Template : Page
     {

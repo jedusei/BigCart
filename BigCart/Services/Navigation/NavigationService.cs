@@ -1,10 +1,10 @@
-using BigCart.DependencyInjection;
-using BigCart.Pages;
+﻿using BigCart.DependencyInjection;
 using BigCart.ViewModels;
+using BigCart.Pages;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Page = BigCart.Views.Page;
+using Page = BigCart.Pages.Page;
 
 namespace BigCart.Services.Navigation
 {
@@ -13,8 +13,26 @@ namespace BigCart.Services.Navigation
         public void Initialize()
         {
             App.Current.MainPage = new NavigationPage(CreatePage<OnboardingPage>());
+        }
 
-        
+        public async Task PushAsync<T>(NavigationOptions options = null) where T : Page
+        {
+            T page = CreatePage<T>(options?.Data);
+            INavigation navigation = Application.Current.MainPage.Navigation;
+            await navigation.PushAsync(page);
+
+            if (options != null)
+            {
+                if (options.ClearHistory)
+                {
+                    for (int i = navigation.NavigationStack.Count - 2; i >= 0; i--)
+                        navigation.RemovePage(navigation.NavigationStack[i]);
+                }
+                else if (options.Replace)
+                {
+                    navigation.RemovePage(navigation.NavigationStack[^2]);
+                }
+            }
         }
 
         private T CreatePage<T>(object navigationData = null) where T : Page

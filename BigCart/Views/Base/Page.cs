@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
-namespace BigCart.Views
+namespace BigCart.Pages
 {
     public class Page : ContentPage
     {
