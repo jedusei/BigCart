@@ -14,20 +14,6 @@ namespace BigCart.Pages
         protected bool _hasLoaded;
         private const int TRANSITION_DURATION = 250;
         private ViewModel _viewModel;
-        private Thickness _safeAreaInsets;
-
-        public Thickness SafeAreaInsets
-        {
-            get => _safeAreaInsets;
-            set
-            {
-                if (!_safeAreaInsets.Equals(value))
-                {
-                    _safeAreaInsets = value;
-                    OnSafeAreaInsetsChanged();
-                }
-            }
-        }
 
         static Page()
         {
@@ -59,7 +45,7 @@ namespace BigCart.Pages
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             On<Xamarin.Forms.PlatformConfiguration.iOS>()
-                .SetUseSafeArea(true);
+                .SetUseSafeArea(false);
         }
 
         protected static IReadOnlyList<Xamarin.Forms.Page> GetNavigationStack()
@@ -71,10 +57,6 @@ namespace BigCart.Pages
         {
             base.OnBindingContextChanged();
             _viewModel = BindingContext as ViewModel;
-        }
-
-        protected virtual void OnSafeAreaInsetsChanged()
-        {
         }
 
         protected override void OnAppearing()
