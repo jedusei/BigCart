@@ -29,6 +29,7 @@
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
             <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+            <Setter Property="FontSize" Value="14" />
         </Style>
 
         <Style

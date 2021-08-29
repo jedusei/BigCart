@@ -11,6 +11,7 @@
     <AbsoluteLayout>
         <CarouselView
             x:Name="carouselView"
+            HorizontalScrollBarVisibility="Never"
             IndicatorView="{Reference indicatorView}"
             Loop="False"
             StyleClass="FillAbsoluteLayout">
@@ -36,7 +37,7 @@
                                 HeightRequest="50"
                                 IsVisible="{Binding ShowLogo}"
                                 Source="logo.png"
-                                TranslationY="-5" />
+                                TranslationY="{OnPlatform Android=-5}" />
                             <Label
                                 Margin="0,17,0,0"
                                 HorizontalTextAlignment="Center"
