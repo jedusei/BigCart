@@ -27,7 +27,10 @@ namespace BigCart.DependencyInjection
             foreach (Type type in types)
             {
                 bool isSingleton = singletonInterfaceType.IsAssignableFrom(type);
-                Type dependencyType = type.GetInterfaces().FirstOrDefault(t => t != dependencyInterfaceType && t != singletonInterfaceType);
+                Type dependencyType = type.GetInterfaces()
+                    .Except(type.BaseType.GetInterfaces())
+                    .FirstOrDefault(t => t != dependencyInterfaceType && t != singletonInterfaceType);
+
                 dependencyType ??= type;
 
                 if (isSingleton)

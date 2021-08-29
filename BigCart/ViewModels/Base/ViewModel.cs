@@ -1,9 +1,11 @@
-﻿using Xamarin.CommunityToolkit.ObjectModel;
+﻿using BigCart.DependencyInjection;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace BigCart.ViewModels
 {
-    public class ViewModel : ObservableObject
+    public abstract class ViewModel : ObservableObject, IDependency
     {
+        public virtual void Initialize(object navigationData) { }
         public virtual void OnStart() { }
         public virtual void OnResume() { }
         public virtual bool OnBackButtonPressed() => false;

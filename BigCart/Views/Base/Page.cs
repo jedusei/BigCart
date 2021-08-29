@@ -12,8 +12,8 @@ namespace BigCart.Views
 {
     public class Page : ContentPage
     {
-        public const int TRANSITION_DURATION = 250;
         protected bool _hasLoaded;
+        private const int TRANSITION_DURATION = 250;
         private ViewModel _viewModel;
         private Thickness _safeAreaInsets;
 
@@ -58,6 +58,7 @@ namespace BigCart.Views
 
         public Page()
         {
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             On<Xamarin.Forms.PlatformConfiguration.iOS>()
                 .SetUseSafeArea(true);
         }

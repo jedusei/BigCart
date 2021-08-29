@@ -1,17 +1,16 @@
 ﻿using BigCart.Views;
 
-namespace BigCart
+namespace BigCart.Pages
 {
-    public partial class MainPage : Page
+    public partial class OnboardingPage : Page
     {
-        public MainPage()
+        public OnboardingPage()
         {
             InitializeComponent();
         }
 
         private void Button_Clicked(object sender, System.EventArgs e)
         {
-            Navigation.PushAsync(new MainPage());
         }
     }
 }
