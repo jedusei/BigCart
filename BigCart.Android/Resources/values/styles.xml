@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
-	<style name="MainTheme" parent="MainTheme.Base">
+	<style name="MainTheme" parent="Theme.AppCompat.Light">
 		<item name="android:statusBarColor">@android:color/white</item>
 		<item name="android:windowLightStatusBar">true</item>
+		<item name="windowNoTitle">true</item>
+		<item name="windowActionBar">false</item>
+		<item name="android:windowActionModeOverlay">true</item>
+		<item name="android:colorPrimary">@color/colorPrimary</item>
+		<item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="android:colorAccent">@color/colorPrimary</item>
 	</style>
 
 </resources>
