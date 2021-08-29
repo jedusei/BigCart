@@ -1,11 +1,14 @@
-﻿using BigCart.Messaging;
+﻿using BigCart.DependencyInjection;
+using BigCart.Messaging;
+using BigCart.Services.Navigation;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace BigCart
 {
     public enum AppStatus
     {
-        Unknown,
+        Starting,
         Running,
         Paused,
         Resumed,
@@ -17,11 +20,14 @@ namespace BigCart
         public static new App Current => Application.Current as App;
         public AppStatus Status { get; private set; }
 
+        static App()
+        {
+            SharedModule.Instance.Initialize();
+        }
+
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new MainPage());
         }
 
         public void Stop()
@@ -31,6 +37,12 @@ namespace BigCart
 
         protected override void OnStart()
         {
+            _ = StartAsync();
+        }
+
+        private async Task StartAsync()
+        {
+            await DependencyResolver.Get<INavigationService>().InitializeAsync();
             Status = AppStatus.Running;
         }
 
