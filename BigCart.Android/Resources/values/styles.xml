@@ -2,8 +2,9 @@
 <resources>
 
 	<style name="MainTheme" parent="Theme.AppCompat.Light">
-		<item name="android:statusBarColor">@android:color/white</item>
 		<item name="android:windowLightStatusBar">true</item>
+		<item name="android:windowTranslucentStatus">true</item>
+		<item name="android:windowTranslucentNavigation">true</item>
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="android:windowActionModeOverlay">true</item>
@@ -12,9 +13,7 @@
 		<item name="android:colorAccent">@color/colorPrimary</item>
 	</style>
 
-	<style name="SplashTheme" parent ="Theme.AppCompat.Light.NoActionBar">
-		<item name="android:statusBarColor">@android:color/white</item>
-		<item name="android:windowLightStatusBar">true</item>
+	<style name="SplashTheme" parent ="@style/MainTheme">
 		<item name="android:windowBackground">@drawable/splash_screen</item>
 	</style>
 
