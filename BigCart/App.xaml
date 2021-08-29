@@ -1,8 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BigCart.App">
+<Application
+    x:Class="BigCart.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Application.Resources>
+        <!--#region Colors-->
+        <Color x:Key="BackgroundPrimaryColor">White</Color>
+        <Color x:Key="BackgroundSecondaryColor">#F4F5F9</Color>
+        <Color x:Key="BackgroundTertiaryColor">#F5F5F5</Color>
+        <Color x:Key="BorderColor">#EBEBEB</Color>
 
+        <Color x:Key="TextPrimaryColor">Black</Color>
+        <Color x:Key="TextSecondaryColor">#868889</Color>
+        <Color x:Key="TextLinkColor">#407EC7</Color>
+
+        <Color x:Key="PrimaryColor">#AEDC81</Color>
+        <Color x:Key="PrimaryDarkColor">#6CC51D</Color>
+        <Color x:Key="PrimaryLightColor">#EBFFD7</Color>
+        <!--#endregion-->
+
+        <!--#region Strings-->
+        <x:String x:Key="FontFamily">Poppins</x:String>
+        <x:String x:Key="BoldFontFamily">Poppins-Bold</x:String>
+        <x:String x:Key="LoremIpsum">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy</x:String>
+        <!--#endregion-->
+
+        <!--#region Styles-->
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+            <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+        </Style>
+
+        <Style
+            x:Key="TextSecondary"
+            Class="TextSecondary"
+            TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
+        </Style>
+
+        <Style x:Key="TitleBold" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
+            <Setter Property="FontSize" Value="30" />
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="TextTransform" Value="None" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Setter Property="Padding" Value="18" />
+            <Setter Property="Background">
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource PrimaryColor}" />
+                    <GradientStop Offset="1" Color="{StaticResource PrimaryDarkColor}" />
+                </LinearGradientBrush>
+            </Setter>
+        </Style>
+
+        <Style
+            ApplyToDerivedTypes="True"
+            Class="FillAbsoluteLayout"
+            TargetType="View">
+            <Setter Property="AbsoluteLayout.LayoutBounds" Value="0,0,1,1" />
+            <Setter Property="AbsoluteLayout.LayoutFlags" Value="SizeProportional" />
+        </Style>
+        <!--#endregion-->
     </Application.Resources>
 </Application>
