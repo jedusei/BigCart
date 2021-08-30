@@ -1,5 +1,4 @@
-﻿using BigCart.Services.Navigation;
-using SimpleInjector;
+﻿using SimpleInjector;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -10,13 +9,22 @@ namespace BigCart.DependencyInjection
     {
         public static Container Container { get; private set; }
 
-        public static void Initialize()
+        private static void Initialize()
         {
-            Container ??= new Container();
+            Container = new Container();
+            Container.Options.EnableAutoVerification = false;
+        }
+
+        private static void EnsureInitialized()
+        {
+            if (Container == null)
+                Initialize();
         }
 
         public static void RegisterDependencies(Assembly assembly)
         {
+            EnsureInitialized();
+
             Type dependencyInterfaceType = typeof(IDependency);
             Type singletonInterfaceType = typeof(ISingletonDependency);
 
@@ -31,17 +39,26 @@ namespace BigCart.DependencyInjection
                     .Except(type.BaseType.GetInterfaces())
                     .FirstOrDefault(t => t != dependencyInterfaceType && t != singletonInterfaceType);
 
-                dependencyType ??= type;
-
-                if (isSingleton)
-                    Container.RegisterSingleton(dependencyType, type);
+                if (dependencyType == null)
+                {
+                    if (isSingleton)
+                        Container.RegisterSingleton(type);
+                    else
+                        Container.Register(type);
+                }
                 else
-                    Container.Register(dependencyType, type);
+                {
+                    if (isSingleton)
+                        Container.RegisterSingleton(dependencyType, type);
+                    else
+                        Container.Register(dependencyType, type);
+                }
             }
         }
 
         public static T Get<T>() where T : class
         {
+            EnsureInitialized();
             return Container.GetInstance<T>();
         }
     }

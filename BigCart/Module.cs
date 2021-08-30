@@ -1,6 +1,4 @@
 ﻿using BigCart.DependencyInjection;
-using BigCart.Services.Navigation;
-using SimpleInjector;
 using System.Reflection;
 
 namespace BigCart
@@ -13,7 +11,6 @@ namespace BigCart
         {
             if (!_isInitialized)
             {
-                DependencyResolver.Initialize();
                 DependencyResolver.RegisterDependencies(Assembly.GetCallingAssembly());
                 OnInitialize();
                 _isInitialized = true;
