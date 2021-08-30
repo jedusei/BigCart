@@ -25,7 +25,7 @@
                             StyleClass="FillAbsoluteLayout" />
                         <FlexLayout
                             Padding="0,50,0,0"
-                            effects:SafeAreaEffect.SafeArea="false,true,false,false"
+                            effects:SafeAreaEffect.SafeArea="Top"
                             AlignItems="Center"
                             Direction="Column"
                             StyleClass="FillAbsoluteLayout">
@@ -51,18 +51,17 @@
             </CarouselView.ItemTemplate>
         </CarouselView>
         <StackLayout
-            effects:SafeAreaEffect.SafeArea="true"
+            Padding="20,30"
+            effects:SafeAreaEffect.SafeArea="Bottom"
             AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
-            AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional">
+            AbsoluteLayout.LayoutFlags="PositionProportional,WidthProportional"
+            Spacing="20">
             <IndicatorView
                 x:Name="indicatorView"
                 IndicatorColor="#DCDCDC"
                 IndicatorSize="8"
                 SelectedIndicatorColor="{StaticResource PrimaryColor}" />
-            <Button
-                Margin="20,14,20,30"
-                Command="{Binding GetStartedCommand}"
-                Text="Get Started" />
+            <Button Command="{Binding GetStartedCommand}" Text="Get Started" />
         </StackLayout>
     </AbsoluteLayout>
 </pages:Page>

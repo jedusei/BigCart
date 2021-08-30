@@ -1,8 +1,7 @@
-﻿using Android.App;
-using Android.Views;
+﻿using Android.Views;
+using AndroidX.Core.View;
 using BigCart.Droid.Effects;
 using BigCart.Effects;
-using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using View = Xamarin.Forms.View;
@@ -17,27 +16,45 @@ namespace BigCart.Droid.Effects
 
         protected override void OnAttached()
         {
-            WindowInsets insets = Container.Context.GetActivity().Window.DecorView.RootWindowInsets;
-            SafeArea safeArea = SafeAreaEffect.GetSafeArea(Element);
-
-#pragma warning disable CS0618 // Type or member is obsolete
-            Element.Margin = new Thickness(
-                CalculateInsets(insets.StableInsetLeft, safeArea.Left),
-                CalculateInsets(insets.StableInsetTop, safeArea.Top),
-                CalculateInsets(insets.StableInsetRight, safeArea.Right),
-                CalculateInsets(insets.StableInsetBottom, safeArea.Bottom)
-            );
-#pragma warning restore CS0618 // Type or member is obsolete
+            Element.PropertyChanged += ElementPropertyChanged;
+            Apply();
         }
 
         protected override void OnDetached()
         {
+            Element.PropertyChanged -= ElementPropertyChanged;
             Element.Margin = 0;
         }
 
-        private double CalculateInsets(double insetsComponent, bool shouldUseInsetsComponent)
+        private void ElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            return shouldUseInsetsComponent ? insetsComponent : 0;
+            if (e.PropertyName == SafeAreaEffect.SafeAreaProperty.PropertyName || e.PropertyName == SafeAreaEffect.MarginProperty.PropertyName)
+                Apply();
+        }
+
+        private void Apply()
+        {
+            WindowInsets insets = Container.Context.GetActivity().Window.DecorView.RootWindowInsets;
+            Sides safeArea = SafeAreaEffect.GetSafeArea(Element);
+
+            if (safeArea != Sides.None)
+            {
+                Thickness margin = SafeAreaEffect.GetMargin(Element);
+
+#pragma warning disable CS0618 // Type or member is obsolete
+                Element.Margin = new Thickness(
+                    margin.Left + CalculateInsets(insets.StableInsetLeft, safeArea, Sides.Left),
+                    margin.Top + CalculateInsets(insets.StableInsetTop, safeArea, Sides.Top),
+                    margin.Right + CalculateInsets(insets.StableInsetRight, safeArea, Sides.Right),
+                    margin.Bottom + CalculateInsets(insets.StableInsetBottom, safeArea, Sides.Bottom)
+                );
+#pragma warning restore CS0618 // Type or member is obsolete
+            }
+        }
+
+        private double CalculateInsets(double insetsComponent, Sides safeArea, Sides flag)
+        {
+            return safeArea.HasFlag(flag) ? Container.Context.FromPixels(insetsComponent) : 0;
         }
     }
 }
