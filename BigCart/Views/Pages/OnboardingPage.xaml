@@ -13,6 +13,7 @@
             x:Name="carouselView"
             HorizontalScrollBarVisibility="Never"
             IndicatorView="{Reference indicatorView}"
+            IsBounceEnabled="False"
             Loop="False"
             StyleClass="FillAbsoluteLayout">
             <CarouselView.ItemTemplate>
