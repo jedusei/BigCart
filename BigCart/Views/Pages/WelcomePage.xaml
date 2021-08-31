@@ -11,9 +11,14 @@
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     vm:ViewModelLocator.AutoWireViewModel="True"
     x:DataType="vm:WelcomeViewModel"
-    BackgroundColor="White"
+    BackgroundColor="{StaticResource BackgroundSecondaryColor}"
     StatusBarStyle="LightContent">
     <ContentPage.Resources>
+        <Style x:Key="Tab" TargetType="StackLayout">
+            <Setter Property="Padding" Value="20" />
+            <Setter Property="Spacing" Value="0" />
+            <Setter Property="VerticalOptions" Value="Start" />
+        </Style>
         <Style
             x:Key="SectionTitle"
             BasedOn="{StaticResource TitleBold}"
@@ -29,17 +34,14 @@
     </ContentPage.Resources>
 
     <AbsoluteLayout>
-        <CarouselView Loop="False" StyleClass="FillAbsoluteLayout">
-            <CarouselView.ItemsSource>
-                <x:Array Type="{Type ImageSource}">
-                    <FileImageSource File="welcome_1.png" />
-                    <FileImageSource File="welcome_2.png" />
-                    <FileImageSource File="welcome_3.png" />
-                </x:Array>
-            </CarouselView.ItemsSource>
+        <CarouselView
+            x:Name="_carouselView"
+            IsSwipeEnabled="False"
+            Loop="False"
+            StyleClass="FillAbsoluteLayout">
             <CarouselView.ItemTemplate>
                 <DataTemplate x:DataType="ImageSource">
-                    <ContentView BackgroundColor="Black">
+                    <ContentView>
                         <Image Source="{Binding}" VerticalOptions="Start" />
                     </ContentView>
                 </DataTemplate>
@@ -92,50 +94,112 @@
             BackgroundColor="{StaticResource BackgroundSecondaryColor}"
             BorderWidth="0"
             CornerRadius="10,10,0,0">
-            <StackLayout
-                Padding="20"
+            <ScrollView
+                x:Name="_scrollView"
                 effects:SafeAreaEffect.SafeArea="Bottom"
-                Spacing="0">
-                <Label Style="{StaticResource SectionTitle}" Text="Welcome" />
-                <Label
-                    FontFamily="{StaticResource MediumFontFamily}"
-                    Style="{StaticResource SectionTextSecondary}"
-                    Text="{StaticResource LoremIpsum}" />
-
-                <ev:SfEffectsView
-                    Margin="0,30,0,10"
-                    Padding="18"
-                    BackgroundColor="White"
-                    CornerRadius="5">
-                    <AbsoluteLayout>
-                        <Image
-                            AbsoluteLayout.LayoutBounds="10,0.5,22,22"
-                            AbsoluteLayout.LayoutFlags="YProportional"
-                            Source="google.png" />
+                HorizontalScrollBarVisibility="Never"
+                IsEnabled="True"
+                Orientation="Horizontal">
+                <AbsoluteLayout>
+                    <StackLayout x:Name="_homeView" Style="{StaticResource Tab}">
+                        <Label Style="{StaticResource SectionTitle}" Text="Welcome" />
                         <Label
-                            AbsoluteLayout.LayoutBounds="0.5,0.5"
-                            AbsoluteLayout.LayoutFlags="PositionProportional"
                             FontFamily="{StaticResource MediumFontFamily}"
-                            FontSize="16"
-                            Text="Continue with Google" />
-                    </AbsoluteLayout>
-                </ev:SfEffectsView>
+                            Style="{StaticResource SectionTextSecondary}"
+                            Text="{StaticResource LoremIpsum}" />
 
-                <Button Margin="0,0,0,20" Text="Create an account" />
-                <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="Already have an account? " />
-                            <Span
-                                FontFamily="{StaticResource MediumFontFamily}"
-                                FontSize="15"
-                                Text="Login"
-                                TextColor="{StaticResource TextLinkColor}" />
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-            </StackLayout>
+                        <ev:SfEffectsView
+                            Margin="0,30,0,10"
+                            Padding="18"
+                            BackgroundColor="White"
+                            CornerRadius="5">
+                            <AbsoluteLayout>
+                                <Image
+                                    AbsoluteLayout.LayoutBounds="10,0.5,22,22"
+                                    AbsoluteLayout.LayoutFlags="YProportional"
+                                    Source="google.png" />
+                                <Label
+                                    AbsoluteLayout.LayoutBounds="0.5,0.5"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                                    FontFamily="{StaticResource MediumFontFamily}"
+                                    FontSize="16"
+                                    Text="Continue with Google" />
+                            </AbsoluteLayout>
+                        </ev:SfEffectsView>
+
+                        <Button
+                            Margin="0,0,0,20"
+                            Clicked="SignupLinkTapped"
+                            Text="Create an account" />
+                        <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Already have an account? " />
+                                    <Span
+                                        FontFamily="{StaticResource MediumFontFamily}"
+                                        FontSize="15"
+                                        Text="Login"
+                                        TextColor="{StaticResource TextLinkColor}">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="LoginLinkTapped" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+
+                    <StackLayout x:Name="_loginView" Style="{StaticResource Tab}">
+                        <Label Style="{StaticResource SectionTitle}" Text="Welcome back!" />
+                        <Label Style="{StaticResource SectionTextSecondary}" Text="Sign in to your account" />
+                        <BoxView
+                            HeightRequest="300"
+                            VerticalOptions="Start"
+                            Color="Red" />
+                        <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Don't have an account? " />
+                                    <Span
+                                        FontFamily="{StaticResource MediumFontFamily}"
+                                        FontSize="15"
+                                        Text="Sign up"
+                                        TextColor="{StaticResource TextLinkColor}">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="SignupLinkTapped" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+
+                    <StackLayout x:Name="_signupView" Style="{StaticResource Tab}">
+                        <Label Style="{StaticResource SectionTitle}" Text="Create account" />
+                        <Label Style="{StaticResource SectionTextSecondary}" Text="Quickly create account" />
+                        <BoxView
+                            HeightRequest="400"
+                            VerticalOptions="Start"
+                            Color="Blue" />
+                        <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Already have an account? " />
+                                    <Span
+                                        FontFamily="{StaticResource MediumFontFamily}"
+                                        FontSize="15"
+                                        Text="Login"
+                                        TextColor="{StaticResource TextLinkColor}">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="LoginLinkTapped" />
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </AbsoluteLayout>
+            </ScrollView>
         </border:SfBorder>
-
     </AbsoluteLayout>
 </pages:Page>
