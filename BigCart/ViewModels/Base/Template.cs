@@ -1,4 +1,4 @@
-﻿namespace BigCart.ViewModels.Base
+﻿namespace BigCart.ViewModels
 {
     public class Template : ViewModel
     {

@@ -21,15 +21,22 @@
 
         <!--#region Strings-->
         <x:String x:Key="FontFamily">Poppins</x:String>
+        <x:String x:Key="MediumFontFamily">Poppins-Medium</x:String>
         <x:String x:Key="BoldFontFamily">Poppins-Bold</x:String>
         <x:String x:Key="LoremIpsum">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy</x:String>
+        <x:String x:Key="Icons">Icons</x:String>
         <!--#endregion-->
 
         <!--#region Styles-->
+        <Style TargetType="Page">
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundPrimaryColor}" />
+        </Style>
+
         <Style TargetType="Label">
             <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
             <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
             <Setter Property="FontSize" Value="14" />
+            <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
         </Style>
 
         <Style
@@ -44,8 +51,13 @@
             <Setter Property="FontSize" Value="30" />
         </Style>
 
+        <Style x:Key="PageTitle" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+
         <Style TargetType="Button">
-            <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
+            <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
             <Setter Property="FontSize" Value="16" />
             <Setter Property="TextColor" Value="White" />
             <Setter Property="TextTransform" Value="None" />

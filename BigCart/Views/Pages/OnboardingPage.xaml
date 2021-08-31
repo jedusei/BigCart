@@ -38,10 +38,10 @@
                             <Image
                                 HeightRequest="50"
                                 IsVisible="{Binding ShowLogo}"
-                                Source="logo.png"
-                                TranslationY="{OnPlatform Android=-5}" />
+                                Source="logo.png" />
                             <Label
                                 Margin="0,17,0,0"
+                                FontFamily="{StaticResource MediumFontFamily}"
                                 HorizontalTextAlignment="Center"
                                 Style="{StaticResource TextSecondary}"
                                 Text="{StaticResource LoremIpsum}"

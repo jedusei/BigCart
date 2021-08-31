@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using BigCart.Pages;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -51,8 +52,8 @@ namespace BigCart.ViewModels
         {
             if (_currentSlideIndex < Slides.Length - 1)
                 CurrentSlideIndex++;
-
-            await Task.CompletedTask;
+            else
+                await _navigationService.PushAsync<WelcomePage>();
         }
     }
 }

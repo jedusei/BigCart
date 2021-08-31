@@ -58,6 +58,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Syncfusion.Xamarin.Core">
+      <Version>19.2.0.59</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Concurrent.Futures">
       <Version>1.1.0.3</Version>
     </PackageReference>
@@ -145,6 +148,18 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values-v27\styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\welcome_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\welcome_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\welcome_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\google.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -27,6 +27,7 @@ namespace BigCart
 
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDk1MjMxQDMxMzkyZTMyMmUzMFJWajRpaEhtMzlnQ1FPNStqREVtY1luTm9NeG9sOUljL29mR2U5TE8wWk09");
             InitializeComponent();
         }
 

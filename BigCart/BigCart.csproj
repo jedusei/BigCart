@@ -11,19 +11,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Fonts\icons.ttf" />
     <None Remove="Assets\Fonts\Poppins-Bold.ttf" />
+    <None Remove="Assets\Fonts\Poppins-Medium.ttf" />
     <None Remove="Assets\Fonts\Poppins-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\Fonts\icons.ttf" />
     <EmbeddedResource Include="Assets\Fonts\Poppins-Bold.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\Poppins-Medium.ttf" />
     <EmbeddedResource Include="Assets\Fonts\Poppins-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SimpleInjector" Version="5.3.2" />
+    <PackageReference Include="Syncfusion.Xamarin.Core" Version="19.2.0.59" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Pages\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

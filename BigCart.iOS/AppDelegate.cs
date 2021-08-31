@@ -21,6 +21,9 @@ namespace BigCart.iOS
             IosModule.Instance.Initialize();
 
             global::Xamarin.Forms.Forms.Init();
+
+            Syncfusion.XForms.iOS.EffectsView.SfEffectsViewRenderer.Init();
+
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

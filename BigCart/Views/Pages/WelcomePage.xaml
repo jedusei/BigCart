@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.WelcomePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:effects="clr-namespace:BigCart.Effects"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:WelcomeViewModel"
+    BackgroundColor="White">
+    <ContentPage.Resources>
+        <Style
+            x:Key="SectionTitle"
+            BasedOn="{StaticResource TitleBold}"
+            TargetType="Label">
+            <Setter Property="FontSize" Value="25" />
+        </Style>
+        <Style
+            x:Key="SectionTextSecondary"
+            BasedOn="{StaticResource TextSecondary}"
+            TargetType="Label">
+            <Setter Property="FontSize" Value="15" />
+        </Style>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout>
+        <CarouselView Loop="False" StyleClass="FillAbsoluteLayout">
+            <CarouselView.ItemsSource>
+                <x:Array Type="{Type ImageSource}">
+                    <FileImageSource File="welcome_1.png" />
+                    <FileImageSource File="welcome_2.png" />
+                    <FileImageSource File="welcome_3.png" />
+                </x:Array>
+            </CarouselView.ItemsSource>
+            <CarouselView.ItemTemplate>
+                <DataTemplate x:DataType="ImageSource">
+                    <ContentView BackgroundColor="Black">
+                        <Image Source="{Binding}" VerticalOptions="Start" />
+                    </ContentView>
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+        <ContentView AbsoluteLayout.LayoutBounds="0,0,1,AutoSize" AbsoluteLayout.LayoutFlags="WidthProportional">
+            <ContentView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="Black" />
+                    <GradientStop Offset="1" Color="Transparent" />
+                </LinearGradientBrush>
+            </ContentView.Background>
+            <BoxView effects:SafeAreaEffect.SafeArea="Top" HeightRequest="80" />
+        </ContentView>
+
+        <AbsoluteLayout
+            effects:SafeAreaEffect.SafeArea="Top"
+            AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
+            AbsoluteLayout.LayoutFlags="WidthProportional">
+            <ev:SfEffectsView
+                AbsoluteLayout.LayoutBounds="5,0.5,50,50"
+                AbsoluteLayout.LayoutFlags="YProportional"
+                CornerRadius="25"
+                RippleColor="White">
+                <Image
+                    HeightRequest="16"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource Icons}"
+                            Glyph="{Static icons:Icons.Back}"
+                            Color="White" />
+                    </Image.Source>
+                </Image>
+            </ev:SfEffectsView>
+            <Label
+                AbsoluteLayout.LayoutBounds="0.5,0.5"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Style="{StaticResource PageTitle}"
+                Text="Welcome"
+                TextColor="White"
+                TranslationY="1" />
+        </AbsoluteLayout>
+
+        <border:SfBorder
+            AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
+            AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
+            BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+            BorderWidth="0"
+            CornerRadius="10,10,0,0">
+            <StackLayout
+                Padding="20"
+                effects:SafeAreaEffect.SafeArea="Bottom"
+                Spacing="0">
+                <Label Style="{StaticResource SectionTitle}" Text="Welcome" />
+                <Label
+                    FontFamily="{StaticResource MediumFontFamily}"
+                    Style="{StaticResource SectionTextSecondary}"
+                    Text="{StaticResource LoremIpsum}" />
+
+                <ev:SfEffectsView
+                    Margin="0,30,0,10"
+                    Padding="18"
+                    BackgroundColor="White"
+                    CornerRadius="5">
+                    <AbsoluteLayout>
+                        <Image
+                            AbsoluteLayout.LayoutBounds="10,0.5,22,22"
+                            AbsoluteLayout.LayoutFlags="YProportional"
+                            Source="google.png" />
+                        <Label
+                            AbsoluteLayout.LayoutBounds="0.5,0.5"
+                            AbsoluteLayout.LayoutFlags="PositionProportional"
+                            FontFamily="{StaticResource MediumFontFamily}"
+                            FontSize="16"
+                            Text="Continue with Google" />
+                    </AbsoluteLayout>
+                </ev:SfEffectsView>
+
+                <Button Margin="0,0,0,20" Text="Create an account" />
+                <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Already have an account? " />
+                            <Span
+                                FontFamily="{StaticResource MediumFontFamily}"
+                                FontSize="15"
+                                Text="Login"
+                                TextColor="{StaticResource TextLinkColor}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </border:SfBorder>
+
+    </AbsoluteLayout>
+</pages:Page>
