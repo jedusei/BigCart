@@ -14,10 +14,11 @@ namespace BigCart.Droid.Effects
     {
         private Context _context;
         public new View Element => (View)base.Element;
+        public new Android.Views.View Control => base.Control ?? Container;
 
         protected override void OnAttached()
         {
-            _context = (Container ?? Control).Context;
+            _context = Control.Context;
             Element.PropertyChanged += ElementPropertyChanged;
             Apply();
         }
@@ -25,8 +26,9 @@ namespace BigCart.Droid.Effects
         protected override void OnDetached()
         {
             Element.PropertyChanged -= ElementPropertyChanged;
-            Element.Margin = 0;
             _context = null;
+            if (Control.IsAttachedToWindow)
+                Element.Margin = 0;
         }
 
         private void ElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
