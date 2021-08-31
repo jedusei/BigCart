@@ -10,11 +10,12 @@
     x:DataType="vm:OnboardingViewModel">
     <AbsoluteLayout>
         <CarouselView
-            x:Name="carouselView"
             HorizontalScrollBarVisibility="Never"
             IndicatorView="{Reference indicatorView}"
             IsBounceEnabled="False"
+            ItemsSource="{Binding Slides}"
             Loop="False"
+            Position="{Binding CurrentSlideIndex}"
             StyleClass="FillAbsoluteLayout">
             <CarouselView.ItemTemplate>
                 <DataTemplate x:DataType="{x:Null}">
@@ -61,7 +62,16 @@
                 IndicatorColor="#DCDCDC"
                 IndicatorSize="8"
                 SelectedIndicatorColor="{StaticResource PrimaryColor}" />
-            <Button Command="{Binding GetStartedCommand}" Text="Get Started" />
+            <Button Command="{Binding NextCommand}" Text="Next">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding CurrentSlideIndex}"
+                        TargetType="Button"
+                        Value="3">
+                        <Setter Property="Text" Value="Get Started" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
         </StackLayout>
     </AbsoluteLayout>
 </pages:Page>
