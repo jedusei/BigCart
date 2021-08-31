@@ -1,5 +1,5 @@
-﻿using Android.Views;
-using AndroidX.Core.View;
+﻿using Android.Content;
+using Android.Views;
 using BigCart.Droid.Effects;
 using BigCart.Effects;
 using Xamarin.Forms;
@@ -12,10 +12,12 @@ namespace BigCart.Droid.Effects
 {
     public class SafeAreaEffectRouter : PlatformEffect
     {
+        private Context _context;
         public new View Element => (View)base.Element;
 
         protected override void OnAttached()
         {
+            _context = (Container ?? Control).Context;
             Element.PropertyChanged += ElementPropertyChanged;
             Apply();
         }
@@ -24,6 +26,7 @@ namespace BigCart.Droid.Effects
         {
             Element.PropertyChanged -= ElementPropertyChanged;
             Element.Margin = 0;
+            _context = null;
         }
 
         private void ElementPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -34,12 +37,11 @@ namespace BigCart.Droid.Effects
 
         private void Apply()
         {
-            WindowInsets insets = Container.Context.GetActivity().Window.DecorView.RootWindowInsets;
             Sides safeArea = SafeAreaEffect.GetSafeArea(Element);
-
             if (safeArea != Sides.None)
             {
                 Thickness margin = SafeAreaEffect.GetMargin(Element);
+                WindowInsets insets = _context.GetActivity().Window.DecorView.RootWindowInsets;
 
 #pragma warning disable CS0618 // Type or member is obsolete
                 Element.Margin = new Thickness(
@@ -54,7 +56,7 @@ namespace BigCart.Droid.Effects
 
         private double CalculateInsets(double insetsComponent, Sides safeArea, Sides flag)
         {
-            return safeArea.HasFlag(flag) ? Container.Context.FromPixels(insetsComponent) : 0;
+            return safeArea.HasFlag(flag) ? _context.FromPixels(insetsComponent) : 0;
         }
     }
 }
