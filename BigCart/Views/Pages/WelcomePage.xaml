@@ -63,7 +63,8 @@
                 AbsoluteLayout.LayoutBounds="5,0.5,50,50"
                 AbsoluteLayout.LayoutFlags="YProportional"
                 CornerRadius="25"
-                RippleColor="White">
+                RippleColor="White"
+                TouchUpCommand="{Binding GoBackCommand}">
                 <Image
                     HeightRequest="16"
                     HorizontalOptions="Center"

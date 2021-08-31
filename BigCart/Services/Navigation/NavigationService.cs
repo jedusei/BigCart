@@ -1,6 +1,7 @@
 ﻿using BigCart.DependencyInjection;
-using BigCart.ViewModels;
 using BigCart.Pages;
+using BigCart.Services.Platform;
+using BigCart.ViewModels;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -8,8 +9,15 @@ using Page = BigCart.Pages.Page;
 
 namespace BigCart.Services.Navigation
 {
-    class NavigationService : INavigationService, ISingletonDependency
+    public class NavigationService : INavigationService, ISingletonDependency
     {
+        private readonly IPlatformService _platformService;
+
+        public NavigationService(IPlatformService platformService)
+        {
+            _platformService = platformService;
+        }
+
         public void Initialize()
         {
             App.Current.MainPage = new NavigationPage(CreatePage<OnboardingPage>());
@@ -35,9 +43,13 @@ namespace BigCart.Services.Navigation
             }
         }
 
-        public Task PopAsync()
+        public async Task PopAsync()
         {
-            return GetNavigation().PopAsync();
+            INavigation navigation = GetNavigation();
+            if (navigation.NavigationStack.Count > 1)
+                await navigation.PopAsync();
+            else
+                _platformService.Quit();
         }
 
         private T CreatePage<T>(object navigationData = null) where T : Page
@@ -49,7 +61,7 @@ namespace BigCart.Services.Navigation
             return page;
         }
 
-        INavigation GetNavigation()
+        private INavigation GetNavigation()
         {
             return Application.Current.MainPage.Navigation;
         }
