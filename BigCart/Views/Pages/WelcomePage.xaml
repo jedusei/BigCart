@@ -11,7 +11,8 @@
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     vm:ViewModelLocator.AutoWireViewModel="True"
     x:DataType="vm:WelcomeViewModel"
-    BackgroundColor="White">
+    BackgroundColor="White"
+    StatusBarStyle="LightContent">
     <ContentPage.Resources>
         <Style
             x:Key="SectionTitle"

@@ -9,11 +9,24 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace BigCart.Pages
 {
+    public enum StatusBarStyle
+    {
+        LightContent,
+        DarkContent
+    }
+
     public class Page : ContentPage
     {
+        public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.Create(nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(Page), StatusBarStyle.DarkContent);
         protected bool _hasLoaded;
         private const int TRANSITION_DURATION = 250;
         private ViewModel _viewModel;
+
+        public StatusBarStyle StatusBarStyle
+        {
+            get => (StatusBarStyle)GetValue(StatusBarStyleProperty);
+            set => SetValue(StatusBarStyleProperty, value);
+        }
 
         static Page()
         {
