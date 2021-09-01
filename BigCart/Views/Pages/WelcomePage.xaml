@@ -101,7 +101,7 @@
                 <controls:ScrollViewEx
                     x:Name="_scrollView"
                     effects:SafeAreaEffect.SafeArea="Bottom"
-                    HorizontalScrollBarVisibility="Always"
+                    HorizontalScrollBarVisibility="Never"
                     IsScrollEnabled="False"
                     Orientation="Horizontal">
                     <AbsoluteLayout>
