@@ -1,6 +1,7 @@
 ﻿using Android.Content;
 using Android.Runtime;
 using Android.Views;
+using AndroidX.Core.View;
 using BigCart.Pages;
 using System.ComponentModel;
 using Xamarin.Forms;
@@ -12,8 +13,12 @@ namespace BigCart.Droid.Renderers
 {
     public class PageRenderer : Xamarin.Forms.Platform.Android.PageRenderer
     {
+        private Window _window;
+        private static double _navBarHeight;
+
         public PageRenderer(Context context) : base(context)
         {
+            _window = context.GetActivity().Window;
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -30,15 +35,33 @@ namespace BigCart.Droid.Renderers
                 UpdateStatusBarStyle();
         }
 
+        public override WindowInsets OnApplyWindowInsets(WindowInsets insets)
+        {
+            WindowInsetsCompat insetsCompat = WindowInsetsCompat.ToWindowInsetsCompat(insets);
+
+            if (_window.Attributes.SoftInputMode != SoftInput.AdjustResize)
+                _navBarHeight = insetsCompat.GetInsets(WindowInsetsCompat.Type.NavigationBars()).Bottom;
+            else if (IsShown)
+            {
+                double keyboardHeight = insetsCompat.GetInsets(WindowInsetsCompat.Type.Ime()).Bottom;
+                keyboardHeight -= _navBarHeight;
+                Thickness padding = Element.Padding;
+                padding.Bottom = (keyboardHeight > 0) ? Context.FromPixels(keyboardHeight) : 0;
+                Element.Padding = padding;
+            }
+
+            return base.OnApplyWindowInsets(insets);
+        }
+
         void UpdateStatusBarStyle()
         {
             var statusBarStyle = (StatusBarStyle)Element.GetValue(Page.StatusBarStyleProperty);
 
 #pragma warning disable CS0618 // Type or member is obsolete
             if (statusBarStyle == StatusBarStyle.DarkContent)
-                Context.GetActivity().Window.DecorView.SystemUiVisibility |= (StatusBarVisibility)SystemUiFlags.LightStatusBar;
+                _window.DecorView.SystemUiVisibility |= (StatusBarVisibility)SystemUiFlags.LightStatusBar;
             else
-                Context.GetActivity().Window.DecorView.SystemUiVisibility &= (StatusBarVisibility)~SystemUiFlags.LightStatusBar;
+                _window.DecorView.SystemUiVisibility &= (StatusBarVisibility)~SystemUiFlags.LightStatusBar;
 #pragma warning restore CS0618 // Type or member is obsolete
         }
     }
