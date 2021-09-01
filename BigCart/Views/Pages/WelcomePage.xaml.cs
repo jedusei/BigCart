@@ -65,13 +65,13 @@ namespace BigCart.Pages
                 easing: Easing.CubicOut,
                 finished: (_, cancelled) =>
                 {
-                    if (!cancelled && _scrollView.HeightRequest < tab.Height)
+                    if (!cancelled && _scrollView.HeightRequest != _signupView.Height)
                     {
                         _scrollView.Animate(
                             RESIZE_ANIM_NAME,
                             h => _scrollView.HeightRequest = h,
                             start: _scrollView.HeightRequest,
-                            end: tab.Height,
+                            end: _signupView.Height,
                             easing: Easing.CubicOut
                         );
                     }
