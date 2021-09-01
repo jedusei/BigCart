@@ -64,20 +64,15 @@ namespace BigCart.Pages
                 start: _scrollView.ScrollX,
                 end: tabPosition,
                 length: SCROLL_ANIM_DURATION,
-                easing: Easing.CubicOut,
-                finished: (_, cancelled) =>
-                {
-                    if (!cancelled)
-                    {
-                        _scrollView.Animate(
-                            RESIZE_ANIM_NAME,
-                            h => _scrollView.HeightRequest = h,
-                            start: _scrollView.HeightRequest,
-                            end: tab.Height,
-                            easing: Easing.CubicOut
-                        );
-                    }
-                }
+                easing: Easing.CubicOut
+            );
+
+            _scrollView.Animate(
+                RESIZE_ANIM_NAME,
+                h => _scrollView.HeightRequest = h,
+                start: _scrollView.HeightRequest,
+                end: tab.Height,
+                easing: Easing.CubicOut
             );
         }
     }
