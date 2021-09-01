@@ -74,6 +74,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\PageRenderer.cs" />
+    <Compile Include="Renderers\ScrollViewExRenderer.cs" />
     <Compile Include="Services\PlatformService.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
@@ -133,6 +134,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Syncfusion.Xamarin.Buttons">
+      <Version>19.2.0.59</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.Core">
       <Version>19.2.0.59</Version>
     </PackageReference>

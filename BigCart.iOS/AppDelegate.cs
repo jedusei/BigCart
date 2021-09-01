@@ -22,7 +22,10 @@ namespace BigCart.iOS
 
             global::Xamarin.Forms.Forms.Init();
 
+            Syncfusion.XForms.iOS.Border.SfBorderRenderer.Init();
             Syncfusion.XForms.iOS.EffectsView.SfEffectsViewRenderer.Init();
+            Syncfusion.XForms.iOS.TextInputLayout.SfTextInputLayoutRenderer.Init();
+            Syncfusion.XForms.iOS.Buttons.SfSwitchRenderer.Init();
 
             LoadApplication(new App());
 

@@ -1,16 +1,19 @@
 ﻿using System.Collections.ObjectModel;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace BigCart.Pages
 {
     public partial class WelcomePage : Page
     {
         private const string SCROLL_ANIM_NAME = "scroll";
+        private readonly uint SCROLL_ANIM_DURATION = (Device.RuntimePlatform == Device.Android) ? 250u : 500u;
         private const string RESIZE_ANIM_NAME = "resize";
+        private const string _loginImage = "welcome_2.png";
+        private const string _signupImage = "welcome_3.png";
         private bool _measured;
         private ObservableCollection<ImageSource> _images = new ObservableCollection<ImageSource> { ImageSource.FromFile("welcome_1.png") };
-        private ImageSource _loginImage = ImageSource.FromFile("welcome_2.png");
-        private ImageSource _signupImage = ImageSource.FromFile("welcome_3.png");
 
         public WelcomePage()
         {
@@ -29,6 +32,7 @@ namespace BigCart.Pages
                 AbsoluteLayout.SetLayoutBounds(_loginView, new Rectangle(0, height, width, AbsoluteLayout.AutoSize));
                 AbsoluteLayout.SetLayoutBounds(_signupView, new Rectangle(0, height, width, AbsoluteLayout.AutoSize));
                 _scrollView.HeightRequest = _homeView.Height;
+                _rootView.HeightRequest = height;
             }
         }
 
@@ -59,6 +63,7 @@ namespace BigCart.Pages
                 x => _scrollView.ScrollToAsync(x, 0, false),
                 start: _scrollView.ScrollX,
                 end: tabPosition,
+                length: SCROLL_ANIM_DURATION,
                 easing: Easing.CubicOut,
                 finished: (_, cancelled) =>
                 {

@@ -6,5 +6,6 @@
         public const string Mail = "\ue901";
         public const string Lock = "\ue902";
         public const string Reload = "\ue903";
+        public const string Phone = "\ue904";
     }
 }

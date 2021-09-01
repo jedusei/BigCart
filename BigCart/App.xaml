@@ -2,7 +2,9 @@
 <Application
     x:Class="BigCart.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms">
     <Application.Resources>
         <!--#region Colors-->
         <Color x:Key="BackgroundPrimaryColor">White</Color>
@@ -39,21 +41,23 @@
             <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
         </Style>
 
-        <Style
-            x:Key="TextSecondary"
-            Class="TextSecondary"
-            TargetType="Label">
-            <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
-        </Style>
-
-        <Style x:Key="TitleBold" TargetType="Label">
-            <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
-            <Setter Property="FontSize" Value="30" />
-        </Style>
-
-        <Style x:Key="PageTitle" TargetType="Label">
+        <Style TargetType="Entry">
             <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
-            <Setter Property="FontSize" Value="20" />
+            <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondaryColor}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
+        </Style>
+
+        <Style TargetType="txt:SfTextInputLayout">
+            <Setter Property="ContainerBackgroundColor" Value="{StaticResource BackgroundPrimaryColor}" />
+            <Setter Property="ContainerType" Value="Filled" />
+            <Setter Property="LeadingViewPosition" Value="Inside" />
+            <Setter Property="TrailingViewPosition" Value="Inside" />
+            <Setter Property="EnableFloating" Value="False" />
+            <Setter Property="ReserveSpaceForAssistiveLabels" Value="False" />
+            <Setter Property="FocusedStrokeWidth" Value="0" />
+            <Setter Property="UnfocusedStrokeWidth" Value="0" />
+            <Setter Property="InputViewPadding" Value="0,20" />
         </Style>
 
         <Style TargetType="Button">
@@ -69,6 +73,78 @@
                     <GradientStop Offset="1" Color="{StaticResource PrimaryDarkColor}" />
                 </LinearGradientBrush>
             </Setter>
+        </Style>
+
+        <Style x:Key="Switch" TargetType="buttons:SfSwitch">
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="VisualType" Value="Custom" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="On">
+                            <VisualState.Setters>
+                                <Setter Property="SwitchSettings">
+                                    <Setter.Value>
+                                        <buttons:DefaultSwitchSettings
+                                            x:TypeArguments="buttons:OnState"
+                                            HasThumbShadow="False"
+                                            ThumbBorderColor="{StaticResource PrimaryColor}"
+                                            ThumbBorderWidth="1.5"
+                                            ThumbColor="{StaticResource BackgroundPrimaryColor}"
+                                            ThumbHeightRequest="16"
+                                            ThumbWidthRequest="16"
+                                            TrackBorderWidth="0"
+                                            TrackColor="{StaticResource PrimaryColor}"
+                                            TrackCornerRadius="20"
+                                            TrackHeightRequest="16"
+                                            TrackWidthRequest="30" />
+                                    </Setter.Value>
+                                </Setter>
+                            </VisualState.Setters>
+                        </VisualState>
+
+                        <VisualState x:Name="Off">
+                            <VisualState.Setters>
+                                <Setter Property="SwitchSettings">
+                                    <Setter.Value>
+                                        <buttons:DefaultSwitchSettings
+                                            x:TypeArguments="buttons:OffState"
+                                            HasThumbShadow="False"
+                                            ThumbBorderColor="{StaticResource TextSecondaryColor}"
+                                            ThumbBorderWidth="1.5"
+                                            ThumbColor="{StaticResource BackgroundPrimaryColor}"
+                                            ThumbHeightRequest="16"
+                                            ThumbWidthRequest="16"
+                                            TrackBorderColor="{StaticResource TextSecondaryColor}"
+                                            TrackBorderWidth="1.5"
+                                            TrackColor="Transparent"
+                                            TrackCornerRadius="20"
+                                            TrackHeightRequest="16"
+                                            TrackWidthRequest="30" />
+                                    </Setter.Value>
+                                </Setter>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+
+        <Style
+            x:Key="TextSecondary"
+            Class="TextSecondary"
+            TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
+        </Style>
+
+        <Style x:Key="TitleBold" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
+            <Setter Property="FontSize" Value="30" />
+        </Style>
+
+        <Style x:Key="PageTitle" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+            <Setter Property="FontSize" Value="20" />
         </Style>
 
         <Style

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace BigCart.Pages
@@ -57,8 +59,7 @@ namespace BigCart.Pages
         public Page()
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
-            On<Xamarin.Forms.PlatformConfiguration.iOS>()
-                .SetUseSafeArea(false);
+            On<iOS>().SetUseSafeArea(false);
         }
 
         protected static IReadOnlyList<Xamarin.Forms.Page> GetNavigationStack()
@@ -76,6 +77,9 @@ namespace BigCart.Pages
         {
             base.OnAppearing();
             _ = OnAppearingAsync();
+
+            Xamarin.Forms.Application.Current.On<Android>()
+                .UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Pan);
         }
 
         private async Task OnAppearingAsync()
