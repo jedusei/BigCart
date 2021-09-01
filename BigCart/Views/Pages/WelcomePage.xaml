@@ -185,6 +185,9 @@
                                     IsPassword="True"
                                     Placeholder="Password"
                                     ReturnType="Done" />
+                                <txt:SfTextInputLayout.TrailingView>
+                                    <BoxView WidthRequest="10" />
+                                </txt:SfTextInputLayout.TrailingView>
                             </txt:SfTextInputLayout>
 
                             <FlexLayout Margin="10,20" AlignItems="Center">
@@ -268,6 +271,9 @@
                                     IsPassword="True"
                                     Placeholder="Password"
                                     ReturnType="Done" />
+                                <txt:SfTextInputLayout.TrailingView>
+                                    <BoxView WidthRequest="10" />
+                                </txt:SfTextInputLayout.TrailingView>
                             </txt:SfTextInputLayout>
 
                             <Button Margin="0,20" Text="Signup" />
