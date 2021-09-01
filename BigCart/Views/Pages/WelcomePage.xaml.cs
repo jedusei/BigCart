@@ -1,22 +1,17 @@
-﻿using System.Collections.ObjectModel;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace BigCart.Pages
 {
     public partial class WelcomePage : Page
     {
         private const string SCROLL_ANIM_NAME = "scroll";
-        private readonly uint SCROLL_ANIM_DURATION = (Device.RuntimePlatform == Device.Android) ? 250u : 500u;
+        private readonly uint SCROLL_ANIM_DURATION = 500u;
         private const string RESIZE_ANIM_NAME = "resize";
-        private const string _loginImage = "welcome_2.png";
-        private const string _signupImage = "welcome_3.png";
         private bool _measured;
-        private ObservableCollection<ImageSource> _images = new ObservableCollection<ImageSource> { ImageSource.FromFile("welcome_1.png") };
 
         public WelcomePage()
         {
             InitializeComponent();
-            _carouselView.ItemsSource = _images;
         }
 
         protected override void OnSizeAllocated(double width, double height)
@@ -28,6 +23,7 @@ namespace BigCart.Pages
                 _measured = true;
 
                 Rectangle bounds = new Rectangle(0, 0, width, AbsoluteLayout.AutoSize);
+                AbsoluteLayout.SetLayoutBounds(_homeImage, bounds);
                 AbsoluteLayout.SetLayoutBounds(_homeView, bounds);
                 AbsoluteLayout.SetLayoutBounds(_loginView, bounds);
                 AbsoluteLayout.SetLayoutBounds(_signupView, bounds);
@@ -47,7 +43,7 @@ namespace BigCart.Pages
             GoTo(_signupView, _signupImage);
         }
 
-        private void GoTo(View tab, ImageSource image)
+        private void GoTo(View tab, Image image)
         {
             _scrollView.AbortAnimation(SCROLL_ANIM_NAME);
             _scrollView.AbortAnimation(RESIZE_ANIM_NAME);
@@ -55,14 +51,17 @@ namespace BigCart.Pages
             double tabPosition = _scrollView.ScrollX + _scrollView.Width;
             Rectangle bounds = new(tabPosition, 0, _scrollView.Width, AbsoluteLayout.AutoSize);
             AbsoluteLayout.SetLayoutBounds(tab, bounds);
-            tab.IsVisible = true;
+            AbsoluteLayout.SetLayoutBounds(image, bounds);
 
-            _images.Add(image);
-            _carouselView.ScrollTo(_images.Count - 1);
+            tab.IsVisible = image.IsVisible = true;
 
             _scrollView.Animate(
                 SCROLL_ANIM_NAME,
-                x => _scrollView.ScrollToAsync(x, 0, false),
+                x =>
+                {
+                    _scrollView.ScrollToAsync(x, 0, false);
+                    _imageScrollView.ScrollToAsync(x, 0, false);
+                },
                 start: _scrollView.ScrollX,
                 end: tabPosition,
                 length: SCROLL_ANIM_DURATION,

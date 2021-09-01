@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <pages:Page
     x:Class="BigCart.Pages.WelcomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -36,20 +36,26 @@
 
     <controls:ScrollViewEx>
         <AbsoluteLayout x:Name="_rootView">
-            <CarouselView
-                x:Name="_carouselView"
-                IsSwipeEnabled="False"
-                ItemsUpdatingScrollMode="KeepLastItemInView"
-                Loop="False"
+            <!--  BACKGROUND IMAGE  -->
+            <controls:ScrollViewEx
+                x:Name="_imageScrollView"
+                IsScrollEnabled="False"
+                Orientation="Horizontal"
                 StyleClass="FillAbsoluteLayout">
-                <CarouselView.ItemTemplate>
-                    <DataTemplate x:DataType="ImageSource">
-                        <ContentView>
-                            <Image Source="{Binding}" VerticalOptions="Start" />
-                        </ContentView>
-                    </DataTemplate>
-                </CarouselView.ItemTemplate>
-            </CarouselView>
+                <AbsoluteLayout>
+                    <Image x:Name="_homeImage" Source="welcome_1.png" />
+                    <Image
+                        x:Name="_loginImage"
+                        IsVisible="False"
+                        Source="welcome_2.png" />
+                    <Image
+                        x:Name="_signupImage"
+                        IsVisible="False"
+                        Source="welcome_3.png" />
+                </AbsoluteLayout>
+            </controls:ScrollViewEx>
+
+            <!--  DARK GRADIENT OVERLAY  -->
             <ContentView AbsoluteLayout.LayoutBounds="0,0,1,AutoSize" AbsoluteLayout.LayoutFlags="WidthProportional">
                 <ContentView.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
@@ -60,6 +66,7 @@
                 <BoxView effects:SafeAreaEffect.SafeArea="Top" HeightRequest="80" />
             </ContentView>
 
+            <!--  TITLE  -->
             <AbsoluteLayout
                 effects:SafeAreaEffect.SafeArea="Top"
                 AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
@@ -91,6 +98,7 @@
                     TranslationY="1" />
             </AbsoluteLayout>
 
+            <!--  CONTENT  -->
             <Frame
                 Padding="0"
                 AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
