@@ -26,9 +26,12 @@ namespace BigCart.Pages
             if (!_measured)
             {
                 _measured = true;
-                AbsoluteLayout.SetLayoutBounds(_homeView, new Rectangle(0, 0, width, AbsoluteLayout.AutoSize));
-                AbsoluteLayout.SetLayoutBounds(_loginView, new Rectangle(0, height, width, AbsoluteLayout.AutoSize));
-                AbsoluteLayout.SetLayoutBounds(_signupView, new Rectangle(0, height, width, AbsoluteLayout.AutoSize));
+
+                Rectangle bounds = new Rectangle(0, 0, width, AbsoluteLayout.AutoSize);
+                AbsoluteLayout.SetLayoutBounds(_homeView, bounds);
+                AbsoluteLayout.SetLayoutBounds(_loginView, bounds);
+                AbsoluteLayout.SetLayoutBounds(_signupView, bounds);
+
                 _scrollView.HeightRequest = _homeView.Height;
                 _rootView.HeightRequest = height;
             }
@@ -52,6 +55,7 @@ namespace BigCart.Pages
             double tabPosition = _scrollView.ScrollX + _scrollView.Width;
             Rectangle bounds = new(tabPosition, 0, _scrollView.Width, AbsoluteLayout.AutoSize);
             AbsoluteLayout.SetLayoutBounds(tab, bounds);
+            tab.IsVisible = true;
 
             _images.Add(image);
             _carouselView.ScrollTo(_images.Count - 1);

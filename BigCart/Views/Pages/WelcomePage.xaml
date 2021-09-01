@@ -18,7 +18,7 @@
         <Style x:Key="Tab" TargetType="StackLayout">
             <Setter Property="Padding" Value="20" />
             <Setter Property="Spacing" Value="0" />
-            <Setter Property="VerticalOptions" Value="Start" />
+            <Setter Property="IsVisible" Value="False" />
         </Style>
         <Style
             x:Key="SectionTitle"
@@ -105,7 +105,10 @@
                     IsScrollEnabled="False"
                     Orientation="Horizontal">
                     <AbsoluteLayout>
-                        <StackLayout x:Name="_homeView" Style="{StaticResource Tab}">
+                        <StackLayout
+                            x:Name="_homeView"
+                            IsVisible="True"
+                            Style="{StaticResource Tab}">
                             <Label Style="{StaticResource SectionTitle}" Text="Welcome" />
                             <Label
                                 FontFamily="{StaticResource MediumFontFamily}"
