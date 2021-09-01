@@ -1,5 +1,4 @@
 ﻿using Syncfusion.XForms.Buttons;
-using System.Linq;
 using Xamarin.Forms;
 
 namespace BigCart.Controls
@@ -8,10 +7,9 @@ namespace BigCart.Controls
     {
         public SwitchEx()
         {
-            Style = App.Current.Resources["Switch"] as Style;
-            Setter setter = Style.Setters.FirstOrDefault(s => s.Property == VisualStateManager.VisualStateGroupsProperty);
-            if (setter != null)
-                VisualStateManager.SetVisualStateGroups(this, (VisualStateGroupList)setter.Value);
+            var style = App.Current.Resources["Switch"] as Style;
+            foreach (Setter setter in style.Setters)
+                SetValue(setter.Property, setter.Value);
         }
     }
 }
