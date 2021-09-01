@@ -45,7 +45,7 @@ namespace BigCart.ViewModels
 
         public OnboardingViewModel()
         {
-            NextCommand = new AsyncCommand(NextSlideAsync);
+            NextCommand = new AsyncCommand(NextSlideAsync, allowsMultipleExecutions: false);
         }
 
         private async Task NextSlideAsync()
