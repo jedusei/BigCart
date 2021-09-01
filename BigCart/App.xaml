@@ -66,7 +66,7 @@
             <Setter Property="TextColor" Value="White" />
             <Setter Property="TextTransform" Value="None" />
             <Setter Property="CornerRadius" Value="5" />
-            <Setter Property="Padding" Value="18" />
+            <Setter Property="Padding" Value="{OnPlatform 18, Android='18,19,18,17'}" />
             <Setter Property="Background">
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="{StaticResource PrimaryColor}" />
