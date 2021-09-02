@@ -13,7 +13,8 @@
     vm:ViewModelLocator.AutoWireViewModel="True"
     x:DataType="vm:WelcomeViewModel"
     BackgroundColor="{StaticResource BackgroundSecondaryColor}"
-    StatusBarStyle="LightContent">
+    StatusBarStyle="LightContent"
+    WindowSoftInputModeAdjust="Resize">
     <ContentPage.Resources>
         <Style x:Key="Tab" TargetType="StackLayout">
             <Setter Property="Padding" Value="20" />
@@ -34,78 +35,81 @@
         </Style>
     </ContentPage.Resources>
 
-    <controls:ScrollViewEx>
-        <AbsoluteLayout x:Name="_rootView">
-            <!--  BACKGROUND IMAGE  -->
-            <controls:ScrollViewEx
-                x:Name="_imageScrollView"
-                IsScrollEnabled="False"
-                Orientation="Horizontal"
-                StyleClass="FillAbsoluteLayout">
-                <AbsoluteLayout>
-                    <Image x:Name="_homeImage" Source="welcome_1.png" />
-                    <Image
-                        x:Name="_loginImage"
-                        IsVisible="False"
-                        Source="welcome_2.png" />
-                    <Image
-                        x:Name="_signupImage"
-                        IsVisible="False"
-                        Source="welcome_3.png" />
-                </AbsoluteLayout>
-            </controls:ScrollViewEx>
-
-            <!--  DARK GRADIENT OVERLAY  -->
-            <ContentView AbsoluteLayout.LayoutBounds="0,0,1,AutoSize" AbsoluteLayout.LayoutFlags="WidthProportional">
-                <ContentView.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Offset="0" Color="Black" />
-                        <GradientStop Offset="1" Color="Transparent" />
-                    </LinearGradientBrush>
-                </ContentView.Background>
-                <BoxView effects:SafeAreaEffect.SafeArea="Top" HeightRequest="80" />
-            </ContentView>
-
-            <!--  TITLE  -->
-            <AbsoluteLayout
-                effects:SafeAreaEffect.SafeArea="Top"
-                AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
-                AbsoluteLayout.LayoutFlags="WidthProportional">
-                <ev:SfEffectsView
-                    AbsoluteLayout.LayoutBounds="5,0.5,50,50"
-                    AbsoluteLayout.LayoutFlags="YProportional"
-                    CornerRadius="25"
-                    RippleColor="White"
-                    TouchUpCommand="{Binding GoBackCommand}">
-                    <Image
-                        HeightRequest="16"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center">
-                        <Image.Source>
-                            <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.Back}"
-                                Color="White" />
-                        </Image.Source>
-                    </Image>
-                </ev:SfEffectsView>
-                <Label
-                    AbsoluteLayout.LayoutBounds="0.5,0.5"
-                    AbsoluteLayout.LayoutFlags="PositionProportional"
-                    Style="{StaticResource PageTitle}"
-                    Text="Welcome"
-                    TextColor="White"
-                    TranslationY="1" />
+    <AbsoluteLayout x:Name="_rootView">
+        <!--  BACKGROUND IMAGE  -->
+        <controls:ScrollViewEx
+            x:Name="_imageScrollView"
+            IsScrollEnabled="False"
+            Orientation="Horizontal"
+            StyleClass="FillAbsoluteLayout">
+            <AbsoluteLayout>
+                <Image x:Name="_homeImage" Source="welcome_1.png" />
+                <Image
+                    x:Name="_loginImage"
+                    IsVisible="False"
+                    Source="welcome_2.png" />
+                <Image
+                    x:Name="_signupImage"
+                    IsVisible="False"
+                    Source="welcome_3.png" />
             </AbsoluteLayout>
+        </controls:ScrollViewEx>
 
-            <!--  CONTENT  -->
+        <!--  DARK GRADIENT OVERLAY  -->
+        <ContentView AbsoluteLayout.LayoutBounds="0,0,1,AutoSize" AbsoluteLayout.LayoutFlags="WidthProportional">
+            <ContentView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="Black" />
+                    <GradientStop Offset="1" Color="Transparent" />
+                </LinearGradientBrush>
+            </ContentView.Background>
+            <BoxView effects:SafeAreaEffect.SafeArea="Top" HeightRequest="80" />
+        </ContentView>
+
+        <!--  TITLE  -->
+        <AbsoluteLayout
+            x:Name="_titleView"
+            effects:SafeAreaEffect.SafeArea="Top"
+            AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
+            AbsoluteLayout.LayoutFlags="WidthProportional">
+            <ev:SfEffectsView
+                AbsoluteLayout.LayoutBounds="5,0.5,50,50"
+                AbsoluteLayout.LayoutFlags="YProportional"
+                CornerRadius="25"
+                RippleColor="White"
+                TouchUpCommand="{Binding GoBackCommand}">
+                <Image
+                    HeightRequest="16"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource Icons}"
+                            Glyph="{Static icons:Icons.Back}"
+                            Color="White" />
+                    </Image.Source>
+                </Image>
+            </ev:SfEffectsView>
+            <Label
+                AbsoluteLayout.LayoutBounds="0.5,0.5"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Style="{StaticResource PageTitle}"
+                Text="Welcome"
+                TextColor="White"
+                TranslationY="1" />
+        </AbsoluteLayout>
+
+        <!--  CONTENT  -->
+        <ContentView
+            CascadeInputTransparent="False"
+            InputTransparent="True"
+            StyleClass="FillAbsoluteLayout">
             <Frame
                 Padding="0"
-                AbsoluteLayout.LayoutBounds="0,1,1,AutoSize"
-                AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
                 BackgroundColor="{StaticResource BackgroundSecondaryColor}"
                 CornerRadius="10"
-                HasShadow="False">
+                HasShadow="False"
+                VerticalOptions="EndAndExpand">
                 <controls:ScrollViewEx
                     x:Name="_scrollView"
                     effects:SafeAreaEffect.SafeArea="Bottom"
@@ -318,6 +322,17 @@
                     </AbsoluteLayout>
                 </controls:ScrollViewEx>
             </Frame>
-        </AbsoluteLayout>
-    </controls:ScrollViewEx>
+        </ContentView>
+
+        <!--  SECOND GRADIENT OVERLAY  -->
+        <ContentView AbsoluteLayout.LayoutBounds="0,0,1,AutoSize" AbsoluteLayout.LayoutFlags="WidthProportional">
+            <ContentView.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="Black" />
+                    <GradientStop Offset="1" Color="Transparent" />
+                </LinearGradientBrush>
+            </ContentView.Background>
+            <BoxView effects:SafeAreaEffect.SafeArea="Top" HeightRequest="0" />
+        </ContentView>
+    </AbsoluteLayout>
 </pages:Page>
