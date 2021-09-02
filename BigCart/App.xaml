@@ -4,14 +4,20 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:effects="clr-namespace:BigCart.Effects"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms">
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels">
     <Application.Resources>
         <!--#region Colors-->
         <Color x:Key="BackgroundPrimaryColor">White</Color>
         <Color x:Key="BackgroundSecondaryColor">#F4F5F9</Color>
         <Color x:Key="BackgroundTertiaryColor">#F5F5F5</Color>
         <Color x:Key="BorderColor">#EBEBEB</Color>
+        <Color x:Key="TitleBarBackgroundColor">White</Color>
 
         <Color x:Key="TextPrimaryColor">Black</Color>
         <Color x:Key="TextSecondaryColor">#868889</Color>
@@ -31,8 +37,8 @@
         <!--#endregion-->
 
         <!--#region Styles-->
-        <Style TargetType="Page">
-            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundPrimaryColor}" />
+        <Style ApplyToDerivedTypes="True" TargetType="pages:Page">
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundSecondaryColor}" />
         </Style>
 
         <Style TargetType="Label">
@@ -44,6 +50,7 @@
 
         <Style TargetType="Entry">
             <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+            <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
             <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondaryColor}" />
             <Setter Property="FontSize" Value="15" />
             <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
@@ -135,6 +142,48 @@
             </Setter>
         </Style>
 
+        <Style x:Key="PageWithTitleBar" TargetType="pages:Page">
+            <Setter Property="ControlTemplate">
+                <ControlTemplate>
+                    <StackLayout effects:SafeAreaEffect.SafeArea="Bottom" Spacing="0">
+                        <ContentView BackgroundColor="{DynamicResource TitleBarBackgroundColor}">
+                            <AbsoluteLayout Padding="0,0,0,10" effects:SafeAreaEffect.SafeArea="Top">
+                                <ev:SfEffectsView
+                                    AbsoluteLayout.LayoutBounds="5,0.5,50,50"
+                                    AbsoluteLayout.LayoutFlags="YProportional"
+                                    CornerRadius="25"
+                                    TouchUpCommand="{Binding GoBackCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}">
+                                    <Image
+                                        HeightRequest="16"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="{StaticResource Icons}"
+                                                Glyph="{Static icons:Icons.Back}"
+                                                Color="Black" />
+                                        </Image.Source>
+                                    </Image>
+                                </ev:SfEffectsView>
+                                <Label
+                                    AbsoluteLayout.LayoutBounds="0.5,0.5"
+                                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                                    Style="{StaticResource PageTitle}"
+                                    Text="{TemplateBinding Title}"
+                                    TextColor="Black"
+                                    TranslationY="1" />
+                            </AbsoluteLayout>
+                        </ContentView>
+
+                        <ContentPresenter
+                            Padding="20,0"
+                            Content="{TemplateBinding Content}"
+                            VerticalOptions="FillAndExpand" />
+                    </StackLayout>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
         <Style
             x:Key="TextSecondary"
             Class="TextSecondary"
@@ -149,7 +198,7 @@
 
         <Style x:Key="PageTitle" TargetType="Label">
             <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
-            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontSize" Value="18" />
         </Style>
 
         <Style

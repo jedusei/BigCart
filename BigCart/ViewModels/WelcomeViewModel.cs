@@ -1,14 +1,16 @@
-﻿namespace BigCart.ViewModels
+﻿using BigCart.Pages;
+using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
+
+namespace BigCart.ViewModels
 {
     public class WelcomeViewModel : ViewModel
     {
-        private int _currentPage;
+        public ICommand ForgotPasswordCommand { get; }
 
-        public int CurrentPage
+        public WelcomeViewModel()
         {
-            get => _currentPage;
-            set => SetProperty(ref _currentPage, value);
+            ForgotPasswordCommand = new AsyncCommand(() => _navigationService.PushAsync<ForgotPasswordPage>(), allowsMultipleExecutions: false);
         }
-
     }
 }
