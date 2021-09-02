@@ -221,7 +221,11 @@
                                     HorizontalOptions="EndAndExpand"
                                     Style="{StaticResource SectionTextSecondary}"
                                     Text="Forgot password"
-                                    TextColor="{StaticResource TextLinkColor}" />
+                                    TextColor="{StaticResource TextLinkColor}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </FlexLayout>
 
                             <Button Margin="0,0,0,20" Text="Login" />
