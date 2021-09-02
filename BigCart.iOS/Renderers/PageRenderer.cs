@@ -31,7 +31,7 @@ namespace BigCart.iOS.Renderers
             base.ViewWillAppear(animated);
             UpdateStatusBarStyle();
 
-            if (Page.WindowSoftInputModeAdjust == Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Resize)
+            if (Page.WindowSoftInputModeAdjust != Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Unspecified)
             {
                 _keyboardShowObserver ??= NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillShowNotification, OnKeyboardShow);
                 _keyboardHideObserver ??= NSNotificationCenter.DefaultCenter.AddObserver(UIKeyboard.WillHideNotification, OnKeyboardHide);
@@ -83,17 +83,48 @@ namespace BigCart.iOS.Renderers
 
             _isKeyboardShown = true;
             CoreGraphics.CGRect keyboardFrame = UIKeyboard.FrameEndFromNotification(notification);
-            Thickness padding = Page.Padding;
-            padding.Bottom = keyboardFrame.Height;
-            Page.Padding = padding;
+
+            if (Page.WindowSoftInputModeAdjust != Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Resize)
+            {
+                GetAnimationParams(notification, out uint duration, out Easing easing);
+                Page.Content.TranslateTo(0, -keyboardFrame.Height, duration, easing);
+            }
+            else
+            {
+                Thickness padding = Page.Padding;
+                padding.Bottom = keyboardFrame.Height;
+                Page.Padding = padding;
+            }
         }
 
         private void OnKeyboardHide(NSNotification notification)
         {
             _isKeyboardShown = false;
-            Thickness padding = Page.Padding;
-            padding.Bottom = 0;
-            Page.Padding = padding;
+            if (Page.WindowSoftInputModeAdjust != Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Resize)
+            {
+                GetAnimationParams(notification, out uint duration, out Easing easing);
+                Page.Content.TranslateTo(0, 0, duration, easing);
+            }
+            else
+            {
+                Thickness padding = Page.Padding;
+                padding.Bottom = 0;
+                Page.Padding = padding;
+            }
+        }
+
+        private static void GetAnimationParams(NSNotification notification, out uint duration, out Easing easing)
+        {
+            duration = (uint)(((NSNumber)notification.UserInfo[UIKeyboard.AnimationDurationUserInfoKey]).DoubleValue * 1000);
+
+            ulong curveValue = ((NSNumber)notification.UserInfo[UIKeyboard.AnimationCurveUserInfoKey]).UnsignedLongValue;
+            easing = (UIViewAnimationCurve)curveValue switch
+            {
+                UIViewAnimationCurve.EaseIn => Easing.SinIn,
+                UIViewAnimationCurve.EaseOut => Easing.SinOut,
+                UIViewAnimationCurve.Linear => Easing.Linear,
+                _ => Easing.SinInOut
+            };
         }
     }
 }
