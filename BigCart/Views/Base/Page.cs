@@ -20,6 +20,7 @@ namespace BigCart.Pages
     public class Page : ContentPage
     {
         public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.Create(nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(Page), StatusBarStyle.DarkContent);
+        public static readonly BindableProperty SoftInputModeProperty = BindableProperty.Create(nameof(WindowSoftInputModeAdjust), typeof(WindowSoftInputModeAdjust), typeof(Page), WindowSoftInputModeAdjust.Pan);
         protected bool _hasLoaded;
         private const int TRANSITION_DURATION = 250;
         private ViewModel _viewModel;
@@ -28,6 +29,11 @@ namespace BigCart.Pages
         {
             get => (StatusBarStyle)GetValue(StatusBarStyleProperty);
             set => SetValue(StatusBarStyleProperty, value);
+        }
+        public WindowSoftInputModeAdjust WindowSoftInputModeAdjust
+        {
+            get => (WindowSoftInputModeAdjust)GetValue(SoftInputModeProperty);
+            set => SetValue(SoftInputModeProperty, value);
         }
 
         static Page()
@@ -79,7 +85,7 @@ namespace BigCart.Pages
             _ = OnAppearingAsync();
 
             Xamarin.Forms.Application.Current.On<Android>()
-                .UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Pan);
+                .UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust);
         }
 
         private async Task OnAppearingAsync()
