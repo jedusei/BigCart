@@ -9,9 +9,9 @@
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="android:windowActionModeOverlay">true</item>
-		<item name="android:colorPrimary">@color/colorPrimary</item>
-		<item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-		<item name="android:colorAccent">@color/colorAccent</item>
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
 	<style name="MainTheme" parent="MainTheme.Base"/>
