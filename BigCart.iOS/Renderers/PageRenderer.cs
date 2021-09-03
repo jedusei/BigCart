@@ -1,5 +1,7 @@
 ﻿using BigCart.Pages;
+using CoreGraphics;
 using Foundation;
+using System;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -10,8 +12,10 @@ namespace BigCart.iOS.Renderers
 {
     public class PageRenderer : Xamarin.Forms.Platform.iOS.PageRenderer
     {
+        private const double EXTRA_SHIFT_AMOUNT = 20;
         private NSObject _keyboardShowObserver, _keyboardHideObserver;
         private bool _isKeyboardShown;
+        private UIViewPropertyAnimator _viewPropertyAnimator;
 
         public Page Page => Element as Page;
 
@@ -82,12 +86,23 @@ namespace BigCart.iOS.Renderers
                 return;
 
             _isKeyboardShown = true;
-            CoreGraphics.CGRect keyboardFrame = UIKeyboard.FrameEndFromNotification(notification);
+            CGRect keyboardFrame = UIKeyboard.FrameEndFromNotification(notification);
 
             if (Page.WindowSoftInputModeAdjust != Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Resize)
             {
-                GetAnimationParams(notification, out uint duration, out Easing easing);
-                Page.Content.TranslateTo(0, -keyboardFrame.Height, duration, easing);
+                UIView activeView = FindFirstResponder(View);
+                if (activeView != null)
+                {
+                    double viewBottomPosition = GetViewBottomPosition(activeView, View);
+                    double pageHeight = View.Frame.Height;
+                    double keyboardHeight = keyboardFrame.Height;
+
+                    if (viewBottomPosition >= (pageHeight - keyboardHeight)) // Is keyboard overlapping view?
+                    {
+                        double newY = pageHeight - viewBottomPosition - keyboardHeight - EXTRA_SHIFT_AMOUNT;
+                        StartSlideAnimation(notification, newY);
+                    }
+                }
             }
             else
             {
@@ -101,10 +116,7 @@ namespace BigCart.iOS.Renderers
         {
             _isKeyboardShown = false;
             if (Page.WindowSoftInputModeAdjust != Xamarin.Forms.PlatformConfiguration.AndroidSpecific.WindowSoftInputModeAdjust.Resize)
-            {
-                GetAnimationParams(notification, out uint duration, out Easing easing);
-                Page.Content.TranslateTo(0, 0, duration, easing);
-            }
+                StartSlideAnimation(notification, 0);
             else
             {
                 Thickness padding = Page.Padding;
@@ -113,18 +125,44 @@ namespace BigCart.iOS.Renderers
             }
         }
 
-        private static void GetAnimationParams(NSNotification notification, out uint duration, out Easing easing)
+        private static UIView FindFirstResponder(UIView view)
         {
-            duration = (uint)(((NSNumber)notification.UserInfo[UIKeyboard.AnimationDurationUserInfoKey]).DoubleValue * 1000);
+            if (view.IsFirstResponder)
+                return view;
 
-            ulong curveValue = ((NSNumber)notification.UserInfo[UIKeyboard.AnimationCurveUserInfoKey]).UnsignedLongValue;
-            easing = (UIViewAnimationCurve)curveValue switch
+            foreach (UIView subView in view.Subviews)
             {
-                UIViewAnimationCurve.EaseIn => Easing.SinIn,
-                UIViewAnimationCurve.EaseOut => Easing.SinOut,
-                UIViewAnimationCurve.Linear => Easing.Linear,
-                _ => Easing.SinInOut
-            };
+                var firstResponder = FindFirstResponder(subView);
+                if (firstResponder != null)
+                    return firstResponder;
+            }
+
+            return null;
+        }
+
+        private static double GetViewBottomPosition(UIView view, UIView rootView)
+        {
+            CGPoint viewRelativeCoordinates = rootView.ConvertPointFromView(view.Frame.Location, view);
+            double activeViewRoundedY = Math.Round(viewRelativeCoordinates.Y, 2);
+
+            return activeViewRoundedY + view.Frame.Height;
+        }
+
+        private void StartSlideAnimation(NSNotification notification, double endValue)
+        {
+            double duration = ((NSNumber)notification.UserInfo[UIKeyboard.AnimationDurationUserInfoKey]).DoubleValue;
+            ulong curveValue = ((NSNumber)notification.UserInfo[UIKeyboard.AnimationCurveUserInfoKey]).UnsignedLongValue;
+
+            _viewPropertyAnimator?.StopAnimation(true);
+
+            _viewPropertyAnimator = new UIViewPropertyAnimator(duration, (UIViewAnimationCurve)curveValue, () =>
+            {
+                CoreGraphics.CGRect frame = View.Frame;
+                frame.Y = (nfloat)endValue;
+                View.Frame = frame;
+            });
+
+            _viewPropertyAnimator.StartAnimation();
         }
     }
 }
