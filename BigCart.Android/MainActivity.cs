@@ -19,10 +19,10 @@ namespace BigCart.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
             SetupWindow();
-            Services.PlatformService.Init(this);
 
+            Services.PlatformService.Init(this);
+            Acr.UserDialogs.UserDialogs.Init(this);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
