@@ -14,8 +14,6 @@ namespace BigCart.Droid
     )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        private static bool _isFirstTime = true;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -23,14 +21,9 @@ namespace BigCart.Droid
 
             Services.PlatformService.Init(this);
             Acr.UserDialogs.UserDialogs.Init(this);
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-
-            if (!_isFirstTime)
-                System.Threading.Thread.Sleep(1500);
-            else
-                _isFirstTime = false;
-
             LoadApplication(new App());
         }
 
