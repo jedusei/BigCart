@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <pages:Page
     x:Class="BigCart.Pages.WelcomePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -228,7 +228,10 @@
                                 </Label>
                             </FlexLayout>
 
-                            <Button Margin="0,0,0,20" Text="Login" />
+                            <Button
+                                Margin="0,0,0,20"
+                                Command="{Binding LoginCommand}"
+                                Text="Login" />
 
                             <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
                                 <Label.FormattedText>
@@ -304,7 +307,10 @@
                                 </txt:SfTextInputLayout.TrailingView>
                             </txt:SfTextInputLayout>
 
-                            <Button Margin="0,20" Text="Signup" />
+                            <Button
+                                Margin="0,20"
+                                Command="{Binding SignupCommand}"
+                                Text="Signup" />
 
                             <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
                                 <Label.FormattedText>

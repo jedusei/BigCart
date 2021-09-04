@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:effects="clr-namespace:BigCart.Effects"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="page"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:MainViewModel"
+    BackgroundColor="{StaticResource BackgroundPrimaryColor}">
+    <ContentPage.Resources>
+        <Style
+            x:Key="TabButton"
+            x:Name="_tabButtonStyle"
+            TargetType="ev:SfEffectsView">
+            <Setter Property="WidthRequest" Value="70" />
+            <Setter Property="HeightRequest" Value="70" />
+            <Setter Property="TouchUpCommand" Value="{Binding BindingContext.GoToTabCommand, Source={Reference page}}" />
+            <Setter Property="TouchUpCommandParameter" Value="{Binding TabIndex, Source={RelativeSource Self}}" />
+        </Style>
+        <Style x:Key="TabIcon" TargetType="Image">
+            <Setter Property="HeightRequest" Value="20" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+
+    <AbsoluteLayout effects:SafeAreaEffect.SafeArea="All">
+        <View.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0" Color="{StaticResource BackgroundPrimaryColor}" />
+                <GradientStop Offset="1" Color="{StaticResource BackgroundSecondaryColor}" />
+            </LinearGradientBrush>
+        </View.Background>
+
+        <StackLayout
+            Margin="0,0,0,70"
+            Spacing="0"
+            StyleClass="FillAbsoluteLayout">
+            <border:SfBorder
+                Margin="15,10"
+                BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+                BorderWidth="0"
+                CornerRadius="5">
+                <StackLayout
+                    Padding="20,0,10,0"
+                    Orientation="Horizontal"
+                    Spacing="10">
+                    <Image HeightRequest="17" Style="{StaticResource TabIcon}">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Search}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                    <txt:SfTextInputLayout ContainerBackgroundColor="Transparent" HorizontalOptions="FillAndExpand">
+                        <Entry
+                            Keyboard="Email"
+                            Placeholder="Search keywords..."
+                            ReturnType="Search" />
+                    </txt:SfTextInputLayout>
+                    <ev:SfEffectsView
+                        CornerRadius="24"
+                        HeightRequest="48"
+                        VerticalOptions="Center"
+                        WidthRequest="48">
+                        <Image
+                            HeightRequest="17"
+                            HorizontalOptions="Center"
+                            Style="{StaticResource TabIcon}"
+                            VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="{StaticResource Icons}"
+                                    Glyph="{Static icons:Icons.Filter}"
+                                    Color="{StaticResource TextSecondaryColor}" />
+                            </Image.Source>
+                        </Image>
+                    </ev:SfEffectsView>
+                </StackLayout>
+            </border:SfBorder>
+
+            <xct:TabView
+                x:Name="_tabView"
+                IsSwipeEnabled="False"
+                IsTabStripVisible="False"
+                SelectedIndex="{Binding CurrentTabIndex}">
+                <xct:TabViewItem>
+                    <ContentView>
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="Tab 1"
+                            VerticalOptions="CenterAndExpand" />
+                    </ContentView>
+                </xct:TabViewItem>
+                <xct:TabViewItem>
+                    <ContentView>
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="Tab 2"
+                            VerticalOptions="CenterAndExpand" />
+                    </ContentView>
+                </xct:TabViewItem>
+                <xct:TabViewItem>
+                    <ContentView>
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="Tab 3"
+                            VerticalOptions="CenterAndExpand" />
+                    </ContentView>
+                </xct:TabViewItem>
+                <xct:TabViewItem>
+                    <ContentView>
+                        <Label
+                            HorizontalOptions="Center"
+                            Text="Tab 4"
+                            VerticalOptions="CenterAndExpand" />
+                    </ContentView>
+                </xct:TabViewItem>
+            </xct:TabView>
+        </StackLayout>
+
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,1,1,105" AbsoluteLayout.LayoutFlags="YProportional,WidthProportional">
+            <BoxView
+                AbsoluteLayout.LayoutBounds="0,1,1,70"
+                AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
+                Color="{StaticResource BackgroundPrimaryColor}" />
+            <FlexLayout
+                x:Name="_tabBar"
+                AlignItems="End"
+                JustifyContent="SpaceEvenly"
+                StyleClass="FillAbsoluteLayout">
+                <ev:SfEffectsView Style="{StaticResource TabButton}" TabIndex="0">
+                    <Image HeightRequest="20" Style="{StaticResource TabIcon}">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Home}"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                </ev:SfEffectsView>
+                <ev:SfEffectsView Style="{StaticResource TabButton}" TabIndex="1">
+                    <Image HeightRequest="20" Style="{StaticResource TabIcon}">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.User}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </ev:SfEffectsView>
+                <ev:SfEffectsView Style="{StaticResource TabButton}" TabIndex="2">
+                    <Image HeightRequest="20" Style="{StaticResource TabIcon}">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Heart}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </ev:SfEffectsView>
+                <border:SfBorder
+                    BackgroundColor="{StaticResource PrimaryDarkColor}"
+                    BorderColor="White"
+                    BorderWidth="4"
+                    CornerRadius="35"
+                    FlexLayout.AlignSelf="Start"
+                    HeightRequest="70"
+                    WidthRequest="70">
+                    <ev:SfEffectsView Style="{StaticResource TabButton}" TabIndex="3">
+                        <Image HeightRequest="25" Style="{StaticResource TabIcon}">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="{StaticResource Icons}"
+                                    Glyph="{Static icons:Icons.Shop}"
+                                    Color="White" />
+                            </Image.Source>
+                        </Image>
+                    </ev:SfEffectsView>
+                </border:SfBorder>
+            </FlexLayout>
+        </AbsoluteLayout>
+    </AbsoluteLayout>
+</pages:Page>
