@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:Page
+<pages:TabbedPage
     x:Class="BigCart.Pages.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -94,36 +94,16 @@
                 IsTabStripVisible="False"
                 SelectedIndex="{Binding CurrentTabIndex}">
                 <xct:TabViewItem>
-                    <ContentView>
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Tab 1"
-                            VerticalOptions="CenterAndExpand" />
-                    </ContentView>
+                    <pages:HomeTab />
                 </xct:TabViewItem>
                 <xct:TabViewItem>
-                    <ContentView>
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Tab 2"
-                            VerticalOptions="CenterAndExpand" />
-                    </ContentView>
+                    <pages:HomeTab />
                 </xct:TabViewItem>
                 <xct:TabViewItem>
-                    <ContentView>
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Tab 3"
-                            VerticalOptions="CenterAndExpand" />
-                    </ContentView>
+                    <pages:HomeTab />
                 </xct:TabViewItem>
                 <xct:TabViewItem>
-                    <ContentView>
-                        <Label
-                            HorizontalOptions="Center"
-                            Text="Tab 4"
-                            VerticalOptions="CenterAndExpand" />
-                    </ContentView>
+                    <pages:HomeTab />
                 </xct:TabViewItem>
             </xct:TabView>
         </StackLayout>
@@ -190,4 +170,4 @@
             </FlexLayout>
         </AbsoluteLayout>
     </AbsoluteLayout>
-</pages:Page>
+</pages:TabbedPage>

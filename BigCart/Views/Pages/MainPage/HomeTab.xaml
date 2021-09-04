@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:Tab
+    x:Class="BigCart.Pages.HomeTab"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    vm:ViewModelLocator.AutoWireViewModel="True">
+    <ContentView.Content>
+        <Label
+            HorizontalOptions="Center"
+            Text="Hello Xamarin.Forms!"
+            VerticalOptions="CenterAndExpand" />
+    </ContentView.Content>
+</pages:Tab>

@@ -17,7 +17,7 @@ namespace BigCart.Pages
         DarkContent
     }
 
-    public class Page : ContentPage
+    public abstract class Page : ContentPage
     {
         public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.Create(nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(Page), StatusBarStyle.DarkContent);
         public static readonly BindableProperty SoftInputModeProperty = BindableProperty.Create(nameof(WindowSoftInputModeAdjust), typeof(WindowSoftInputModeAdjust), typeof(Page), WindowSoftInputModeAdjust.Pan);

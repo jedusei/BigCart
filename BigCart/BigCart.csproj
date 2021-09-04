@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\Pages\MainPage.xaml.cs">
+    <Compile Update="Views\Pages\MainPage\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Pages\ForgotPasswordPage.xaml.cs">
@@ -44,5 +44,11 @@
     <Compile Update="Views\Pages\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\Pages\MainPage\HomeTab.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

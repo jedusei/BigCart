@@ -1,7 +1,5 @@
 ﻿using BigCart.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace BigCart.ViewModels
@@ -18,15 +16,19 @@ namespace BigCart.ViewModels
         {
             if (newValue.Equals(true) && bindable is Element view)
             {
-                var viewType = view.GetType();
-                var viewName = viewType.FullName;
+                Type viewType = view.GetType();
+                string viewName = viewType.FullName;
                 if (viewName.Contains(".Pages."))
-                    viewName = viewName.Replace(".Pages.", ".ViewModels.").Replace("Page", "View");
+                {
+                    viewName = viewName.Replace(".Pages.", ".ViewModels.")
+                        .Replace("Page", "View")
+                        .Replace("Tab", "View");
+                }
 
-                var viewAssemblyName = viewType.Assembly.FullName;
-                var viewModelName = $"{viewName}Model, {viewAssemblyName}";
+                string viewAssemblyName = viewType.Assembly.FullName;
+                string viewModelName = $"{viewName}Model, {viewAssemblyName}";
 
-                var viewModelType = Type.GetType(viewModelName);
+                Type viewModelType = Type.GetType(viewModelName);
                 if (viewModelType != null)
                     view.BindingContext = DependencyResolver.Container.GetInstance(viewModelType);
             }
