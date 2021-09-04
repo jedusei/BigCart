@@ -84,7 +84,7 @@ namespace BigCart.Pages
             base.OnAppearing();
             _ = OnAppearingAsync();
 
-            Xamarin.Forms.Application.Current.On<Android>()
+            Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>()
                 .UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust);
         }
 

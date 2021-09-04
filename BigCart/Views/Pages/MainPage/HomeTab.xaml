@@ -3,13 +3,140 @@
     x:Class="BigCart.Pages.HomeTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
-    vm:ViewModelLocator.AutoWireViewModel="True">
-    <ContentView.Content>
-        <Label
-            HorizontalOptions="Center"
-            Text="Home"
-            VerticalOptions="CenterAndExpand" />
-    </ContentView.Content>
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:HomeViewModel">
+    <ContentView.Resources>
+        <Style x:Key="SectionTitle" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style x:Key="SectionArrow" TargetType="Image">
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="EndAndExpand" />
+            <Setter Property="HeightRequest" Value="18" />
+            <Setter Property="Source">
+                <FontImageSource
+                    FontFamily="{StaticResource Icons}"
+                    Glyph="{Static icons:Icons.ChevronRight}"
+                    Color="{StaticResource TextSecondaryColor}" />
+            </Setter>
+        </Style>
+    </ContentView.Resources>
+
+    <lv:SfListView AutoFitMode="Height" IsScrollBarVisible="False">
+        <lv:SfListView.HeaderTemplate>
+            <DataTemplate>
+                <StackLayout Spacing="10">
+                    <AbsoluteLayout Padding="15,0" HeightRequest="280">
+                        <CarouselView IndicatorView="{Reference indicatorView}" StyleClass="FillAbsoluteLayout">
+                            <CarouselView.ItemsSource>
+                                <x:Array Type="{Type x:Int32}">
+                                    <x:Int32>0</x:Int32>
+                                    <x:Int32>1</x:Int32>
+                                    <x:Int32>2</x:Int32>
+                                    <x:Int32>3</x:Int32>
+                                </x:Array>
+                            </CarouselView.ItemsSource>
+                            <CarouselView.ItemTemplate>
+                                <DataTemplate>
+                                    <AbsoluteLayout>
+                                        <Image
+                                            Aspect="AspectFill"
+                                            Source="home_banner.png"
+                                            StyleClass="FillAbsoluteLayout" />
+                                        <Label
+                                            AbsoluteLayout.LayoutBounds="50,0.7,160,AutoSize"
+                                            AbsoluteLayout.LayoutFlags="YProportional"
+                                            FontFamily="{StaticResource BoldFontFamily}"
+                                            FontSize="20"
+                                            Text="20% off on your first purchase" />
+                                    </AbsoluteLayout>
+                                </DataTemplate>
+                            </CarouselView.ItemTemplate>
+                        </CarouselView>
+                        <IndicatorView
+                            x:Name="indicatorView"
+                            Margin="0,0,0,30"
+                            AbsoluteLayout.LayoutBounds="20,1"
+                            AbsoluteLayout.LayoutFlags="YProportional"
+                            IndicatorColor="White"
+                            IndicatorSize="8"
+                            SelectedIndicatorColor="{StaticResource PrimaryDarkColor}" />
+                    </AbsoluteLayout>
+
+                    <ev:SfEffectsView>
+                        <StackLayout Padding="15,5" Orientation="Horizontal">
+                            <Label Style="{StaticResource SectionTitle}" Text="Categories" />
+                            <Image Style="{StaticResource SectionArrow}" />
+                        </StackLayout>
+                    </ev:SfEffectsView>
+
+                    <lv:SfListView
+                        AutoFitMode="Height"
+                        HeightRequest="100"
+                        IsScrollBarVisible="False"
+                        ItemsSource="{Static models:Category.All}"
+                        Orientation="Horizontal"
+                        SelectionMode="None">
+                        <lv:SfListView.HeaderTemplate>
+                            <DataTemplate>
+                                <BoxView WidthRequest="15" />
+                            </DataTemplate>
+                        </lv:SfListView.HeaderTemplate>
+                        <lv:SfListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Category">
+                                <FlexLayout
+                                    Padding="0,0,10,0"
+                                    AlignItems="Center"
+                                    Direction="Column"
+                                    WidthRequest="90">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{Binding BackgroundColor}"
+                                        CornerRadius="35"
+                                        HasShadow="False"
+                                        HeightRequest="70"
+                                        HorizontalOptions="Center"
+                                        IsClippedToBounds="True"
+                                        WidthRequest="70">
+                                        <ev:SfEffectsView>
+                                            <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                                <Image.Source>
+                                                    <FontImageSource
+                                                        FontFamily="{StaticResource Icons}"
+                                                        Glyph="{Binding IconGlyph}"
+                                                        Color="{Binding ForegroundColor}" />
+                                                </Image.Source>
+                                            </Image>
+                                        </ev:SfEffectsView>
+                                    </Frame>
+                                    <Label
+                                        Margin="0,5,0,0"
+                                        FontFamily="{StaticResource MediumFontFamily}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1"
+                                        Text="{Binding Name}"
+                                        TextColor="{StaticResource TextSecondaryColor}" />
+                                </FlexLayout>
+                            </DataTemplate>
+                        </lv:SfListView.ItemTemplate>
+                    </lv:SfListView>
+
+                    <ev:SfEffectsView>
+                        <StackLayout Padding="15,5" Orientation="Horizontal">
+                            <Label Style="{StaticResource SectionTitle}" Text="Featured Products" />
+                            <Image Style="{StaticResource SectionArrow}" />
+                        </StackLayout>
+                    </ev:SfEffectsView>
+                </StackLayout>
+            </DataTemplate>
+        </lv:SfListView.HeaderTemplate>
+    </lv:SfListView>
 </pages:Tab>
