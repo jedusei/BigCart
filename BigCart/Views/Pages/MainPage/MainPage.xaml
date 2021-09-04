@@ -97,13 +97,13 @@
                     <pages:HomeTab />
                 </xct:TabViewItem>
                 <xct:TabViewItem>
-                    <pages:HomeTab />
+                    <pages:AccountTab />
                 </xct:TabViewItem>
                 <xct:TabViewItem>
-                    <pages:HomeTab />
+                    <pages:FavoritesTab />
                 </xct:TabViewItem>
                 <xct:TabViewItem>
-                    <pages:HomeTab />
+                    <pages:ShopTab />
                 </xct:TabViewItem>
             </xct:TabView>
         </StackLayout>

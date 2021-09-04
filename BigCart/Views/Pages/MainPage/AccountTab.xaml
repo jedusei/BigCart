@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <pages:Tab
-    x:Class="BigCart.Pages.HomeTab"
+    x:Class="BigCart.Pages.AccountTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:BigCart.Pages"
@@ -9,7 +9,7 @@
     <ContentView.Content>
         <Label
             HorizontalOptions="Center"
-            Text="Home"
+            Text="Account"
             VerticalOptions="CenterAndExpand" />
     </ContentView.Content>
 </pages:Tab>

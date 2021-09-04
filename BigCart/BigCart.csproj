@@ -35,6 +35,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Pages\MainPage\ShopTab.xaml.cs">
+      <DependentUpon>ShopTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Pages\MainPage\FavoritesTab.xaml.cs">
+      <DependentUpon>FavoritesTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Pages\MainPage\AccountTab.xaml.cs">
+      <DependentUpon>AccountTab.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Pages\MainPage\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
