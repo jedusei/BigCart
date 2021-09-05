@@ -2,7 +2,10 @@
 using Android.Runtime;
 using Android.Views;
 using AndroidX.Core.View;
+using AndroidX.Fragment.App;
+using AndroidX.Lifecycle;
 using BigCart.Pages;
+using Java.Interop;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
@@ -11,14 +14,39 @@ using Page = BigCart.Pages.Page;
 [assembly: ExportRenderer(typeof(Page), typeof(BigCart.Droid.Renderers.PageRenderer))]
 namespace BigCart.Droid.Renderers
 {
-    public class PageRenderer : Xamarin.Forms.Platform.Android.PageRenderer
+    public class PageRenderer : Xamarin.Forms.Platform.Android.PageRenderer, ILifecycleObserver
     {
-        private Window _window;
         private static double _navBarHeight;
+        private Window _window;
+        private Fragment _fragment;
+        private ViewGroup _fragmentViewGroup;
 
         public PageRenderer(Context context) : base(context)
         {
             _window = context.GetActivity().Window;
+            _fragment = context.GetFragmentManager().FindFragmentById(NavigationPageRenderer.Instance.Id);
+            _fragment.ViewLifecycleOwner.Lifecycle.AddObserver(this);
+        }
+
+        [Export]
+        [Lifecycle.Event.OnCreate]
+        public void OnFragmentViewCreated()
+        {
+            _fragment.PostponeEnterTransition();
+
+            _fragmentViewGroup = _fragment.View.Parent as ViewGroup;
+            if (_fragmentViewGroup != null)
+                _fragmentViewGroup.ViewTreeObserver.PreDraw += OnPreDrawFragment;
+
+            _fragment.ViewLifecycleOwner.Lifecycle.RemoveObserver(this);
+        }
+
+        private void OnPreDrawFragment(object sender, ViewTreeObserver.PreDrawEventArgs e)
+        {
+            _fragment.StartPostponedEnterTransition();
+            _fragment = null;
+            _fragmentViewGroup.ViewTreeObserver.PreDraw -= OnPreDrawFragment;
+            _fragmentViewGroup = null;
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
