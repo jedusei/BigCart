@@ -99,6 +99,7 @@
     <Compile Include="Services\PlatformService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidEnvironment Include="mono_gc.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
