@@ -57,7 +57,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\Controls\ProductView.xaml">
+    <EmbeddedResource Update="Controls\ProductView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Pages\MainPage\HomeTab.xaml">
