@@ -48,6 +48,8 @@
                 <Label
                     FontFamily="{StaticResource BoldFontFamily}"
                     FontSize="19"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="1"
                     Text="{Binding Product.Name}" />
                 <Label
                     FontSize="15"
