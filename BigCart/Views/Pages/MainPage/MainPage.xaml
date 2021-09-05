@@ -108,7 +108,7 @@
             </xct:TabView>
         </StackLayout>
 
-        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,1,1,105" AbsoluteLayout.LayoutFlags="YProportional,WidthProportional">
+        <AbsoluteLayout AbsoluteLayout.LayoutBounds="0,1,1,90" AbsoluteLayout.LayoutFlags="YProportional,WidthProportional">
             <BoxView
                 AbsoluteLayout.LayoutBounds="0,1,1,70"
                 AbsoluteLayout.LayoutFlags="YProportional,WidthProportional"
