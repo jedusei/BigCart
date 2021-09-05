@@ -10,7 +10,8 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
-    xmlns:vm="clr-namespace:BigCart.ViewModels">
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <Application.Resources>
         <!--#region Colors-->
         <Color x:Key="BackgroundPrimaryColor">White</Color>
@@ -34,6 +35,11 @@
         <x:String x:Key="BoldFontFamily">Poppins-Bold</x:String>
         <x:String x:Key="LoremIpsum">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy</x:String>
         <x:String x:Key="Icons">Icons</x:String>
+        <!--#endregion-->
+
+        <!--#region Converters-->
+        <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All" />
         <!--#endregion-->
 
         <!--#region Styles-->

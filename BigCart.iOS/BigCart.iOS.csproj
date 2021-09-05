@@ -213,4 +213,28 @@
   <ItemGroup>
     <BundleResource Include="Resources\home_banner.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\broccoli.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pomegranate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\grapes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\pineapple.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\avocado.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\peach.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\plus.png" />
+  </ItemGroup>
 </Project>

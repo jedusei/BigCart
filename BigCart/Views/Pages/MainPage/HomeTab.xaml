@@ -3,12 +3,14 @@
     x:Class="BigCart.Pages.HomeTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:models="clr-namespace:BigCart.Models"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
+    x:Name="root"
     vm:ViewModelLocator.AutoWireViewModel="True"
     x:DataType="vm:HomeViewModel">
     <ContentView.Resources>
@@ -30,18 +32,30 @@
         </Style>
     </ContentView.Resources>
 
-    <lv:SfListView AutoFitMode="Height" IsScrollBarVisible="False">
+    <lv:SfListView
+        AutoFitMode="DynamicHeight"
+        IsScrollBarVisible="False"
+        ItemsSource="{Binding Products}"
+        SelectionMode="None">
+        <lv:SfListView.LayoutManager>
+            <lv:GridLayout SpanCount="2" />
+        </lv:SfListView.LayoutManager>
+
         <lv:SfListView.HeaderTemplate>
             <DataTemplate>
-                <StackLayout Spacing="10">
+                <StackLayout Padding="0,0,0,10" Spacing="10">
                     <AbsoluteLayout Padding="15,0" HeightRequest="280">
-                        <CarouselView IndicatorView="{Reference indicatorView}" StyleClass="FillAbsoluteLayout">
+                        <CarouselView
+                            HorizontalScrollBarVisibility="Never"
+                            IndicatorView="{Reference indicatorView}"
+                            StyleClass="FillAbsoluteLayout">
                             <CarouselView.ItemsSource>
                                 <x:Array Type="{Type x:Int32}">
                                     <x:Int32>0</x:Int32>
                                     <x:Int32>1</x:Int32>
                                     <x:Int32>2</x:Int32>
                                     <x:Int32>3</x:Int32>
+                                    <x:Int32>4</x:Int32>
                                 </x:Array>
                             </CarouselView.ItemsSource>
                             <CarouselView.ItemTemplate>
@@ -68,6 +82,7 @@
                             AbsoluteLayout.LayoutFlags="YProportional"
                             IndicatorColor="White"
                             IndicatorSize="8"
+                            MaximumVisible="10"
                             SelectedIndicatorColor="{StaticResource PrimaryDarkColor}" />
                     </AbsoluteLayout>
 
@@ -112,6 +127,7 @@
                                                     <FontImageSource
                                                         FontFamily="{StaticResource Icons}"
                                                         Glyph="{Binding IconGlyph}"
+                                                        Size="40"
                                                         Color="{Binding ForegroundColor}" />
                                                 </Image.Source>
                                             </Image>
@@ -135,8 +151,47 @@
                             <Image Style="{StaticResource SectionArrow}" />
                         </StackLayout>
                     </ev:SfEffectsView>
+                    <ActivityIndicator
+                        HorizontalOptions="Center"
+                        IsRunning="True"
+                        IsVisible="False"
+                        WidthRequest="30">
+                        <ActivityIndicator.Triggers>
+                            <DataTrigger
+                                Binding="{Binding LoadStatus}"
+                                TargetType="ActivityIndicator"
+                                Value="{Static vm:LoadStatus.Loading}">
+                                <Setter Property="IsVisible" Value="True" />
+                            </DataTrigger>
+                        </ActivityIndicator.Triggers>
+                    </ActivityIndicator>
                 </StackLayout>
             </DataTemplate>
         </lv:SfListView.HeaderTemplate>
+
+        <lv:SfListView.ItemTemplate>
+            <DataTemplate x:DataType="models:Product">
+                <controls:ProductView
+                    Margin="15,0,7.5,15"
+                    AddToCartCommand="{Binding BindingContext.AddToCartCommand, Source={Reference root}}"
+                    Product="{Binding}"
+                    ToggleFavoriteCommand="{Binding BindingContext.ToggleFavoriteCommand, Source={Reference root}}">
+                    <View.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Column}"
+                            TargetType="controls:ProductView"
+                            Value="1">
+                            <Setter Property="Margin" Value="7.5,0,15,15" />
+                        </DataTrigger>
+                    </View.Triggers>
+                </controls:ProductView>
+            </DataTemplate>
+        </lv:SfListView.ItemTemplate>
+
+        <lv:SfListView.FooterTemplate>
+            <DataTemplate>
+                <BoxView HeightRequest="40" />
+            </DataTemplate>
+        </lv:SfListView.FooterTemplate>
     </lv:SfListView>
 </pages:Tab>

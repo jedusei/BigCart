@@ -21,5 +21,6 @@
         public const string Vacuum = "\ue910";
         public const string Apple = "\ue911";
         public const string ChevronRight = "\ue912";
+        public const string HeartFilled = "\ue913";
     }
 }
