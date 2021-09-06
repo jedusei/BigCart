@@ -1,8 +1,14 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using BigCart.Messaging;
+using System.Threading;
+using System.Threading.Tasks;
+using FormsApplication = Xamarin.Forms.Application;
+using MessagingCenter = Xamarin.Forms.MessagingCenter;
 
 namespace BigCart.Droid
 {
@@ -24,7 +30,16 @@ namespace BigCart.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            MessagingCenter.Subscribe<FormsApplication>(this, MessageKeys.Start, OnAppStart);
             LoadApplication(new App());
+        }
+
+        private async void OnAppStart(FormsApplication application)
+        {
+            MessagingCenter.Unsubscribe<FormsApplication>(this, MessageKeys.Start);
+            await Task.Delay(1000);
+            Window?.DecorView.SetBackgroundColor(Color.White);
         }
 
         protected override void OnPause()

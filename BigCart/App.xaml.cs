@@ -70,6 +70,7 @@ namespace BigCart
 
             DependencyResolver.Get<INavigationService>().Initialize();
             Status = AppStatus.Running;
+            MessagingCenter.Send((Application)this, MessageKeys.Start);
         }
     }
 }
