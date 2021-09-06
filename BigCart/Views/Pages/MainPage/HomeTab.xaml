@@ -86,7 +86,7 @@
                             SelectedIndicatorColor="{StaticResource PrimaryDarkColor}" />
                     </AbsoluteLayout>
 
-                    <ev:SfEffectsView>
+                    <ev:SfEffectsView TouchUpCommand="{Binding ViewCategoriesCommand}">
                         <StackLayout Padding="15,5" Orientation="Horizontal">
                             <Label Style="{StaticResource SectionTitle}" Text="Categories" />
                             <Image Style="{StaticResource SectionArrow}" />

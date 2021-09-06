@@ -1,7 +1,9 @@
 ﻿using BigCart.Models;
+using BigCart.Pages;
 using BigCart.Services.Products;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace BigCart.ViewModels
@@ -17,12 +19,14 @@ namespace BigCart.ViewModels
             set => SetProperty(ref _loadStatus, value);
         }
         public Product[] Products { get; private set; }
+        public ICommand ViewCategoriesCommand { get; }
         public ICommand ToggleFavoriteCommand { get; }
         public ICommand AddToCartCommand { get; }
 
         public HomeViewModel(IProductService productService)
         {
             _productService = productService;
+            ViewCategoriesCommand = new AsyncCommand(() => _navigationService.PushAsync<CategoriesPage>());
             ToggleFavoriteCommand = new Command<Product>(p => p.IsFavorite = !p.IsFavorite);
             AddToCartCommand = new Command<Product>(p =>
             {

@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.CategoriesPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="Categories"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:CategoriesViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <StackLayout Margin="-10,15,0,0">
+        <FlexLayout
+            BindableLayout.ItemsSource="{Static models:Category.All}"
+            VerticalOptions="Start"
+            Wrap="Wrap">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="models:Category">
+                    <Frame
+                        Margin="10,0,0,10"
+                        Padding="0"
+                        BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                        CornerRadius="5"
+                        FlexLayout.Basis="33.33%"
+                        HasShadow="False"
+                        HeightRequest="132"
+                        IsClippedToBounds="True">
+                        <ev:SfEffectsView TouchUpCommand="{Binding ViewCategoryCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}" TouchUpCommandParameter="{Binding}">
+                            <StackLayout Padding="0,16">
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{Binding BackgroundColor}"
+                                    CornerRadius="35"
+                                    HasShadow="False"
+                                    HeightRequest="70"
+                                    HorizontalOptions="Center"
+                                    WidthRequest="70">
+                                    <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="{StaticResource Icons}"
+                                                Glyph="{Binding IconGlyph}"
+                                                Size="40"
+                                                Color="{Binding ForegroundColor}" />
+                                        </Image.Source>
+                                    </Image>
+                                </Frame>
+                                <Label
+                                    FontFamily="{StaticResource MediumFontFamily}"
+                                    HorizontalOptions="Center"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    Text="{Binding Name}"
+                                    TextColor="{StaticResource TextSecondaryColor}" />
+                            </StackLayout>
+                        </ev:SfEffectsView>
+                    </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+    </StackLayout>
+</pages:Page>
