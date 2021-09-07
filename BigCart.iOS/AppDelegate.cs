@@ -30,6 +30,8 @@ namespace BigCart.iOS
 
             LoadApplication(new App());
 
+            Syncfusion.SfRating.XForms.iOS.SfRatingRenderer.Init();
+
             return base.FinishedLaunching(app, options);
         }
     }

@@ -71,6 +71,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfListView">
       <Version>19.2.0.59</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfRating">
+      <Version>19.2.0.59</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Concurrent.Futures">
       <Version>1.1.0.3</Version>
     </PackageReference>

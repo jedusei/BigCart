@@ -16,6 +16,7 @@ namespace BigCart.Services.Products
                 Category = "Fruits",
                 Price = 8,
                 Weight = 12,
+                Rating = 4.5f,
                 Color = Color.FromHex("#FFCEC1"),
                 ImageSource = ImageSource.FromFile("peach.png")
             },
@@ -24,7 +25,8 @@ namespace BigCart.Services.Products
                 Name = "Avocado",
                 Category = "Fruits",
                 Price = 7,
-                Weight = 2,
+                Weight = 2, 
+                Rating = 3,
                 IsInCart = true,
                 Quantity = 1,
                 Color = Color.FromHex("#FCFFD9"),
@@ -36,6 +38,7 @@ namespace BigCart.Services.Products
                 Category = "Fruits",
                 Price = 9.9f,
                 Weight = 1.5f,
+                Rating = 4,
                 IsFavorite = true,
                 Color = Color.FromHex("#FFE6C2"),
                 ImageSource = ImageSource.FromFile("pineapple.png")
@@ -47,6 +50,7 @@ namespace BigCart.Services.Products
                 Price = 7.05f,
                 Discount = 16,
                 Weight = 5,
+                Rating = 4.5f,
                 Color = Color.FromHex("#FEE1ED"),
                 ImageSource = ImageSource.FromFile("grapes.png")
             },
@@ -56,6 +60,7 @@ namespace BigCart.Services.Products
                 Category = "Fruits",
                 Price = 2.09f,
                 Weight = 1.5f,
+                Rating = 3,
                 IsInCart = true,
                 Quantity = 1,
                 Color = Color.FromHex("#FFE3E2"),
@@ -67,6 +72,7 @@ namespace BigCart.Services.Products
                 Category = "Fruits",
                 Price = 3f,
                 Weight = 2.2f,
+                Rating = 2.5f,
                 IsFavorite = true,
                 Color = Color.FromHex("#D2FFD0"),
                 ImageSource = ImageSource.FromFile("broccoli.png")

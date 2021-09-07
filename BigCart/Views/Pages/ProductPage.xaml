@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.ProductPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:effects="clr-namespace:BigCart.Effects"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:ProductViewModel"
+    BackgroundColor="{StaticResource BackgroundPrimaryColor}">
+    <AbsoluteLayout IsClippedToBounds="True">
+        <Ellipse
+            AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
+            AbsoluteLayout.LayoutFlags="WidthProportional"
+            Fill="{Binding Product.Color, Converter={StaticResource ColorToBrushConverter}}"
+            HeightRequest="{Binding Width, Source={RelativeSource Self}}"
+            Scale="1.25"
+            StrokeThickness="0"
+            TranslationY="-200" />
+        <Image
+            AbsoluteLayout.LayoutBounds="0.5,100"
+            AbsoluteLayout.LayoutFlags="XProportional"
+            HeightRequest="250"
+            Source="{Binding Product.ImageSource}" />
+        <Grid
+            effects:SafeAreaEffect.SafeArea="All"
+            ColumnDefinitions="*"
+            RowDefinitions="50,*"
+            RowSpacing="5"
+            StyleClass="FillAbsoluteLayout">
+            <ev:SfEffectsView
+                Margin="5,0,0,0"
+                CornerRadius="25"
+                HorizontalOptions="Start"
+                TouchUpCommand="{Binding GoBackCommand}"
+                WidthRequest="50">
+                <Image
+                    HeightRequest="16"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource Icons}"
+                            Glyph="{Static icons:Icons.Back}"
+                            Color="Black" />
+                    </Image.Source>
+                </Image>
+            </ev:SfEffectsView>
+            <controls:ScrollViewEx
+                Grid.Row="1"
+                IsBounceEnabled="False"
+                VerticalScrollBarVisibility="Never">
+                <ContentView Padding="0,230,0,0" MinimumHeightRequest="{Binding Height, Source={RelativeSource AncestorType={Type ScrollView}}}">
+                    <border:SfBorder
+                        Padding="15"
+                        BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+                        BorderWidth="0"
+                        CornerRadius="10,10,0,0"
+                        VerticalOptions="EndAndExpand">
+                        <StackLayout Spacing="0">
+                            <StackLayout Orientation="Horizontal">
+                                <Label
+                                    FontFamily="{StaticResource MediumFontFamily}"
+                                    FontSize="20"
+                                    Text="{Binding Product.Price, StringFormat='{0:C2}'}"
+                                    TextColor="{StaticResource PrimaryDarkColor}"
+                                    VerticalOptions="End" />
+                                <ev:SfEffectsView
+                                    Padding="10"
+                                    AutoResetEffect="Scale"
+                                    HorizontalOptions="EndAndExpand"
+                                    ScaleAnimationDuration="150"
+                                    ScaleFactor="0.7"
+                                    TouchDownEffects="Scale"
+                                    TouchUpCommand="{Binding ToggleFavoriteCommand}">
+                                    <Image HeightRequest="20" WidthRequest="23">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="{StaticResource Icons}"
+                                                Glyph="{Static icons:Icons.Heart}"
+                                                Color="{StaticResource TextSecondaryColor}" />
+                                        </Image.Source>
+                                        <Image.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding Product.IsFavorite}"
+                                                TargetType="Image"
+                                                Value="True">
+                                                <Setter Property="Source">
+                                                    <FontImageSource
+                                                        FontFamily="{StaticResource Icons}"
+                                                        Glyph="{Static icons:Icons.HeartFilled}"
+                                                        Color="#FE585A" />
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Image.Triggers>
+                                    </Image>
+                                </ev:SfEffectsView>
+                            </StackLayout>
+                            <Label
+                                FontFamily="{StaticResource BoldFontFamily}"
+                                FontSize="25"
+                                Text="{Binding Product.Name}" />
+                            <Label
+                                FontFamily="{StaticResource MediumFontFamily}"
+                                FontSize="16"
+                                Text="{Binding Product.Weight, StringFormat='{0:F2} lbs'}"
+                                TextColor="{StaticResource TextSecondaryColor}" />
+
+                            <FlexLayout
+                                Margin="0,10"
+                                AlignItems="Center"
+                                Direction="Row">
+                                <Label
+                                    FontFamily="{StaticResource BoldFontFamily}"
+                                    FontSize="16"
+                                    Text="{Binding Product.Rating}" />
+                                <rating:SfRating
+                                    Margin="5,0"
+                                    ItemCount="5"
+                                    ItemSize="18"
+                                    Precision="Half"
+                                    ReadOnly="True"
+                                    TranslationY="{OnPlatform Android=-2}"
+                                    Value="{Binding Product.Rating}">
+                                    <rating:SfRating.RatingSettings>
+                                        <rating:SfRatingSettings
+                                            RatedFill="#FFC107"
+                                            RatedStroke="#FFC107"
+                                            RatedStrokeWidth="{OnPlatform 3, iOS=1}"
+                                            UnRatedStroke="#FFC107"
+                                            UnRatedStrokeWidth="{OnPlatform 3, iOS=1}" />
+                                    </rating:SfRating.RatingSettings>
+                                </rating:SfRating>
+                                <Label
+                                    FontSize="16"
+                                    Text="(100 reviews)"
+                                    TextColor="{StaticResource TextSecondaryColor}" />
+                            </FlexLayout>
+                            <Label
+                                FontSize="16"
+                                Text="{StaticResource LoremIpsumLong}"
+                                TextColor="{StaticResource TextSecondaryColor}" />
+
+                            <border:SfBorder
+                                Margin="0,10"
+                                BackgroundColor="White"
+                                BorderWidth="0"
+                                CornerRadius="5">
+                                <Grid
+                                    ColumnDefinitions="*,50,50,50"
+                                    ColumnSpacing="0"
+                                    RowDefinitions="50">
+                                    <Label
+                                        Padding="17,0,0,0"
+                                        FontFamily="{StaticResource MediumFontFamily}"
+                                        Text="Quantity"
+                                        TextColor="{StaticResource TextSecondaryColor}"
+                                        VerticalOptions="Center" />
+                                    <ev:SfEffectsView
+                                        Grid.Column="1"
+                                        HeightRequest="50"
+                                        TouchUpCommand="{Binding ChangeQuantityCommand}">
+                                        <ev:SfEffectsView.TouchUpCommandParameter>
+                                            <x:Int32>-1</x:Int32>
+                                        </ev:SfEffectsView.TouchUpCommandParameter>
+                                        <Image
+                                            HeightRequest="2"
+                                            HorizontalOptions="Center"
+                                            Source="minus.png"
+                                            VerticalOptions="Center" />
+                                    </ev:SfEffectsView>
+                                    <border:SfBorder
+                                        Grid.Column="2"
+                                        BorderColor="#EBEBEB"
+                                        BorderThickness="1,0,1,0">
+                                        <Label
+                                            FontFamily="{StaticResource MediumFontFamily}"
+                                            FontSize="20"
+                                            HorizontalOptions="Center"
+                                            Text="{Binding Product.Quantity}"
+                                            TranslationY="{OnPlatform Android=3}"
+                                            VerticalOptions="Center" />
+                                    </border:SfBorder>
+                                    <ev:SfEffectsView
+                                        Grid.Column="3"
+                                        HeightRequest="50"
+                                        TouchUpCommand="{Binding ChangeQuantityCommand}">
+                                        <ev:SfEffectsView.TouchUpCommandParameter>
+                                            <x:Int32>1</x:Int32>
+                                        </ev:SfEffectsView.TouchUpCommandParameter>
+                                        <Image
+                                            HeightRequest="15"
+                                            HorizontalOptions="Center"
+                                            Source="plus.png"
+                                            VerticalOptions="Center" />
+                                    </ev:SfEffectsView>
+                                </Grid>
+                            </border:SfBorder>
+
+                            <Button
+                                Command="{Binding AddToCartCommand}"
+                                IsVisible="{Binding Product.IsInCart, Converter={StaticResource InvertedBoolConverter}}"
+                                Text="Add To Cart" />
+                        </StackLayout>
+                    </border:SfBorder>
+                </ContentView>
+            </controls:ScrollViewEx>
+        </Grid>
+    </AbsoluteLayout>
+</pages:Page>

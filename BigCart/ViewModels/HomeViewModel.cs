@@ -1,6 +1,5 @@
 ﻿using BigCart.Models;
 using BigCart.Pages;
-using BigCart.Services.Navigation;
 using BigCart.Services.Products;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -23,13 +22,15 @@ namespace BigCart.ViewModels
         public ICommand ViewCategoriesCommand { get; }
         public ICommand ViewCategoryCommand { get; }
         public ICommand ToggleFavoriteCommand { get; }
+        public ICommand ViewProductCommand { get; }
         public ICommand AddToCartCommand { get; }
 
         public HomeViewModel(IProductService productService)
         {
             _productService = productService;
             ViewCategoriesCommand = new AsyncCommand(() => _navigationService.PushAsync<CategoriesPage>());
-            ViewCategoryCommand = new AsyncCommand<Category>(category => _navigationService.PushAsync<CategoryPage>(new NavigationOptions { Data = category }));
+            ViewCategoryCommand = new AsyncCommand<Category>(category => _navigationService.PushAsync<CategoryPage>(new() { Data = category }));
+            ViewProductCommand = new AsyncCommand<Product>(product => _navigationService.PushAsync<ProductPage>(new() { Data = product }));
             ToggleFavoriteCommand = new Command<Product>(p => p.IsFavorite = !p.IsFavorite);
             AddToCartCommand = new Command<Product>(p =>
             {

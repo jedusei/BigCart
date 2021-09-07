@@ -18,6 +18,7 @@ namespace BigCart.iOS.Renderers
             {
                 ContentInsetAdjustmentBehavior = UIKit.UIScrollViewContentInsetAdjustmentBehavior.Never;
                 UpdateIsScrollEnabled();
+                UpdateIsBounceEnabled();
                 e.NewElement.PropertyChanged += ElementPropertyChanged;
             }
         }
@@ -26,11 +27,19 @@ namespace BigCart.iOS.Renderers
         {
             if (e.PropertyName == ScrollViewEx.IsScrollEnabledProperty.PropertyName)
                 UpdateIsScrollEnabled();
+            else if (e.PropertyName == ScrollViewEx.IsBounceEnabledProperty.PropertyName)
+                UpdateIsBounceEnabled();
+
         }
 
         private void UpdateIsScrollEnabled()
         {
             ScrollEnabled = (Element as ScrollViewEx).IsScrollEnabled;
+        }
+
+        private void UpdateIsBounceEnabled()
+        {
+            Bounces = (Element as ScrollViewEx).IsBounceEnabled;
         }
     }
 }

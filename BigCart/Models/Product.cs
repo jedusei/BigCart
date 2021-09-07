@@ -17,6 +17,7 @@ namespace BigCart.Models
         public float Price { get; set; }
         public float Discount { get; set; }
         public float Weight { get; set; }
+        public float Rating { get; set; }
         public int Quantity
         {
             get => _quantity;

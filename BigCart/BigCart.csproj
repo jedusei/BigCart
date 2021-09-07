@@ -30,12 +30,16 @@
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="19.2.0.59" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Pages\ProductPage.xaml.cs">
+      <DependentUpon>ProductPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Pages\CategoryPage.xaml.cs">
       <DependentUpon>CategoryPage.xaml</DependentUpon>
     </Compile>

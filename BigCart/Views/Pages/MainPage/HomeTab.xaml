@@ -175,7 +175,8 @@
                     Margin="15,0,7.5,15"
                     AddToCartCommand="{Binding BindingContext.AddToCartCommand, Source={Reference root}}"
                     Product="{Binding}"
-                    ToggleFavoriteCommand="{Binding BindingContext.ToggleFavoriteCommand, Source={Reference root}}">
+                    ToggleFavoriteCommand="{Binding BindingContext.ToggleFavoriteCommand, Source={Reference root}}"
+                    ViewCommand="{Binding BindingContext.ViewProductCommand, Source={Reference root}}">
                     <View.Triggers>
                         <DataTrigger
                             Binding="{Binding Column}"

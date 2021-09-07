@@ -22,6 +22,7 @@ namespace BigCart.Droid.Renderers
             if (e.NewElement != null)
             {
                 UpdateIsScrollEnabled();
+                UpdateIsBounceEnabled();
                 e.NewElement.PropertyChanged += ElementPropertyChanged;
             }
         }
@@ -30,11 +31,20 @@ namespace BigCart.Droid.Renderers
         {
             if (e.PropertyName == ScrollViewEx.IsScrollEnabledProperty.PropertyName)
                 UpdateIsScrollEnabled();
+            else if (e.PropertyName == ScrollViewEx.IsBounceEnabledProperty.PropertyName)
+                UpdateIsBounceEnabled();
         }
 
         private void UpdateIsScrollEnabled()
         {
             Element.IsEnabled = (Element as ScrollViewEx).IsScrollEnabled;
+        }
+
+        private void UpdateIsBounceEnabled()
+        {
+            OverScrollMode = (Element as ScrollViewEx).IsBounceEnabled
+                ? Android.Views.OverScrollMode.IfContentScrolls
+                : Android.Views.OverScrollMode.Never;
         }
     }
 }
