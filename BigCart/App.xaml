@@ -27,6 +27,7 @@
         <Color x:Key="PrimaryColor">#AEDC81</Color>
         <Color x:Key="PrimaryDarkColor">#6CC51D</Color>
         <Color x:Key="PrimaryLightColor">#EBFFD7</Color>
+        <Color x:Key="ActivityIndicatorColor">#407EC7</Color>
         <!--#endregion-->
 
         <!--#region Strings-->
@@ -39,6 +40,7 @@
 
         <!--#region Converters-->
         <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <xct:EqualConverter x:Key="EqualConverter" />
         <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All" />
         <!--#endregion-->
 
@@ -148,6 +150,13 @@
             </Setter>
         </Style>
 
+        <Style TargetType="ActivityIndicator">
+            <Setter Property="Color" Value="{StaticResource ActivityIndicatorColor}" />
+        </Style>
+        <Style TargetType="RefreshView">
+            <Setter Property="RefreshColor" Value="{StaticResource ActivityIndicatorColor}" />
+        </Style>
+
         <Style x:Key="PageWithTitleBar" TargetType="pages:Page">
             <Setter Property="ControlTemplate">
                 <ControlTemplate>
@@ -178,6 +187,30 @@
                                     Text="{TemplateBinding Title}"
                                     TextColor="Black"
                                     TranslationY="1" />
+                                <StackLayout
+                                    Padding="0,0,5,0"
+                                    AbsoluteLayout.LayoutBounds="1,0.5,AutoSize,50"
+                                    AbsoluteLayout.LayoutFlags="XProportional"
+                                    BindableLayout.ItemsSource="{TemplateBinding ToolbarItems}"
+                                    Orientation="Horizontal"
+                                    Spacing="-10">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate x:DataType="ToolbarItem">
+                                            <ev:SfEffectsView
+                                                CornerRadius="25"
+                                                HeightRequest="50"
+                                                TouchUpCommand="{Binding Command}"
+                                                TouchUpCommandParameter="{Binding CommandParameter}"
+                                                WidthRequest="50">
+                                                <Image
+                                                    HeightRequest="16"
+                                                    HorizontalOptions="Center"
+                                                    Source="{Binding IconImageSource}"
+                                                    VerticalOptions="Center" />
+                                            </ev:SfEffectsView>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
                             </AbsoluteLayout>
                         </ContentView>
 

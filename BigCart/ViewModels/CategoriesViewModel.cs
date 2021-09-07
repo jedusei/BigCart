@@ -1,6 +1,8 @@
 ﻿using BigCart.Models;
+using BigCart.Pages;
+using BigCart.Services.Navigation;
 using System.Windows.Input;
-using Xamarin.Forms;
+using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace BigCart.ViewModels
 {
@@ -10,7 +12,7 @@ namespace BigCart.ViewModels
 
         public CategoriesViewModel()
         {
-            ViewCategoryCommand = new Command<Category>(c => _modalService.AlertAsync("Details", c.Name));
+            ViewCategoryCommand = new AsyncCommand<Category>(category => _navigationService.PushAsync<CategoryPage>(new NavigationOptions { Data = category }));
         }
     }
 }

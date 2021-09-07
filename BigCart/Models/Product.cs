@@ -11,6 +11,7 @@ namespace BigCart.Models
 
         public int Column { get; set; }
         public string Name { get; set; }
+        public string Category { get; set; }
         public Color Color { get; set; }
         public ImageSource ImageSource { get; set; }
         public float Price { get; set; }

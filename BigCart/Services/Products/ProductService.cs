@@ -1,5 +1,7 @@
 ﻿using BigCart.DependencyInjection;
 using BigCart.Models;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -11,6 +13,7 @@ namespace BigCart.Services.Products
             new()
             {
                 Name = "Fresh Peach",
+                Category = "Fruits",
                 Price = 8,
                 Weight = 12,
                 Color = Color.FromHex("#FFCEC1"),
@@ -19,6 +22,7 @@ namespace BigCart.Services.Products
             new()
             {
                 Name = "Avocado",
+                Category = "Fruits",
                 Price = 7,
                 Weight = 2,
                 IsInCart = true,
@@ -29,6 +33,7 @@ namespace BigCart.Services.Products
             new()
             {
                 Name = "Pineapple",
+                Category = "Fruits",
                 Price = 9.9f,
                 Weight = 1.5f,
                 IsFavorite = true,
@@ -38,6 +43,7 @@ namespace BigCart.Services.Products
             new()
             {
                 Name = "Black Grapes",
+                Category = "Fruits",
                 Price = 7.05f,
                 Discount = 16,
                 Weight = 5,
@@ -47,6 +53,7 @@ namespace BigCart.Services.Products
             new()
             {
                 Name = "Pomegranate",
+                Category = "Fruits",
                 Price = 2.09f,
                 Weight = 1.5f,
                 IsInCart = true,
@@ -57,6 +64,7 @@ namespace BigCart.Services.Products
             new()
             {
                 Name = "Fresh Broccoli",
+                Category = "Fruits",
                 Price = 3f,
                 Weight = 2.2f,
                 IsFavorite = true,
@@ -65,10 +73,13 @@ namespace BigCart.Services.Products
             },
         };
 
-        public async Task<Product[]> GetProductsAsync()
+        public async Task<Product[]> GetProductsAsync(ProductFilter filter = null)
         {
             await Task.Delay(1000);
-            return _products;
+            return string.IsNullOrWhiteSpace(filter?.Category)
+                ? _products
+                : _products.Where(p => filter.Category.Equals(p.Category, StringComparison.OrdinalIgnoreCase))
+                    .ToArray();
         }
     }
 }

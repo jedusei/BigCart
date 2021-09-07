@@ -121,7 +121,7 @@
                                         HorizontalOptions="Center"
                                         IsClippedToBounds="True"
                                         WidthRequest="70">
-                                        <ev:SfEffectsView>
+                                        <ev:SfEffectsView TouchUpCommand="{Binding ViewCategoryCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}" TouchUpCommandParameter="{Binding}">
                                             <Image HorizontalOptions="Center" VerticalOptions="Center">
                                                 <Image.Source>
                                                     <FontImageSource

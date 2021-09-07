@@ -6,6 +6,6 @@ namespace BigCart.Services.Products
 {
     public interface IProductService : IDependency
     {
-        Task<Product[]> GetProductsAsync();
+        Task<Product[]> GetProductsAsync(ProductFilter filter = null);
     }
 }

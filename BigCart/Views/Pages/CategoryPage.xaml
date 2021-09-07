@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.CategoryPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    x:Name="root"
+    Title="{Binding Category.Name}"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:CategoryViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Filters">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="{StaticResource Icons}"
+                    Glyph="{Static icons:Icons.Filter}"
+                    Color="Black" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <AbsoluteLayout Margin="-7.5,0">
+        <RefreshView
+            Command="{Binding LoadCommand}"
+            IsRefreshing="{Binding LoadStatus, Mode=OneWay, Converter={StaticResource EqualConverter}, ConverterParameter={Static vm:LoadStatus.Loading}}"
+            StyleClass="FillAbsoluteLayout">
+            <lv:SfListView
+                AutoFitMode="Height"
+                IsScrollBarVisible="False"
+                ItemsSource="{Binding Products}"
+                SelectionMode="None">
+                <lv:SfListView.LayoutManager>
+                    <lv:GridLayout SpanCount="2" />
+                </lv:SfListView.LayoutManager>
+                <lv:SfListView.HeaderTemplate>
+                    <DataTemplate>
+                        <BoxView HeightRequest="15" />
+                    </DataTemplate>
+                </lv:SfListView.HeaderTemplate>
+                <lv:SfListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Product">
+                        <controls:ProductView
+                            Margin="0,0,7.5,15"
+                            AddToCartCommand="{Binding BindingContext.AddToCartCommand, Source={Reference root}}"
+                            Product="{Binding}"
+                            ToggleFavoriteCommand="{Binding BindingContext.ToggleFavoriteCommand, Source={Reference root}}">
+                            <View.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Column}"
+                                    TargetType="controls:ProductView"
+                                    Value="1">
+                                    <Setter Property="Margin" Value="7.5,0,0,15" />
+                                </DataTrigger>
+                            </View.Triggers>
+                        </controls:ProductView>
+                    </DataTemplate>
+                </lv:SfListView.ItemTemplate>
+            </lv:SfListView>
+        </RefreshView>
+
+        <ContentView
+            AbsoluteLayout.LayoutBounds="0.5,0.5"
+            AbsoluteLayout.LayoutFlags="PositionProportional"
+            IsVisible="False">
+            <View.Triggers>
+                <MultiTrigger TargetType="ContentView">
+                    <MultiTrigger.Conditions>
+                        <BindingCondition Binding="{Binding LoadStatus}" Value="{Static vm:LoadStatus.Success}" />
+                        <BindingCondition Binding="{Binding Products.Length, FallbackValue=0}" Value="0" />
+                    </MultiTrigger.Conditions>
+                    <MultiTrigger.Setters>
+                        <Setter Property="IsVisible" Value="True" />
+                    </MultiTrigger.Setters>
+                </MultiTrigger>
+            </View.Triggers>
+            <Label
+                FontSize="25"
+                HorizontalOptions="Center"
+                Text="No items"
+                TextColor="{StaticResource TextSecondaryColor}"
+                VerticalOptions="CenterAndExpand" />
+        </ContentView>
+    </AbsoluteLayout>
+</pages:Page>

@@ -1,6 +1,4 @@
 ﻿using BigCart.Models;
-using BigCart.Pages;
-using BigCart.Services.Navigation;
 using BigCart.Services.Products;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,27 +7,27 @@ using Xamarin.Forms;
 
 namespace BigCart.ViewModels
 {
-    public class HomeViewModel : ViewModel
+    public class CategoryViewModel : ViewModel
     {
         private readonly IProductService _productService;
         private LoadStatus _loadStatus;
+        private ProductFilter _filter;
 
         public LoadStatus LoadStatus
         {
             get => _loadStatus;
-            set => SetProperty(ref _loadStatus, value);
+            private set => SetProperty(ref _loadStatus, value);
         }
+        public Category Category { get; private set; }
         public Product[] Products { get; private set; }
-        public ICommand ViewCategoriesCommand { get; }
-        public ICommand ViewCategoryCommand { get; }
+        public ICommand LoadCommand { get; }
         public ICommand ToggleFavoriteCommand { get; }
         public ICommand AddToCartCommand { get; }
 
-        public HomeViewModel(IProductService productService)
+        public CategoryViewModel(IProductService productService)
         {
             _productService = productService;
-            ViewCategoriesCommand = new AsyncCommand(() => _navigationService.PushAsync<CategoriesPage>());
-            ViewCategoryCommand = new AsyncCommand<Category>(category => _navigationService.PushAsync<CategoryPage>(new NavigationOptions { Data = category }));
+            LoadCommand = new AsyncCommand(LoadProductsAsync);
             ToggleFavoriteCommand = new Command<Product>(p => p.IsFavorite = !p.IsFavorite);
             AddToCartCommand = new Command<Product>(p =>
             {
@@ -38,17 +36,26 @@ namespace BigCart.ViewModels
             });
         }
 
+        public override void Initialize(object navigationData)
+        {
+            base.Initialize(navigationData);
+            Category = (Category)navigationData;
+            OnPropertyChanged(nameof(Category));
+            _filter = new ProductFilter { Category = Category.Name };
+        }
+
         public override void OnStart()
         {
             base.OnStart();
-            _ = LoadProductsAsync();
+            LoadStatus = LoadStatus.Loading;
         }
 
         private async Task LoadProductsAsync()
         {
             LoadStatus = LoadStatus.Loading;
 
-            Products = await _productService.GetProductsAsync();
+            Products = await _productService.GetProductsAsync(_filter);
+
             for (int i = 0; i < Products.Length; i++)
                 Products[i].Column = i % 2;
 
