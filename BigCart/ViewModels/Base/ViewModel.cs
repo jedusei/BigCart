@@ -11,7 +11,7 @@ namespace BigCart.ViewModels
         protected readonly INavigationService _navigationService;
         protected readonly IModalService _modalService;
 
-        public ICommand GoBackCommand { get; }
+        public ICommand GoBackCommand { get; protected set; }
 
         public ViewModel()
         {

@@ -21,6 +21,7 @@ namespace BigCart.Pages
     {
         public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.Create(nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(Page), StatusBarStyle.DarkContent);
         public static readonly BindableProperty SoftInputModeProperty = BindableProperty.Create(nameof(WindowSoftInputModeAdjust), typeof(WindowSoftInputModeAdjust), typeof(Page), WindowSoftInputModeAdjust.Pan);
+        private static bool _subscribedToAppEvents;
         protected bool _hasLoaded;
         private const int TRANSITION_DURATION = 250;
         private ViewModel _viewModel;
@@ -36,8 +37,20 @@ namespace BigCart.Pages
             set => SetValue(SoftInputModeProperty, value);
         }
 
-        static Page()
+        public Page()
         {
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+            On<iOS>().SetUseSafeArea(false);
+            SubscribeToAppEvents();
+        }
+
+        private void SubscribeToAppEvents()
+        {
+            if (_subscribedToAppEvents)
+                return;
+
+            _subscribedToAppEvents = true;
+
             if (Device.RuntimePlatform != Device.Android)
             {
                 MessagingCenter.Subscribe<Xamarin.Forms.Application>(typeof(Page), MessageKeys.Pause, app =>
@@ -62,15 +75,9 @@ namespace BigCart.Pages
             }
         }
 
-        public Page()
+        protected virtual IReadOnlyList<Xamarin.Forms.Page> GetNavigationStack()
         {
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
-            On<iOS>().SetUseSafeArea(false);
-        }
-
-        protected static IReadOnlyList<Xamarin.Forms.Page> GetNavigationStack()
-        {
-            return Xamarin.Forms.Application.Current.MainPage.Navigation.NavigationStack;
+            return Navigation.NavigationStack;
         }
 
         protected override void OnBindingContextChanged()
@@ -126,6 +133,9 @@ namespace BigCart.Pages
 
         protected virtual void OnStart()
         {
+            foreach (ToolbarItem item in ToolbarItems)
+                item.BindingContext = BindingContext;
+
             _viewModel?.OnStart();
         }
 

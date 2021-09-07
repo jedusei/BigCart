@@ -1,8 +1,7 @@
 ﻿using BigCart.DependencyInjection;
 using BigCart.Pages;
+using BigCart.Services.Pages;
 using BigCart.Services.Platform;
-using BigCart.ViewModels;
-using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Page = BigCart.Pages.Page;
@@ -12,21 +11,23 @@ namespace BigCart.Services.Navigation
     public class NavigationService : INavigationService, ISingletonDependency
     {
         private readonly IPlatformService _platformService;
+        private readonly IPageService _pageService;
 
-        public NavigationService(IPlatformService platformService)
+        public NavigationService(IPlatformService platformService, IPageService pageService)
         {
             _platformService = platformService;
+            _pageService = pageService;
         }
 
         public void Initialize()
         {
-            App.Current.MainPage = new NavigationPage(CreatePage<OnboardingPage>());
+            _pageService.MainPage = new NavigationPage(_pageService.CreatePage<OnboardingPage>());
         }
 
         public async Task PushAsync<T>(NavigationOptions options = null) where T : Page
         {
-            T page = CreatePage<T>(options?.Data);
-            INavigation navigation = GetNavigation();
+            T page = _pageService.CreatePage<T>(options?.Data);
+            INavigation navigation = _pageService.MainPage.Navigation;
             await navigation.PushAsync(page);
 
             if (options != null)
@@ -45,25 +46,11 @@ namespace BigCart.Services.Navigation
 
         public async Task PopAsync()
         {
-            INavigation navigation = GetNavigation();
+            INavigation navigation = _pageService.MainPage.Navigation;
             if (navigation.NavigationStack.Count > 1)
                 await navigation.PopAsync();
             else
                 _platformService.Quit();
-        }
-
-        private T CreatePage<T>(object navigationData = null) where T : Page
-        {
-            T page = Activator.CreateInstance<T>();
-            if (page.BindingContext is ViewModel viewModel)
-                viewModel.Initialize(navigationData);
-
-            return page;
-        }
-
-        private INavigation GetNavigation()
-        {
-            return Application.Current.MainPage.Navigation;
         }
     }
 }

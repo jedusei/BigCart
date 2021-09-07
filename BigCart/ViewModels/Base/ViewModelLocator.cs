@@ -24,6 +24,11 @@ namespace BigCart.ViewModels
                         .Replace("Page", "View")
                         .Replace("Tab", "View");
                 }
+                else if (viewName.Contains(".Modals."))
+                {
+                    viewName = viewName.Replace(".Modals.", ".ViewModels.")
+                          .Replace("Modal", "View");
+                }
 
                 string viewAssemblyName = viewType.Assembly.FullName;
                 string viewModelName = $"{viewName}Model, {viewAssemblyName}";
