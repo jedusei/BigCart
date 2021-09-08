@@ -1,6 +1,8 @@
 ﻿using BigCart.DependencyInjection;
 using BigCart.Models;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -25,7 +27,7 @@ namespace BigCart.Services.Products
                 Name = "Avocado",
                 Category = "Fruits",
                 Price = 7,
-                Weight = 2, 
+                Weight = 2,
                 Rating = 3,
                 IsInCart = true,
                 Quantity = 1,
@@ -81,11 +83,28 @@ namespace BigCart.Services.Products
 
         public async Task<Product[]> GetProductsAsync(ProductFilter filter = null)
         {
+            IEnumerable<Product> results = _products;
+
+            if (filter != null)
+            {
+                if (!string.IsNullOrWhiteSpace(filter.Category))
+                    results = results.Where(p => filter.Category.Equals(p.Category, StringComparison.OrdinalIgnoreCase));
+
+                if (filter.MinPrice.HasValue)
+                    results = results.Where(p => p.Price >= filter.MinPrice);
+
+                if (filter.MaxPrice.HasValue)
+                    results = results.Where(p => p.Price <= filter.MaxPrice);
+
+                if (filter.Rating != 0)
+                    results = results.Where(p => p.Rating >= filter.Rating);
+
+                if (filter.Discount)
+                    results = results.Where(p => p.Discount > 0);
+            }
+
             await Task.Delay(1000);
-            return string.IsNullOrWhiteSpace(filter?.Category)
-                ? _products
-                : _products.Where(p => filter.Category.Equals(p.Category, StringComparison.OrdinalIgnoreCase))
-                    .ToArray();
+            return results.ToArray();
         }
     }
 }
