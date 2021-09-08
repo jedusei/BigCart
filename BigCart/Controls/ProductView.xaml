@@ -96,7 +96,8 @@
                 AbsoluteLayout.LayoutBounds="1,0"
                 AbsoluteLayout.LayoutFlags="XProportional"
                 Style="{StaticResource ScaleEffectsView}"
-                TouchUpCommand="{Binding ToggleFavoriteCommand}">
+                TouchUpCommand="{Binding ToggleFavoriteCommand}"
+                TouchUpCommandParameter="{Binding Product}">
                 <Image HeightRequest="20" WidthRequest="23">
                     <Image.Source>
                         <FontImageSource

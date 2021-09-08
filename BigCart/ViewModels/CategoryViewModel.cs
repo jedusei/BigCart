@@ -32,9 +32,9 @@ namespace BigCart.ViewModels
         {
             _productService = productService;
             LoadCommand = new AsyncCommand(LoadProductsAsync);
-            FilterCommand = new AsyncCommand(FilterProductsAsync);
+            FilterCommand = new AsyncCommand(FilterProductsAsync, allowsMultipleExecutions: false);
             ToggleFavoriteCommand = new Command<Product>(p => p.IsFavorite = !p.IsFavorite);
-            ViewProductCommand = new AsyncCommand<Product>(p => _navigationService.PushAsync<ProductPage>(new() { Data = p }));
+            ViewProductCommand = new AsyncCommand<Product>(p => _navigationService.PushAsync<ProductPage>(new() { Data = p }), allowsMultipleExecutions: false);
             AddToCartCommand = new Command<Product>(p =>
             {
                 p.IsInCart = true;
