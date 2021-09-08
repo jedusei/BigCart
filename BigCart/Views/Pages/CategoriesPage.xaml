@@ -11,7 +11,7 @@
     vm:ViewModelLocator.AutoWireViewModel="True"
     x:DataType="vm:CategoriesViewModel"
     Style="{StaticResource PageWithTitleBar}">
-    <StackLayout Margin="-10,15,0,0">
+    <StackLayout Margin="-10,10,0,0">
         <FlexLayout
             BindableLayout.ItemsSource="{Static models:Category.All}"
             VerticalOptions="Start"

@@ -25,7 +25,7 @@
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 
-    <AbsoluteLayout Margin="-7.5,0">
+    <AbsoluteLayout>
         <RefreshView
             Command="{Binding LoadCommand}"
             IsRefreshing="{Binding LoadStatus, Mode=OneWay, Converter={StaticResource EqualConverter}, ConverterParameter={Static vm:LoadStatus.Loading}}"

@@ -229,7 +229,7 @@
                         </ContentView>
 
                         <ContentPresenter
-                            Padding="20,0"
+                            Padding="15,0"
                             Content="{TemplateBinding Content}"
                             VerticalOptions="FillAndExpand" />
                     </StackLayout>
