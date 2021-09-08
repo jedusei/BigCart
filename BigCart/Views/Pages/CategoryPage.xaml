@@ -15,7 +15,7 @@
     x:DataType="vm:CategoryViewModel"
     Style="{StaticResource PageWithTitleBar}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Filters">
+        <ToolbarItem Command="{Binding FilterCommand}" Text="Filters">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
                     FontFamily="{StaticResource Icons}"

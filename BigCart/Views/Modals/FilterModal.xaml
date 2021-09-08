@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:ModalPage
+    x:Class="BigCart.Modals.FilterModal"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="Apply Filters"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:FilterViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <ContentPage.Resources>
+        <Style x:Key="SectionTitle" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
+            <Setter Property="FontSize" Value="17" />
+        </Style>
+        <Style x:Key="TextInputStyle" TargetType="txt:SfTextInputLayout">
+            <Setter Property="ContainerBackgroundColor" Value="{StaticResource BackgroundSecondaryColor}" />
+            <Setter Property="InputViewPadding" Value="20,10" />
+        </Style>
+        <Style x:Key="Separator" TargetType="BoxView">
+            <Setter Property="HeightRequest" Value="1" />
+            <Setter Property="BackgroundColor" Value="#EBEBEB" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Reset">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="{StaticResource Icons}"
+                    Glyph="{Static icons:Icons.Reload}"
+                    Color="Black" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="0,15,0,30">
+        <StackLayout Padding="15" BackgroundColor="{StaticResource BackgroundPrimaryColor}">
+            <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="10"
+                RowDefinitions="Auto,50"
+                RowSpacing="10">
+                <Label Style="{StaticResource SectionTitle}" Text="Price Range" />
+
+                <txt:SfTextInputLayout Grid.Row="1" Style="{StaticResource TextInputStyle}">
+                    <Entry
+                        Keyboard="Numeric"
+                        Placeholder="Min."
+                        ReturnType="Next" />
+                </txt:SfTextInputLayout>
+                <txt:SfTextInputLayout
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource TextInputStyle}">
+                    <Entry Keyboard="Numeric" Placeholder="Max." />
+                </txt:SfTextInputLayout>
+            </Grid>
+
+            <BoxView Margin="-15,10" Style="{StaticResource Separator}" />
+
+            <Label Style="{StaticResource SectionTitle}" Text="Rating" />
+            <border:SfBorder
+                Padding="15"
+                BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+                BorderWidth="0"
+                CornerRadius="5">
+                <FlexLayout AlignItems="Center" Direction="Row">
+                    <rating:SfRating
+                        Margin="5,0"
+                        FlexLayout.Grow="1"
+                        ItemCount="5"
+                        ItemSize="18"
+                        Precision="Half"
+                        Value="4">
+                        <rating:SfRating.RatingSettings>
+                            <rating:SfRatingSettings
+                                RatedFill="#FFC107"
+                                RatedStrokeWidth="0"
+                                UnRatedFill="{StaticResource BackgroundPrimaryColor}"
+                                UnRatedStrokeWidth="0" />
+                        </rating:SfRating.RatingSettings>
+                    </rating:SfRating>
+                    <Label
+                        FontFamily="{StaticResource MediumFontFamily}"
+                        HorizontalOptions="EndAndExpand"
+                        Text="4 stars"
+                        TextColor="{StaticResource TextSecondaryColor}"
+                        VerticalOptions="Center" />
+                </FlexLayout>
+            </border:SfBorder>
+
+            <BoxView Margin="-15,10" Style="{StaticResource Separator}" />
+
+            <Label Style="{StaticResource SectionTitle}" Text="Others" />
+            <Grid
+                ColumnDefinitions="30,*,20"
+                ColumnSpacing="10"
+                RowDefinitions="50,1,50,1,50">
+                <Grid.Resources>
+                    <Style x:Key="Icon" TargetType="Image">
+                        <Setter Property="HorizontalOptions" Value="Start" />
+                        <Setter Property="VerticalOptions" Value="Center" />
+                    </Style>
+                    <Style x:Key="Text" TargetType="Label">
+                        <Setter Property="VerticalOptions" Value="Center" />
+                        <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+                        <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
+                        <Setter Property="FontSize" Value="16" />
+                    </Style>
+                    <Style x:Key="CheckmarkIcon" TargetType="Image">
+                        <Setter Property="Source">
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Checkmark}"
+                                Color="{StaticResource PrimaryDarkColor}" />
+                        </Setter>
+                    </Style>
+                </Grid.Resources>
+
+                <Image HeightRequest="20" Style="{StaticResource Icon}">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource Icons}"
+                            Glyph="{Static icons:Icons.Discount}"
+                            Color="{StaticResource TextSecondaryColor}" />
+                    </Image.Source>
+                </Image>
+                <Label
+                    Grid.Column="1"
+                    Style="{StaticResource Text}"
+                    Text="Discount" />
+                <Image Grid.Column="2" Style="{StaticResource CheckmarkIcon}" />
+
+                <BoxView
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Style="{StaticResource Separator}" />
+
+                <Image
+                    Grid.Row="2"
+                    Style="{StaticResource Icon}"
+                    WidthRequest="25">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource Icons}"
+                            Glyph="{Static icons:Icons.Shipping}"
+                            Color="{StaticResource TextSecondaryColor}" />
+                    </Image.Source>
+                </Image>
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Style="{StaticResource Text}"
+                    Text="Free Shipping" />
+                <Image
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Style="{StaticResource CheckmarkIcon}" />
+
+                <BoxView
+                    Grid.Row="3"
+                    Grid.ColumnSpan="3"
+                    Style="{StaticResource Separator}" />
+
+                <Image
+                    Grid.Row="4"
+                    Style="{StaticResource Icon}"
+                    WidthRequest="25">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource Icons}"
+                            Glyph="{Static icons:Icons.Delivery}"
+                            Color="{StaticResource TextSecondaryColor}" />
+                    </Image.Source>
+                </Image>
+                <Label
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Style="{StaticResource Text}"
+                    Text="Same day delivery" />
+                <Image
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Style="{StaticResource CheckmarkIcon}" />
+            </Grid>
+        </StackLayout>
+        <Button
+            Command="{Binding ApplyCommand}"
+            Text="Apply"
+            VerticalOptions="EndAndExpand" />
+    </StackLayout>
+</pages:ModalPage>

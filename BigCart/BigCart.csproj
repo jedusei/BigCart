@@ -37,6 +37,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\Modals\FilterModal.xaml.cs">
+      <DependentUpon>FilterModal.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Pages\ProductPage.xaml.cs">
       <DependentUpon>ProductPage.xaml</DependentUpon>
     </Compile>

@@ -22,5 +22,9 @@
         public const string Apple = "\ue911";
         public const string ChevronRight = "\ue912";
         public const string HeartFilled = "\ue913";
+        public const string Checkmark = "\ue914";
+        public const string Discount = "\ue915";
+        public const string Delivery = "\ue916";
+        public const string Shipping = "\ue917";
     }
 }

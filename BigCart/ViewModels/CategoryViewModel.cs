@@ -1,4 +1,5 @@
-﻿using BigCart.Models;
+﻿using BigCart.Modals;
+using BigCart.Models;
 using BigCart.Pages;
 using BigCart.Services.Products;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace BigCart.ViewModels
         public Category Category { get; private set; }
         public Product[] Products { get; private set; }
         public ICommand LoadCommand { get; }
+        public ICommand FilterCommand { get; }
         public ICommand ToggleFavoriteCommand { get; }
         public ICommand ViewProductCommand { get; }
         public ICommand AddToCartCommand { get; }
@@ -30,6 +32,7 @@ namespace BigCart.ViewModels
         {
             _productService = productService;
             LoadCommand = new AsyncCommand(LoadProductsAsync);
+            FilterCommand = new AsyncCommand(FilterProductsAsync);
             ToggleFavoriteCommand = new Command<Product>(p => p.IsFavorite = !p.IsFavorite);
             ViewProductCommand = new AsyncCommand<Product>(p => _navigationService.PushAsync<ProductPage>(new() { Data = p }));
             AddToCartCommand = new Command<Product>(p =>
@@ -44,6 +47,7 @@ namespace BigCart.ViewModels
             base.Initialize(navigationData);
             Category = (Category)navigationData;
             OnPropertyChanged(nameof(Category));
+            OnPropertyChanged(nameof(FilterCommand));
             _filter = new ProductFilter { Category = Category.Name };
         }
 
@@ -65,6 +69,12 @@ namespace BigCart.ViewModels
             OnPropertyChanged(nameof(Products));
 
             LoadStatus = LoadStatus.Success;
+        }
+
+        private async Task FilterProductsAsync()
+        {
+            bool result = await _modalService.PushAsync<FilterModal, bool>(4);
+            int i = 3;
         }
     }
 }
