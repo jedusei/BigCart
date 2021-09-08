@@ -4,7 +4,10 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:modals="clr-namespace:BigCart.Modals"
+    xmlns:num="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
     xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
@@ -29,7 +32,7 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Reset">
+        <ToolbarItem Command="{Binding ResetCommand}" Text="Reset">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
                     FontFamily="{StaticResource Icons}"
@@ -49,16 +52,24 @@
                 <Label Style="{StaticResource SectionTitle}" Text="Price Range" />
 
                 <txt:SfTextInputLayout Grid.Row="1" Style="{StaticResource TextInputStyle}">
-                    <Entry
-                        Keyboard="Numeric"
-                        Placeholder="Min."
-                        ReturnType="Next" />
+                    <num:SfNumericTextBox
+                        AllowNull="True"
+                        FormatString="C"
+                        Maximum="{Binding Filter.MaxPrice}"
+                        ReturnType="Next"
+                        Watermark="Min."
+                        Value="{Binding Filter.MinPrice}" />
                 </txt:SfTextInputLayout>
                 <txt:SfTextInputLayout
                     Grid.Row="1"
                     Grid.Column="1"
                     Style="{StaticResource TextInputStyle}">
-                    <Entry Keyboard="Numeric" Placeholder="Max." />
+                    <num:SfNumericTextBox
+                        AllowNull="True"
+                        FormatString="C"
+                        Minimum="{Binding Filter.MinPrice}"
+                        Watermark="Max."
+                        Value="{Binding Filter.MaxPrice}" />
                 </txt:SfTextInputLayout>
             </Grid>
 
@@ -76,8 +87,7 @@
                         FlexLayout.Grow="1"
                         ItemCount="5"
                         ItemSize="18"
-                        Precision="Half"
-                        Value="4">
+                        Value="{Binding Filter.Rating}">
                         <rating:SfRating.RatingSettings>
                             <rating:SfRatingSettings
                                 RatedFill="#FFC107"
@@ -89,9 +99,26 @@
                     <Label
                         FontFamily="{StaticResource MediumFontFamily}"
                         HorizontalOptions="EndAndExpand"
-                        Text="4 stars"
                         TextColor="{StaticResource TextSecondaryColor}"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center">
+                        <Label.Text>
+                            <Binding Converter="{StaticResource PluralConverter}" Path="Filter.Rating">
+                                <Binding.ConverterParameter>
+                                    <x:Array Type="{Type x:String}">
+                                        <x:String>{0} star</x:String>
+                                        <x:String>{0} stars</x:String>
+                                    </x:Array>
+                                </Binding.ConverterParameter>
+                            </Binding>
+                        </Label.Text>
+                        <Label.IsVisible>
+                            <Binding Converter="{StaticResource NotEqualConverter}" Path="Filter.Rating">
+                                <Binding.ConverterParameter>
+                                    <x:Single>0</x:Single>
+                                </Binding.ConverterParameter>
+                            </Binding>
+                        </Label.IsVisible>
+                    </Label>
                 </FlexLayout>
             </border:SfBorder>
 
@@ -118,7 +145,7 @@
                             <FontImageSource
                                 FontFamily="{StaticResource Icons}"
                                 Glyph="{Static icons:Icons.Checkmark}"
-                                Color="{StaticResource PrimaryDarkColor}" />
+                                Color="{StaticResource TextSecondaryColor}" />
                         </Setter>
                     </Style>
                 </Grid.Resources>
@@ -135,7 +162,28 @@
                     Grid.Column="1"
                     Style="{StaticResource Text}"
                     Text="Discount" />
-                <Image Grid.Column="2" Style="{StaticResource CheckmarkIcon}" />
+
+                <ev:SfEffectsView
+                    Grid.Column="2"
+                    Style="{StaticResource ScaleEffectsView}"
+                    TouchUpCommand="{Binding ToggleFilterCommand}"
+                    TouchUpCommandParameter="{Static modals:FilterModal.OPTION_DISCOUNT}">
+                    <Image Grid.Column="2" Style="{StaticResource CheckmarkIcon}">
+                        <Image.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Filter.Discount}"
+                                TargetType="Image"
+                                Value="True">
+                                <Setter Property="Source">
+                                    <FontImageSource
+                                        FontFamily="{StaticResource Icons}"
+                                        Glyph="{Static icons:Icons.Checkmark}"
+                                        Color="{StaticResource PrimaryDarkColor}" />
+                                </Setter>
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </ev:SfEffectsView>
 
                 <BoxView
                     Grid.Row="1"
@@ -158,10 +206,31 @@
                     Grid.Column="1"
                     Style="{StaticResource Text}"
                     Text="Free Shipping" />
-                <Image
+                <ev:SfEffectsView
                     Grid.Row="2"
                     Grid.Column="2"
-                    Style="{StaticResource CheckmarkIcon}" />
+                    Style="{StaticResource ScaleEffectsView}"
+                    TouchUpCommand="{Binding ToggleFilterCommand}"
+                    TouchUpCommandParameter="{Static modals:FilterModal.OPTION_FREE_SHIPPING}">
+                    <Image
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Style="{StaticResource CheckmarkIcon}">
+                        <Image.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Filter.FreeShipping}"
+                                TargetType="Image"
+                                Value="True">
+                                <Setter Property="Source">
+                                    <FontImageSource
+                                        FontFamily="{StaticResource Icons}"
+                                        Glyph="{Static icons:Icons.Checkmark}"
+                                        Color="{StaticResource PrimaryDarkColor}" />
+                                </Setter>
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </ev:SfEffectsView>
 
                 <BoxView
                     Grid.Row="3"
@@ -184,10 +253,28 @@
                     Grid.Column="1"
                     Style="{StaticResource Text}"
                     Text="Same day delivery" />
-                <Image
+                <ev:SfEffectsView
                     Grid.Row="4"
                     Grid.Column="2"
-                    Style="{StaticResource CheckmarkIcon}" />
+                    Style="{StaticResource ScaleEffectsView}"
+                    TouchUpCommand="{Binding ToggleFilterCommand}"
+                    TouchUpCommandParameter="{Static modals:FilterModal.OPTION_SAME_DAY_DELIVERY}">
+                    <Image Style="{StaticResource CheckmarkIcon}">
+                        <Image.Triggers>
+                            <DataTrigger
+                                Binding="{Binding Filter.SameDayDelivery}"
+                                TargetType="Image"
+                                Value="True">
+                                <Setter Property="Source">
+                                    <FontImageSource
+                                        FontFamily="{StaticResource Icons}"
+                                        Glyph="{Static icons:Icons.Checkmark}"
+                                        Color="{StaticResource PrimaryDarkColor}" />
+                                </Setter>
+                            </DataTrigger>
+                        </Image.Triggers>
+                    </Image>
+                </ev:SfEffectsView>
             </Grid>
         </StackLayout>
         <Button

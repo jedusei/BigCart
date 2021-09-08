@@ -9,6 +9,7 @@
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:num="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
@@ -42,9 +43,10 @@
 
         <!--#region Converters-->
         <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+        <converters:PluralConverter x:Key="PluralConverter" />
         <xct:EqualConverter x:Key="EqualConverter" />
         <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
-        <xct:MathExpressionConverter x:Key="MathExpressionConverter" />
+        <xct:NotEqualConverter x:Key="NotEqualConverter" />
         <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All" />
         <!--#endregion-->
 
@@ -64,6 +66,14 @@
             <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
             <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
             <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondaryColor}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
+        </Style>
+
+        <Style TargetType="num:SfNumericTextBox">
+            <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+            <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+            <Setter Property="WatermarkColor" Value="{StaticResource TextSecondaryColor}" />
             <Setter Property="FontSize" Value="15" />
             <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
         </Style>
@@ -250,6 +260,13 @@
             TargetType="View">
             <Setter Property="AbsoluteLayout.LayoutBounds" Value="0,0,1,1" />
             <Setter Property="AbsoluteLayout.LayoutFlags" Value="SizeProportional" />
+        </Style>
+
+        <Style x:Key="ScaleEffectsView" TargetType="ev:SfEffectsView">
+            <Setter Property="ScaleFactor" Value="0.7" />
+            <Setter Property="TouchDownEffects" Value="Scale" />
+            <Setter Property="AutoResetEffect" Value="Scale" />
+            <Setter Property="ScaleAnimationDuration" Value="150" />
         </Style>
         <!--#endregion-->
     </Application.Resources>

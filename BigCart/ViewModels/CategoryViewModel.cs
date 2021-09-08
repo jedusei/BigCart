@@ -73,8 +73,12 @@ namespace BigCart.ViewModels
 
         private async Task FilterProductsAsync()
         {
-            bool result = await _modalService.PushAsync<FilterModal, bool>(4);
-            int i = 3;
+            ProductFilter newFilter = await _modalService.PushAsync<FilterModal, ProductFilter>(_filter);
+            if (_filter != newFilter)
+            {
+                _filter = newFilter;
+                await LoadProductsAsync();
+            }
         }
     }
 }

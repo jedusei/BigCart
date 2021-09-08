@@ -95,10 +95,7 @@
                 Padding="10"
                 AbsoluteLayout.LayoutBounds="1,0"
                 AbsoluteLayout.LayoutFlags="XProportional"
-                AutoResetEffect="Scale"
-                ScaleAnimationDuration="150"
-                ScaleFactor="0.7"
-                TouchDownEffects="Scale"
+                Style="{StaticResource ScaleEffectsView}"
                 TouchUpCommand="{Binding ToggleFavoriteCommand}">
                 <Image HeightRequest="20" WidthRequest="23">
                     <Image.Source>
