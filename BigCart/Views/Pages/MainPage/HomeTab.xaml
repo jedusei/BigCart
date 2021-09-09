@@ -3,12 +3,14 @@
     x:Class="BigCart.Pages.HomeTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
     xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:models="clr-namespace:BigCart.Models"
     xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     x:Name="root"
     vm:ViewModelLocator.AutoWireViewModel="True"
@@ -32,167 +34,215 @@
         </Style>
     </ContentView.Resources>
 
-    <lv:SfListView
-        AutoFitMode="DynamicHeight"
-        IsScrollBarVisible="False"
-        ItemsSource="{Binding Products}"
-        SelectionMode="None">
-        <lv:SfListView.LayoutManager>
-            <lv:GridLayout SpanCount="2" />
-        </lv:SfListView.LayoutManager>
-
-        <lv:SfListView.HeaderTemplate>
-            <DataTemplate>
-                <StackLayout Padding="0,0,0,10" Spacing="10">
-                    <AbsoluteLayout Padding="15,0" HeightRequest="280">
-                        <CarouselView
-                            HorizontalScrollBarVisibility="Never"
-                            IndicatorView="{Reference indicatorView}"
-                            StyleClass="FillAbsoluteLayout">
-                            <CarouselView.ItemsSource>
-                                <x:Array Type="{Type x:Int32}">
-                                    <x:Int32>0</x:Int32>
-                                    <x:Int32>1</x:Int32>
-                                    <x:Int32>2</x:Int32>
-                                    <x:Int32>3</x:Int32>
-                                    <x:Int32>4</x:Int32>
-                                </x:Array>
-                            </CarouselView.ItemsSource>
-                            <CarouselView.ItemTemplate>
-                                <DataTemplate>
-                                    <AbsoluteLayout>
-                                        <Image
-                                            Aspect="AspectFill"
-                                            Source="home_banner.png"
-                                            StyleClass="FillAbsoluteLayout" />
-                                        <Label
-                                            AbsoluteLayout.LayoutBounds="50,0.7,160,AutoSize"
-                                            AbsoluteLayout.LayoutFlags="YProportional"
-                                            FontFamily="{StaticResource BoldFontFamily}"
-                                            FontSize="20"
-                                            Text="20% off on your first purchase" />
-                                    </AbsoluteLayout>
-                                </DataTemplate>
-                            </CarouselView.ItemTemplate>
-                        </CarouselView>
-                        <IndicatorView
-                            x:Name="indicatorView"
-                            Margin="0,0,0,30"
-                            AbsoluteLayout.LayoutBounds="20,1"
-                            AbsoluteLayout.LayoutFlags="YProportional"
-                            IndicatorColor="White"
-                            IndicatorSize="8"
-                            MaximumVisible="10"
-                            SelectedIndicatorColor="{StaticResource PrimaryDarkColor}" />
-                    </AbsoluteLayout>
-
-                    <ev:SfEffectsView TouchUpCommand="{Binding ViewCategoriesCommand}">
-                        <StackLayout Padding="15,5" Orientation="Horizontal">
-                            <Label Style="{StaticResource SectionTitle}" Text="Categories" />
-                            <Image Style="{StaticResource SectionArrow}" />
-                        </StackLayout>
-                    </ev:SfEffectsView>
-
-                    <lv:SfListView
-                        AutoFitMode="Height"
-                        HeightRequest="100"
-                        IsScrollBarVisible="False"
-                        ItemsSource="{Static models:Category.All}"
-                        Orientation="Horizontal"
-                        SelectionMode="None">
-                        <lv:SfListView.HeaderTemplate>
-                            <DataTemplate>
-                                <BoxView WidthRequest="15" />
-                            </DataTemplate>
-                        </lv:SfListView.HeaderTemplate>
-                        <lv:SfListView.ItemTemplate>
-                            <DataTemplate x:DataType="models:Category">
-                                <FlexLayout
-                                    Padding="0,0,10,0"
-                                    AlignItems="Center"
-                                    Direction="Column"
-                                    WidthRequest="90">
-                                    <Frame
-                                        Padding="0"
-                                        BackgroundColor="{Binding BackgroundColor}"
-                                        CornerRadius="35"
-                                        HasShadow="False"
-                                        HeightRequest="70"
-                                        HorizontalOptions="Center"
-                                        IsClippedToBounds="True"
-                                        WidthRequest="70">
-                                        <ev:SfEffectsView TouchUpCommand="{Binding ViewCategoryCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}" TouchUpCommandParameter="{Binding}">
-                                            <Image HorizontalOptions="Center" VerticalOptions="Center">
-                                                <Image.Source>
-                                                    <FontImageSource
-                                                        FontFamily="{StaticResource Icons}"
-                                                        Glyph="{Binding IconGlyph}"
-                                                        Size="40"
-                                                        Color="{Binding ForegroundColor}" />
-                                                </Image.Source>
-                                            </Image>
-                                        </ev:SfEffectsView>
-                                    </Frame>
-                                    <Label
-                                        Margin="0,5,0,0"
-                                        FontFamily="{StaticResource MediumFontFamily}"
-                                        LineBreakMode="TailTruncation"
-                                        MaxLines="1"
-                                        Text="{Binding Name}"
-                                        TextColor="{StaticResource TextSecondaryColor}" />
-                                </FlexLayout>
-                            </DataTemplate>
-                        </lv:SfListView.ItemTemplate>
-                    </lv:SfListView>
-
-                    <ev:SfEffectsView>
-                        <StackLayout Padding="15,5" Orientation="Horizontal">
-                            <Label Style="{StaticResource SectionTitle}" Text="Featured Products" />
-                            <Image Style="{StaticResource SectionArrow}" />
-                        </StackLayout>
-                    </ev:SfEffectsView>
-                    <ActivityIndicator
+    <StackLayout>
+        <border:SfBorder
+            Margin="15,10"
+            BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+            BorderWidth="0"
+            CornerRadius="5">
+            <StackLayout
+                Padding="20,0,10,0"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Image
+                    HeightRequest="17"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource Icons}"
+                            Glyph="{Static icons:Icons.Search}"
+                            Color="{StaticResource TextSecondaryColor}" />
+                    </Image.Source>
+                </Image>
+                <txt:SfTextInputLayout ContainerBackgroundColor="Transparent" HorizontalOptions="FillAndExpand">
+                    <Entry
+                        Keyboard="Email"
+                        Placeholder="Search keywords..."
+                        ReturnType="Search" />
+                </txt:SfTextInputLayout>
+                <ev:SfEffectsView
+                    CornerRadius="24"
+                    HeightRequest="48"
+                    VerticalOptions="Center"
+                    WidthRequest="48">
+                    <Image
+                        HeightRequest="17"
                         HorizontalOptions="Center"
-                        IsRunning="True"
-                        IsVisible="False"
-                        WidthRequest="30">
-                        <ActivityIndicator.Triggers>
+                        VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Filter}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </ev:SfEffectsView>
+            </StackLayout>
+        </border:SfBorder>
+
+        <lv:SfListView
+            AutoFitMode="DynamicHeight"
+            IsScrollBarVisible="False"
+            ItemsSource="{Binding Products}"
+            SelectionMode="None">
+            <lv:SfListView.LayoutManager>
+                <lv:GridLayout SpanCount="2" />
+            </lv:SfListView.LayoutManager>
+
+            <lv:SfListView.HeaderTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="0,0,0,10" Spacing="10">
+                        <AbsoluteLayout Padding="15,0" HeightRequest="280">
+                            <CarouselView
+                                HorizontalScrollBarVisibility="Never"
+                                IndicatorView="{Reference indicatorView}"
+                                StyleClass="FillAbsoluteLayout">
+                                <CarouselView.ItemsSource>
+                                    <x:Array Type="{Type x:Int32}">
+                                        <x:Int32>0</x:Int32>
+                                        <x:Int32>1</x:Int32>
+                                        <x:Int32>2</x:Int32>
+                                        <x:Int32>3</x:Int32>
+                                        <x:Int32>4</x:Int32>
+                                    </x:Array>
+                                </CarouselView.ItemsSource>
+                                <CarouselView.ItemTemplate>
+                                    <DataTemplate>
+                                        <AbsoluteLayout>
+                                            <Image
+                                                Aspect="AspectFill"
+                                                Source="home_banner.png"
+                                                StyleClass="FillAbsoluteLayout" />
+                                            <Label
+                                                AbsoluteLayout.LayoutBounds="50,0.7,160,AutoSize"
+                                                AbsoluteLayout.LayoutFlags="YProportional"
+                                                FontFamily="{StaticResource BoldFontFamily}"
+                                                FontSize="20"
+                                                Text="20% off on your first purchase" />
+                                        </AbsoluteLayout>
+                                    </DataTemplate>
+                                </CarouselView.ItemTemplate>
+                            </CarouselView>
+                            <IndicatorView
+                                x:Name="indicatorView"
+                                Margin="0,0,0,30"
+                                AbsoluteLayout.LayoutBounds="20,1"
+                                AbsoluteLayout.LayoutFlags="YProportional"
+                                IndicatorColor="White"
+                                IndicatorSize="8"
+                                MaximumVisible="10"
+                                SelectedIndicatorColor="{StaticResource PrimaryDarkColor}" />
+                        </AbsoluteLayout>
+
+                        <ev:SfEffectsView TouchUpCommand="{Binding ViewCategoriesCommand}">
+                            <StackLayout Padding="15,5" Orientation="Horizontal">
+                                <Label Style="{StaticResource SectionTitle}" Text="Categories" />
+                                <Image Style="{StaticResource SectionArrow}" />
+                            </StackLayout>
+                        </ev:SfEffectsView>
+
+                        <lv:SfListView
+                            AutoFitMode="Height"
+                            HeightRequest="100"
+                            IsScrollBarVisible="False"
+                            ItemsSource="{Static models:Category.All}"
+                            Orientation="Horizontal"
+                            SelectionMode="None">
+                            <lv:SfListView.HeaderTemplate>
+                                <DataTemplate>
+                                    <BoxView WidthRequest="15" />
+                                </DataTemplate>
+                            </lv:SfListView.HeaderTemplate>
+                            <lv:SfListView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Category">
+                                    <FlexLayout
+                                        Padding="0,0,10,0"
+                                        AlignItems="Center"
+                                        Direction="Column"
+                                        WidthRequest="90">
+                                        <Frame
+                                            Padding="0"
+                                            BackgroundColor="{Binding BackgroundColor}"
+                                            CornerRadius="35"
+                                            HasShadow="False"
+                                            HeightRequest="70"
+                                            HorizontalOptions="Center"
+                                            IsClippedToBounds="True"
+                                            WidthRequest="70">
+                                            <ev:SfEffectsView TouchUpCommand="{Binding ViewCategoryCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}" TouchUpCommandParameter="{Binding}">
+                                                <Image HorizontalOptions="Center" VerticalOptions="Center">
+                                                    <Image.Source>
+                                                        <FontImageSource
+                                                            FontFamily="{StaticResource Icons}"
+                                                            Glyph="{Binding IconGlyph}"
+                                                            Size="40"
+                                                            Color="{Binding ForegroundColor}" />
+                                                    </Image.Source>
+                                                </Image>
+                                            </ev:SfEffectsView>
+                                        </Frame>
+                                        <Label
+                                            Margin="0,5,0,0"
+                                            FontFamily="{StaticResource MediumFontFamily}"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="1"
+                                            Text="{Binding Name}"
+                                            TextColor="{StaticResource TextSecondaryColor}" />
+                                    </FlexLayout>
+                                </DataTemplate>
+                            </lv:SfListView.ItemTemplate>
+                        </lv:SfListView>
+
+                        <ev:SfEffectsView>
+                            <StackLayout Padding="15,5" Orientation="Horizontal">
+                                <Label Style="{StaticResource SectionTitle}" Text="Featured Products" />
+                                <Image Style="{StaticResource SectionArrow}" />
+                            </StackLayout>
+                        </ev:SfEffectsView>
+                        <ActivityIndicator
+                            HorizontalOptions="Center"
+                            IsRunning="True"
+                            IsVisible="False"
+                            WidthRequest="30">
+                            <ActivityIndicator.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding LoadStatus}"
+                                    TargetType="ActivityIndicator"
+                                    Value="{Static vm:LoadStatus.Loading}">
+                                    <Setter Property="IsVisible" Value="True" />
+                                </DataTrigger>
+                            </ActivityIndicator.Triggers>
+                        </ActivityIndicator>
+                    </StackLayout>
+                </DataTemplate>
+            </lv:SfListView.HeaderTemplate>
+
+            <lv:SfListView.ItemTemplate>
+                <DataTemplate x:DataType="models:Product">
+                    <controls:ProductView
+                        Margin="15,0,7.5,15"
+                        AddToCartCommand="{Binding BindingContext.AddToCartCommand, Source={Reference root}}"
+                        Product="{Binding}"
+                        ToggleFavoriteCommand="{Binding BindingContext.ToggleFavoriteCommand, Source={Reference root}}"
+                        ViewCommand="{Binding BindingContext.ViewProductCommand, Source={Reference root}}">
+                        <View.Triggers>
                             <DataTrigger
-                                Binding="{Binding LoadStatus}"
-                                TargetType="ActivityIndicator"
-                                Value="{Static vm:LoadStatus.Loading}">
-                                <Setter Property="IsVisible" Value="True" />
+                                Binding="{Binding Column}"
+                                TargetType="controls:ProductView"
+                                Value="1">
+                                <Setter Property="Margin" Value="7.5,0,15,15" />
                             </DataTrigger>
-                        </ActivityIndicator.Triggers>
-                    </ActivityIndicator>
-                </StackLayout>
-            </DataTemplate>
-        </lv:SfListView.HeaderTemplate>
+                        </View.Triggers>
+                    </controls:ProductView>
+                </DataTemplate>
+            </lv:SfListView.ItemTemplate>
 
-        <lv:SfListView.ItemTemplate>
-            <DataTemplate x:DataType="models:Product">
-                <controls:ProductView
-                    Margin="15,0,7.5,15"
-                    AddToCartCommand="{Binding BindingContext.AddToCartCommand, Source={Reference root}}"
-                    Product="{Binding}"
-                    ToggleFavoriteCommand="{Binding BindingContext.ToggleFavoriteCommand, Source={Reference root}}"
-                    ViewCommand="{Binding BindingContext.ViewProductCommand, Source={Reference root}}">
-                    <View.Triggers>
-                        <DataTrigger
-                            Binding="{Binding Column}"
-                            TargetType="controls:ProductView"
-                            Value="1">
-                            <Setter Property="Margin" Value="7.5,0,15,15" />
-                        </DataTrigger>
-                    </View.Triggers>
-                </controls:ProductView>
-            </DataTemplate>
-        </lv:SfListView.ItemTemplate>
-
-        <lv:SfListView.FooterTemplate>
-            <DataTemplate>
-                <BoxView HeightRequest="40" />
-            </DataTemplate>
-        </lv:SfListView.FooterTemplate>
-    </lv:SfListView>
+            <lv:SfListView.FooterTemplate>
+                <DataTemplate>
+                    <BoxView HeightRequest="40" />
+                </DataTemplate>
+            </lv:SfListView.FooterTemplate>
+        </lv:SfListView>
+    </StackLayout>
 </pages:Tab>
