@@ -48,6 +48,15 @@ namespace BigCart.ViewModels
             NextCommand = new AsyncCommand(NextSlideAsync, allowsMultipleExecutions: false);
         }
 
+        public override bool OnBackButtonPressed()
+        {
+            if (_currentSlideIndex == 0)
+                return base.OnBackButtonPressed();
+
+            CurrentSlideIndex--;
+            return true;
+        }
+
         private async Task NextSlideAsync()
         {
             if (_currentSlideIndex < Slides.Length - 1)
