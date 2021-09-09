@@ -11,6 +11,14 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace BigCart.Pages
 {
+    public enum PageStatus
+    {
+        Pending,
+        Active,
+        Paused,
+        Stopped
+    }
+
     public enum StatusBarStyle
     {
         LightContent,
@@ -22,10 +30,10 @@ namespace BigCart.Pages
         public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.Create(nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(Page), StatusBarStyle.DarkContent);
         public static readonly BindableProperty SoftInputModeProperty = BindableProperty.Create(nameof(WindowSoftInputModeAdjust), typeof(WindowSoftInputModeAdjust), typeof(Page), WindowSoftInputModeAdjust.Pan);
         private static bool _subscribedToAppEvents;
-        protected bool _hasLoaded;
         private const int TRANSITION_DURATION = 250;
         private ViewModel _viewModel;
 
+        public PageStatus Status { get; private set; } = PageStatus.Pending;
         public StatusBarStyle StatusBarStyle
         {
             get => (StatusBarStyle)GetValue(StatusBarStyleProperty);
@@ -99,13 +107,10 @@ namespace BigCart.Pages
         {
             await NextTickAsync();
 
-            if (_hasLoaded)
+            if (Status == PageStatus.Paused)
                 OnResume();
             else
-            {
-                _hasLoaded = true;
                 OnStart();
-            }
         }
 
         protected override void OnDisappearing()
@@ -133,6 +138,8 @@ namespace BigCart.Pages
 
         protected virtual void OnStart()
         {
+            Status = PageStatus.Active;
+
             foreach (ToolbarItem item in ToolbarItems)
                 item.BindingContext = BindingContext;
 
@@ -141,6 +148,7 @@ namespace BigCart.Pages
 
         protected virtual void OnResume()
         {
+            Status = PageStatus.Active;
             _viewModel?.OnResume();
         }
 
@@ -151,11 +159,13 @@ namespace BigCart.Pages
 
         protected virtual void OnPause()
         {
+            Status = PageStatus.Paused;
             _viewModel?.OnPause();
         }
 
         protected virtual void OnStop()
         {
+            Status = PageStatus.Stopped;
             _viewModel?.OnStop();
         }
 
