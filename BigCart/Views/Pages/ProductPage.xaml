@@ -104,6 +104,7 @@
                                 </ev:SfEffectsView>
                             </StackLayout>
                             <Label
+                                Padding="{OnPlatform Android='0,-10'}"
                                 FontFamily="{StaticResource BoldFontFamily}"
                                 FontSize="25"
                                 Text="{Binding Product.Name}" />
@@ -114,7 +115,7 @@
                                 TextColor="{StaticResource TextSecondaryColor}" />
 
                             <FlexLayout
-                                Margin="0,10"
+                                Margin="0,5,0,10"
                                 AlignItems="Center"
                                 Direction="Row">
                                 <Label
@@ -139,6 +140,7 @@
                                     </rating:SfRating.RatingSettings>
                                 </rating:SfRating>
                                 <Label
+                                    FontFamily="{StaticResource MediumFontFamily}"
                                     FontSize="16"
                                     Text="(100 reviews)"
                                     TextColor="{StaticResource TextSecondaryColor}" />
