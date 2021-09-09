@@ -21,6 +21,11 @@ namespace BigCart.Services.Modal
             return UserDialogs.Instance.AlertAsync(message, title, okText);
         }
 
+        public Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string cancelText = null)
+        {
+            return UserDialogs.Instance.ConfirmAsync(message, title, okText, cancelText);
+        }
+
         public void ShowLoading(string text)
         {
             UserDialogs.Instance.ShowLoading(text);
@@ -58,5 +63,6 @@ namespace BigCart.Services.Modal
         {
             return _pageService.MainPage.Navigation.PopModalAsync();
         }
+
     }
 }
