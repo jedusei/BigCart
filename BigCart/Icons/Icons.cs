@@ -26,5 +26,12 @@
         public const string Discount = "\ue915";
         public const string Delivery = "\ue916";
         public const string Shipping = "\ue917";
+        public const string MapMarker = "\ue918";
+        public const string Box = "\ue919";
+        public const string SignOut = "\ue91a";
+        public const string Notifications = "\ue91b";
+        public const string Transactions = "\ue91c";
+        public const string CreditCard = "\ue91d";
+        public const string Camera = "\ue91e";
     }
 }

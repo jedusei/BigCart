@@ -243,4 +243,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\plus.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\avatar.png" />
+  </ItemGroup>
 </Project>
