@@ -3,13 +3,99 @@
     x:Class="BigCart.Pages.AccountTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     vm:ViewModelLocator.AutoWireViewModel="True">
-    <ContentView.Content>
-        <Label
-            HorizontalOptions="Center"
-            Text="Account"
-            VerticalOptions="CenterAndExpand" />
-    </ContentView.Content>
+    <ContentView.Resources>
+        <Color x:Key="MenuIconColor">#28B446</Color>
+    </ContentView.Resources>
+
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <AbsoluteLayout BackgroundColor="{StaticResource BackgroundSecondaryColor}">
+            <BoxView
+                AbsoluteLayout.LayoutBounds="0,0,1,120"
+                AbsoluteLayout.LayoutFlags="WidthProportional"
+                Color="{StaticResource BackgroundPrimaryColor}" />
+            <StackLayout
+                Padding="0,20,0,30"
+                Spacing="0"
+                StyleClass="FillAbsoluteLayout">
+                <AbsoluteLayout
+                    Margin="0,20,0,10"
+                    HeightRequest="140"
+                    HorizontalOptions="Center"
+                    WidthRequest="140">
+                    <border:SfBorder
+                        BorderWidth="0"
+                        CornerRadius="70"
+                        StyleClass="FillAbsoluteLayout">
+                        <Image Aspect="AspectFill" Source="avatar.png" />
+                    </border:SfBorder>
+                    <ev:SfEffectsView
+                        AbsoluteLayout.LayoutBounds="0.95,1,40,40"
+                        AbsoluteLayout.LayoutFlags="PositionProportional"
+                        BackgroundColor="#28B446"
+                        CornerRadius="20">
+                        <Image
+                            HeightRequest="15"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="{StaticResource Icons}"
+                                    Glyph="{Static icons:Icons.Camera}"
+                                    Color="White" />
+                            </Image.Source>
+                        </Image>
+                    </ev:SfEffectsView>
+                </AbsoluteLayout>
+                <Label
+                    FontFamily="{StaticResource BoldFontFamily}"
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    Text="Olivia Austin" />
+                <Label
+                    Margin="{OnPlatform '0,0,0,20', Android='0,-5,0,20'}"
+                    HorizontalOptions="Center"
+                    Text="oliviaaustin@gmail.com"
+                    TextColor="{StaticResource TextSecondaryColor}" />
+
+                <StackLayout x:Name="_menuLayout">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Null}">
+                            <ev:SfEffectsView>
+                                <FlexLayout
+                                    Padding="40,10"
+                                    AlignItems="Center"
+                                    Direction="Row">
+                                    <Image
+                                        Aspect="AspectFit"
+                                        HeightRequest="25"
+                                        Source="{Binding Icon}"
+                                        WidthRequest="25" />
+                                    <Label
+                                        Margin="15,0,0,0"
+                                        FlexLayout.Grow="1"
+                                        FontFamily="{StaticResource MediumFontFamily}"
+                                        FontSize="17"
+                                        Text="{Binding Title}" />
+                                    <Image HeightRequest="20" IsVisible="{Binding ShowArrow}">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="{StaticResource Icons}"
+                                                Glyph="{Static icons:Icons.ChevronRight}"
+                                                Color="{StaticResource TextSecondaryColor}" />
+                                        </Image.Source>
+                                    </Image>
+                                </FlexLayout>
+                            </ev:SfEffectsView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ScrollView>
 </pages:Tab>
