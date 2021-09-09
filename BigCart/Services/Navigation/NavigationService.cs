@@ -34,8 +34,15 @@ namespace BigCart.Services.Navigation
             {
                 if (options.ClearHistory)
                 {
-                    for (int i = navigation.NavigationStack.Count - 2; i >= 0; i--)
-                        navigation.RemovePage(navigation.NavigationStack[i]);
+                    int startIndex = navigation.NavigationStack.Count - 2;
+                    for (int i = startIndex; i >= 0; i--)
+                    {
+                        Xamarin.Forms.Page p = navigation.NavigationStack[i];
+                        navigation.RemovePage(p);
+
+                        if (i < startIndex && p is Page)
+                            (p as Page).Stop();
+                    }
                 }
                 else if (options.Replace)
                 {

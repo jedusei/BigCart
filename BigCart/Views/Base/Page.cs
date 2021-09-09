@@ -52,6 +52,12 @@ namespace BigCart.Pages
             SubscribeToAppEvents();
         }
 
+        public void Stop()
+        {
+            if (Status == PageStatus.Paused)
+                OnStop();
+        }
+
         private void SubscribeToAppEvents()
         {
             if (_subscribedToAppEvents)
