@@ -9,11 +9,7 @@ namespace BigCart.ViewModels
 
         public ModalViewModel()
         {
-            GoBackCommand = new AsyncCommand(async () =>
-            {
-                if (!OnBackButtonPressed())
-                    await _modalService.PopAsync();
-            });
+            GoBackCommand = new AsyncCommand(_modalService.PopAsync);
         }
 
         public Task<object> GetResultAsync()
@@ -29,6 +25,12 @@ namespace BigCart.ViewModels
         protected virtual object GetDefaultResult()
         {
             return null;
+        }
+
+        public sealed override bool OnBackButtonPressed()
+        {
+            GoBackCommand.Execute(null);
+            return true;
         }
 
         public override void OnStop()
