@@ -8,7 +8,9 @@
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
-    vm:ViewModelLocator.AutoWireViewModel="True">
+    x:Name="root"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:AccountViewModel">
     <ContentView.Resources>
         <Color x:Key="MenuIconColor">#28B446</Color>
     </ContentView.Resources>
@@ -66,7 +68,7 @@
                 <StackLayout x:Name="_menuLayout">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="{x:Null}">
-                            <ev:SfEffectsView>
+                            <ev:SfEffectsView TouchUpCommand="{Binding BindingContext.OpenMenuItemCommand, Source={Reference root}}" TouchUpCommandParameter="{Binding Id}">
                                 <FlexLayout
                                     Padding="40,10"
                                     AlignItems="Center"
