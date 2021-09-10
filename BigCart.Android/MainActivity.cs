@@ -5,7 +5,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using BigCart.Messaging;
-using System.Threading;
 using System.Threading.Tasks;
 using FormsApplication = Xamarin.Forms.Application;
 using MessagingCenter = Xamarin.Forms.MessagingCenter;
@@ -49,7 +48,7 @@ namespace BigCart.Droid
                 App.Current?.Stop();
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 

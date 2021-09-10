@@ -4,11 +4,13 @@ using Android.Views;
 using AndroidX.Core.View;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
+using BigCart.Messaging;
 using BigCart.Pages;
 using Java.Interop;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using FormsApplication = Xamarin.Forms.Application;
 using Page = BigCart.Pages.Page;
 
 [assembly: ExportRenderer(typeof(Page), typeof(BigCart.Droid.Renderers.PageRenderer))]
@@ -16,8 +18,9 @@ namespace BigCart.Droid.Renderers
 {
     public class PageRenderer : Xamarin.Forms.Platform.Android.PageRenderer, ILifecycleObserver
     {
+        private static bool _isFirstPage = true;
         private static double _navBarHeight;
-        private Window _window;
+        private readonly Window _window;
         private NavigationPageRenderer _navigationPageRenderer;
         private Fragment _fragment;
         private ViewGroup _fragmentViewGroup;
@@ -25,6 +28,8 @@ namespace BigCart.Droid.Renderers
         public PageRenderer(Context context) : base(context)
         {
             _window = context.GetActivity().Window;
+            if (_isFirstPage)
+                MessagingCenter.Subscribe<FormsApplication>(this, MessageKeys.Stop, OnAppStop, App.Current);
         }
 
         [Export]
@@ -42,9 +47,21 @@ namespace BigCart.Droid.Renderers
 
         private void OnPreDrawFragment(object sender, ViewTreeObserver.PreDrawEventArgs e)
         {
+            _fragmentViewGroup.ViewTreeObserver.PreDraw -= OnPreDrawFragment;
             _fragment.StartPostponedEnterTransition();
             _navigationPageRenderer.NotifyEnterTransitionStarted();
-            _fragmentViewGroup.ViewTreeObserver.PreDraw -= OnPreDrawFragment;
+
+            if (_isFirstPage)
+            {
+                _isFirstPage = false;
+                MessagingCenter.Send<FormsApplication>(App.Current, MessageKeys.Start);
+            }
+        }
+
+        private void OnAppStop(FormsApplication _)
+        {
+            _isFirstPage = true;
+            MessagingCenter.Unsubscribe<FormsApplication>(this, MessageKeys.Stop);
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Page> e)
@@ -94,7 +111,7 @@ namespace BigCart.Droid.Renderers
             return base.OnApplyWindowInsets(insets);
         }
 
-        void UpdateStatusBarStyle()
+        private void UpdateStatusBarStyle()
         {
             var statusBarStyle = (StatusBarStyle)Element.GetValue(Page.StatusBarStyleProperty);
 

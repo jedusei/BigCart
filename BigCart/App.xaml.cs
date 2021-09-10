@@ -36,6 +36,7 @@ namespace BigCart
         public void Stop()
         {
             Status = AppStatus.Stopped;
+            MessagingCenter.Send((Application)this, MessageKeys.Stop);
         }
 
         protected override void OnStart()
@@ -70,7 +71,8 @@ namespace BigCart
 
             DependencyResolver.Get<INavigationService>().Initialize();
             Status = AppStatus.Running;
-            MessagingCenter.Send((Application)this, MessageKeys.Start);
+            if (Device.RuntimePlatform == Device.iOS)
+                MessagingCenter.Send((Application)this, MessageKeys.Start); // On Android this will be called by the page renderer right before it is drawn.
         }
     }
 }
