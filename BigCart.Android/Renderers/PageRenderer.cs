@@ -18,14 +18,13 @@ namespace BigCart.Droid.Renderers
     {
         private static double _navBarHeight;
         private Window _window;
+        private NavigationPageRenderer _navigationPageRenderer;
         private Fragment _fragment;
         private ViewGroup _fragmentViewGroup;
 
         public PageRenderer(Context context) : base(context)
         {
             _window = context.GetActivity().Window;
-            _fragment = context.GetFragmentManager().FindFragmentById(NavigationPageRenderer.Instance.Id);
-            _fragment.ViewLifecycleOwner.Lifecycle.AddObserver(this);
         }
 
         [Export]
@@ -44,9 +43,23 @@ namespace BigCart.Droid.Renderers
         private void OnPreDrawFragment(object sender, ViewTreeObserver.PreDrawEventArgs e)
         {
             _fragment.StartPostponedEnterTransition();
-            _fragment = null;
+            _navigationPageRenderer.NotifyEnterTransitionStarted();
             _fragmentViewGroup.ViewTreeObserver.PreDraw -= OnPreDrawFragment;
-            _fragmentViewGroup = null;
+        }
+
+        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Page> e)
+        {
+            base.OnElementChanged(e);
+
+            if (e.NewElement != null)
+            {
+                _navigationPageRenderer = Platform.GetRenderer((VisualElement)e.NewElement.Parent) as NavigationPageRenderer;
+                if (_navigationPageRenderer != null)
+                {
+                    _fragment = _navigationPageRenderer.GetCurrentFragment();
+                    _fragment.ViewLifecycleOwner.Lifecycle.AddObserver(this);
+                }
+            }
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
