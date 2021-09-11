@@ -31,7 +31,7 @@ namespace BigCart.ViewModels
             ViewCategoriesCommand = new AsyncCommand(() => _navigationService.PushAsync<CategoriesPage>());
             ViewCategoryCommand = new AsyncCommand<Category>(category => _navigationService.PushAsync<CategoryPage>(new() { Data = category }));
             ViewProductCommand = new AsyncCommand<Product>(product => _navigationService.PushAsync<ProductPage>(new() { Data = product }));
-            ToggleFavoriteCommand = new Command<Product>(p => p.IsFavorite = !p.IsFavorite);
+            ToggleFavoriteCommand = new Command<Product>(p => _productService.SetFavoriteStatus(p, !p.IsFavorite));
             AddToCartCommand = new Command<Product>(p =>
             {
                 p.IsInCart = true;

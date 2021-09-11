@@ -3,13 +3,102 @@
     x:Class="BigCart.Pages.FavoritesTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
-    vm:ViewModelLocator.AutoWireViewModel="True">
-    <ContentView.Content>
-        <Label
-            HorizontalOptions="Center"
-            Text="Favorites"
-            VerticalOptions="CenterAndExpand" />
-    </ContentView.Content>
+    x:Name="root"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:FavoritesViewModel">
+    <StackLayout BackgroundColor="{StaticResource BackgroundSecondaryColor}" Spacing="0">
+        <ContentView BackgroundColor="{StaticResource BackgroundPrimaryColor}" HeightRequest="60">
+            <Label
+                HorizontalOptions="Center"
+                Style="{StaticResource PageTitle}"
+                Text="Favorites"
+                VerticalOptions="CenterAndExpand" />
+        </ContentView>
+
+        <CollectionView ItemsSource="{Binding Favorites}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Product">
+                    <SwipeView
+                        Padding="15,10,15,0"
+                        BackgroundColor="Transparent"
+                        Threshold="120">
+                        <StackLayout
+                            Padding="10"
+                            BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <AbsoluteLayout VerticalOptions="Center">
+                                <BoxView
+                                    AbsoluteLayout.LayoutBounds="0,0,70,70"
+                                    AbsoluteLayout.LayoutFlags="XProportional"
+                                    CornerRadius="35"
+                                    Color="{Binding Color}" />
+                                <Image
+                                    AbsoluteLayout.LayoutBounds="0,20"
+                                    Source="{Binding ImageSource}"
+                                    WidthRequest="70" />
+                            </AbsoluteLayout>
+
+                            <StackLayout
+                                HorizontalOptions="FillAndExpand"
+                                Spacing="0"
+                                VerticalOptions="Center">
+                                <Label Text="{Binding Price, StringFormat='{0:C2}'}" TextColor="{StaticResource PrimaryDarkColor}" />
+                                <Label
+                                    Padding="{OnPlatform Android='0,-5'}"
+                                    FontFamily="{StaticResource MediumFontFamily}"
+                                    FontSize="20"
+                                    Text="{Binding Name}" />
+                                <Label Text="{Binding Weight, StringFormat='{0:F2} lbs'}" TextColor="{StaticResource TextSecondaryColor}" />
+                            </StackLayout>
+
+                            <StackLayout>
+                                <ev:SfEffectsView
+                                    x:Name="IncreaseButton"
+                                    HeightRequest="30"
+                                    TouchUp="IncreaseButtonClicked"
+                                    TouchUpCommandParameter="{Binding}"
+                                    WidthRequest="30">
+                                    <Image
+                                        HeightRequest="15"
+                                        HorizontalOptions="Center"
+                                        Source="plus.png"
+                                        VerticalOptions="Center" />
+                                </ev:SfEffectsView>
+                                <Label
+                                    FontFamily="{StaticResource MediumFontFamily}"
+                                    FontSize="17"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Quantity}" />
+                                <ev:SfEffectsView
+                                    HeightRequest="30"
+                                    TouchUp="DecreaseButtonClicked"
+                                    TouchUpCommandParameter="{Binding}"
+                                    WidthRequest="30">
+                                    <Image
+                                        HeightRequest="2"
+                                        HorizontalOptions="Center"
+                                        Source="minus.png"
+                                        VerticalOptions="Center" />
+                                </ev:SfEffectsView>
+                            </StackLayout>
+                        </StackLayout>
+
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Command="{Binding BindingContext.RemoveItemCommand, Source={Reference root}}" CommandParameter="{Binding}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.Footer>
+                <BoxView HeightRequest="35" />
+            </CollectionView.Footer>
+        </CollectionView>
+    </StackLayout>
 </pages:Tab>
