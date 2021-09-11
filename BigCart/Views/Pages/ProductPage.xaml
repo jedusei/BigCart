@@ -69,14 +69,11 @@
                                     FontSize="20"
                                     Text="{Binding Product.Price, StringFormat='{0:C2}'}"
                                     TextColor="{StaticResource PrimaryDarkColor}"
-                                    VerticalOptions="End" />
+                                    VerticalOptions="Center" />
                                 <ev:SfEffectsView
                                     Padding="10"
-                                    AutoResetEffect="Scale"
                                     HorizontalOptions="EndAndExpand"
-                                    ScaleAnimationDuration="150"
-                                    ScaleFactor="0.7"
-                                    TouchDownEffects="Scale"
+                                    Style="{StaticResource ScaleEffectsView}"
                                     TouchUpCommand="{Binding ToggleFavoriteCommand}">
                                     <Image HeightRequest="20" WidthRequest="23">
                                         <Image.Source>
@@ -102,6 +99,7 @@
                                 </ev:SfEffectsView>
                             </StackLayout>
                             <Label
+                                Margin="0,-5,0,0"
                                 Padding="{OnPlatform Android='0,-10'}"
                                 FontFamily="{StaticResource BoldFontFamily}"
                                 FontSize="25"
