@@ -1,8 +1,8 @@
 ﻿using BigCart.DependencyInjection;
 using BigCart.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -80,6 +80,14 @@ namespace BigCart.Services.Products
                 ImageSource = ImageSource.FromFile("broccoli.png")
             },
         };
+        private readonly ObservableCollection<Product> _favorites;
+        private readonly ReadOnlyObservableCollection<Product> _favoritesReadonly;
+
+        public ProductService()
+        {
+            _favorites = new ObservableCollection<Product>(_products.Where(p => p.IsFavorite));
+            _favoritesReadonly = new ReadOnlyObservableCollection<Product>(_favorites);
+        }
 
         public async Task<Product[]> GetProductsAsync(ProductFilter filter = null)
         {
@@ -105,6 +113,21 @@ namespace BigCart.Services.Products
 
             await Task.Delay(1000);
             return results.ToArray();
+        }
+
+        public void SetFavoriteStatus(Product product, bool isFavorite)
+        {
+            if (isFavorite && !_favorites.Contains(product))
+                _favorites.Add(product);
+            else if (!isFavorite && _favorites.Contains(product))
+                _favorites.Remove(product);
+
+            product.IsFavorite = isFavorite;
+        }
+
+        public ReadOnlyObservableCollection<Product> GetFavoriteProducts()
+        {
+            return _favoritesReadonly;
         }
     }
 }
