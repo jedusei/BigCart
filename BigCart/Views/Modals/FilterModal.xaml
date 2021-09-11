@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:modals="clr-namespace:BigCart.Modals"
@@ -82,11 +83,10 @@
                 BorderWidth="0"
                 CornerRadius="5">
                 <FlexLayout AlignItems="Center" Direction="Row">
-                    <rating:SfRating
+                    <controls:RatingEx
                         Margin="5,0"
                         FlexLayout.Grow="1"
-                        ItemCount="5"
-                        ItemSize="18"
+                        Precision="Exact"
                         Value="{Binding Filter.Rating}">
                         <rating:SfRating.RatingSettings>
                             <rating:SfRatingSettings
@@ -95,7 +95,7 @@
                                 UnRatedFill="{StaticResource BackgroundPrimaryColor}"
                                 UnRatedStrokeWidth="0" />
                         </rating:SfRating.RatingSettings>
-                    </rating:SfRating>
+                    </controls:RatingEx>
                     <Label
                         FontFamily="{StaticResource MediumFontFamily}"
                         HorizontalOptions="EndAndExpand"

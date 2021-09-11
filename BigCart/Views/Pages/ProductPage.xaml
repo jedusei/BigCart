@@ -9,9 +9,7 @@
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:pages="clr-namespace:BigCart.Pages"
-    xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     vm:ViewModelLocator.AutoWireViewModel="True"
     x:DataType="vm:ProductViewModel"
     BackgroundColor="{StaticResource BackgroundPrimaryColor}">
@@ -121,24 +119,12 @@
                                 <Label
                                     FontFamily="{StaticResource BoldFontFamily}"
                                     FontSize="16"
-                                    Text="{Binding Product.Rating}" />
-                                <rating:SfRating
+                                    Text="{Binding Product.Rating, StringFormat='{0:F1}'}" />
+                                <controls:RatingEx
                                     Margin="5,0"
-                                    ItemCount="5"
-                                    ItemSize="18"
-                                    Precision="Half"
                                     ReadOnly="True"
-                                    TranslationY="{OnPlatform Android=-2}"
-                                    Value="{Binding Product.Rating}">
-                                    <rating:SfRating.RatingSettings>
-                                        <rating:SfRatingSettings
-                                            RatedFill="#FFC107"
-                                            RatedStroke="#FFC107"
-                                            RatedStrokeWidth="{OnPlatform 3, iOS=1}"
-                                            UnRatedStroke="#FFC107"
-                                            UnRatedStrokeWidth="{OnPlatform 3, iOS=1}" />
-                                    </rating:SfRating.RatingSettings>
-                                </rating:SfRating>
+                                    TranslationY="{OnPlatform -1, Android=-2}"
+                                    Value="{Binding Product.Rating}" />
                                 <Label
                                     FontFamily="{StaticResource MediumFontFamily}"
                                     FontSize="16"

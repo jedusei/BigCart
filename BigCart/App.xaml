@@ -11,6 +11,7 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:num="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
     xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
     xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
@@ -169,6 +170,20 @@
         </Style>
         <Style TargetType="RefreshView">
             <Setter Property="RefreshColor" Value="{StaticResource ActivityIndicatorColor}" />
+        </Style>
+
+        <Style x:Key="Rating" TargetType="rating:SfRating">
+            <Setter Property="ItemCount" Value="5" />
+            <Setter Property="ItemSize" Value="18" />
+            <Setter Property="Precision" Value="Half" />
+            <Setter Property="RatingSettings">
+                <rating:SfRatingSettings
+                    RatedFill="#FFC107"
+                    RatedStroke="#FFC107"
+                    RatedStrokeWidth="{OnPlatform 3, iOS=1}"
+                    UnRatedStroke="#FFC107"
+                    UnRatedStrokeWidth="{OnPlatform 3, iOS=1}" />
+            </Setter>
         </Style>
 
         <Style x:Key="PageWithTitleBar" TargetType="pages:Page">
