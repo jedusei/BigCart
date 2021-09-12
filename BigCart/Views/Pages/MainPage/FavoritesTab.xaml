@@ -3,7 +3,9 @@
     x:Class="BigCart.Pages.FavoritesTab"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:models="clr-namespace:BigCart.Models"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
@@ -22,10 +24,10 @@
         <CollectionView ItemsSource="{Binding Favorites}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Product">
-                    <SwipeView
+                    <controls:SwipeViewEx
                         Padding="15,10,15,0"
                         BackgroundColor="Transparent"
-                        Threshold="120">
+                        Threshold="80">
                         <StackLayout
                             Padding="10"
                             BackgroundColor="{StaticResource BackgroundPrimaryColor}"
@@ -89,11 +91,28 @@
                         </StackLayout>
 
                         <SwipeView.RightItems>
-                            <SwipeItems Mode="Execute">
-                                <SwipeItem Command="{Binding BindingContext.RemoveItemCommand, Source={Reference root}}" CommandParameter="{Binding}" />
+                            <SwipeItems SwipeBehaviorOnInvoked="RemainOpen">
+                                <SwipeItemView
+                                    BackgroundColor="#EF574B"
+                                    Command="{Binding BindingContext.RemoveItemCommand, Source={Reference root}}"
+                                    CommandParameter="{Binding}">
+                                    <ev:SfEffectsView>
+                                        <Image
+                                            HeightRequest="28"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center">
+                                            <Image.Source>
+                                                <FontImageSource
+                                                    FontFamily="{StaticResource Icons}"
+                                                    Glyph="{Static icons:Icons.Trash}"
+                                                    Color="White" />
+                                            </Image.Source>
+                                        </Image>
+                                    </ev:SfEffectsView>
+                                </SwipeItemView>
                             </SwipeItems>
                         </SwipeView.RightItems>
-                    </SwipeView>
+                    </controls:SwipeViewEx>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             <CollectionView.Footer>
