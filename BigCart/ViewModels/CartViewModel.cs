@@ -1,6 +1,6 @@
-﻿using BigCart.Models;
+﻿using BigCart.Controls;
+using BigCart.Models;
 using BigCart.Services.Cart;
-using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -91,6 +91,8 @@ namespace BigCart.ViewModels
             bool confirmed = await _modalService.ConfirmAsync("Are you sure you want to remove this item from the cart?");
             if (confirmed)
                 _cartService.SetCartStatus(product, false);
+
+            SwipeViewEx.Close(product);
         }
 
         private void OnCartChanged(object sender, NotifyCollectionChangedEventArgs e)

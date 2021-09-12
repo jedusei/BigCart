@@ -4,8 +4,8 @@ namespace BigCart.Controls
 {
     public class SwipeViewEx : SwipeView
     {
-        public const string MSG_OPENED = nameof(MSG_OPENED);
-        public const string MSG_CLOSE = nameof(MSG_CLOSE);
+        private const string MSG_OPENED = nameof(MSG_OPENED);
+        private const string MSG_CLOSE = nameof(MSG_CLOSE);
 
         private Page Page
         {
@@ -40,6 +40,11 @@ namespace BigCart.Controls
                 if (bc == BindingContext)
                     Close();
             });
+        }
+
+        public static void Close(object bindingContext)
+        {
+            MessagingCenter.Send<object, object>(typeof(SwipeViewEx), MSG_CLOSE, bindingContext);
         }
 
         private void OnSwipeEnded(object sender, SwipeEndedEventArgs e)

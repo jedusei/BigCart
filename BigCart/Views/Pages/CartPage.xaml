@@ -100,24 +100,26 @@
                                     </StackLayout>
 
                                     <SwipeView.RightItems>
-                                        <SwipeItemView
-                                            BackgroundColor="#EF574B"
-                                            Command="{Binding BindingContext.RemoveItemCommand, Source={Reference root}}"
-                                            CommandParameter="{Binding}">
-                                            <ev:SfEffectsView>
-                                                <Image
-                                                    HeightRequest="28"
-                                                    HorizontalOptions="Center"
-                                                    VerticalOptions="Center">
-                                                    <Image.Source>
-                                                        <FontImageSource
-                                                            FontFamily="{StaticResource Icons}"
-                                                            Glyph="{Static icons:Icons.Trash}"
-                                                            Color="White" />
-                                                    </Image.Source>
-                                                </Image>
-                                            </ev:SfEffectsView>
-                                        </SwipeItemView>
+                                        <SwipeItems SwipeBehaviorOnInvoked="RemainOpen">
+                                            <SwipeItemView
+                                                BackgroundColor="#EF574B"
+                                                Command="{Binding BindingContext.RemoveItemCommand, Source={Reference root}}"
+                                                CommandParameter="{Binding}">
+                                                <ev:SfEffectsView>
+                                                    <Image
+                                                        HeightRequest="28"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center">
+                                                        <Image.Source>
+                                                            <FontImageSource
+                                                                FontFamily="{StaticResource Icons}"
+                                                                Glyph="{Static icons:Icons.Trash}"
+                                                                Color="White" />
+                                                        </Image.Source>
+                                                    </Image>
+                                                </ev:SfEffectsView>
+                                            </SwipeItemView>
+                                        </SwipeItems>
                                     </SwipeView.RightItems>
                                 </controls:SwipeViewEx>
                             </DataTemplate>
