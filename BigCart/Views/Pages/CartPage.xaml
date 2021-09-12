@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.CartPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:models="clr-namespace:BigCart.Models"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="root"
+    Title="Shopping Cart"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:CartViewModel"
+    BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+    Style="{StaticResource PageWithTitleBar}">
+    <StackLayout
+        Margin="-15,0"
+        xct:StateLayout.CurrentState="{Binding LoadState}"
+        BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+        Spacing="0">
+        <xct:StateLayout.StateViews>
+            <xct:StateView
+                HorizontalOptions="Center"
+                StateKey="Loading"
+                VerticalOptions="CenterAndExpand">
+                <ActivityIndicator IsRunning="True" WidthRequest="50" />
+            </xct:StateView>
+
+            <xct:StateView StateKey="Success">
+                <StackLayout Spacing="0">
+                    <CollectionView ItemsSource="{Binding Items}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Product">
+                                <SwipeView
+                                    Padding="10,10,10,0"
+                                    BackgroundColor="Transparent"
+                                    Threshold="80">
+                                    <StackLayout
+                                        Padding="10"
+                                        BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                                        Orientation="Horizontal"
+                                        Spacing="10">
+                                        <AbsoluteLayout VerticalOptions="Center">
+                                            <BoxView
+                                                AbsoluteLayout.LayoutBounds="0,0,70,70"
+                                                AbsoluteLayout.LayoutFlags="XProportional"
+                                                CornerRadius="35"
+                                                Color="{Binding Color}" />
+                                            <Image
+                                                AbsoluteLayout.LayoutBounds="0,20"
+                                                Source="{Binding ImageSource}"
+                                                WidthRequest="70" />
+                                        </AbsoluteLayout>
+
+                                        <StackLayout
+                                            HorizontalOptions="FillAndExpand"
+                                            Spacing="0"
+                                            VerticalOptions="Center">
+                                            <Label Text="{Binding Price, StringFormat='{0:C2}'}" TextColor="{StaticResource PrimaryDarkColor}" />
+                                            <Label
+                                                Padding="{OnPlatform Android='0,-5'}"
+                                                FontFamily="{StaticResource MediumFontFamily}"
+                                                FontSize="20"
+                                                Text="{Binding Name}" />
+                                            <Label Text="{Binding Weight, StringFormat='{0:F2} lbs'}" TextColor="{StaticResource TextSecondaryColor}" />
+                                        </StackLayout>
+
+                                        <StackLayout>
+                                            <ev:SfEffectsView
+                                                HeightRequest="30"
+                                                TouchUp="IncreaseButtonClicked"
+                                                TouchUpCommandParameter="{Binding}"
+                                                WidthRequest="30">
+                                                <Image
+                                                    HeightRequest="15"
+                                                    HorizontalOptions="Center"
+                                                    Source="plus.png"
+                                                    VerticalOptions="Center" />
+                                            </ev:SfEffectsView>
+                                            <Label
+                                                FontFamily="{StaticResource MediumFontFamily}"
+                                                FontSize="17"
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Quantity}" />
+                                            <ev:SfEffectsView
+                                                HeightRequest="30"
+                                                TouchUp="DecreaseButtonClicked"
+                                                TouchUpCommandParameter="{Binding}"
+                                                WidthRequest="30">
+                                                <Image
+                                                    HeightRequest="2"
+                                                    HorizontalOptions="Center"
+                                                    Source="minus.png"
+                                                    VerticalOptions="Center" />
+                                            </ev:SfEffectsView>
+                                        </StackLayout>
+                                    </StackLayout>
+
+                                    <SwipeView.RightItems>
+                                        <SwipeItemView
+                                            BackgroundColor="#EF574B"
+                                            Command="{Binding BindingContext.RemoveItemCommand, Source={Reference root}}"
+                                            CommandParameter="{Binding}">
+                                            <ev:SfEffectsView>
+                                                <Image
+                                                    HeightRequest="28"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center">
+                                                    <Image.Source>
+                                                        <FontImageSource
+                                                            FontFamily="{StaticResource Icons}"
+                                                            Glyph="{Static icons:Icons.Trash}"
+                                                            Color="White" />
+                                                    </Image.Source>
+                                                </Image>
+                                            </ev:SfEffectsView>
+                                        </SwipeItemView>
+                                    </SwipeView.RightItems>
+                                </SwipeView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.Footer>
+                            <BoxView HeightRequest="35" />
+                        </CollectionView.Footer>
+                    </CollectionView>
+
+                    <Grid
+                        Padding="15"
+                        BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                        ColumnDefinitions="*,*"
+                        RowDefinitions="Auto,Auto,10,Auto,Auto">
+                        <Grid.Resources>
+                            <Style x:Key="PrimaryText" TargetType="Label">
+                                <Setter Property="FontSize" Value="20" />
+                                <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+                            </Style>
+                            <Style x:Key="SecondaryText" TargetType="Label">
+                                <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
+                                <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+                            </Style>
+                        </Grid.Resources>
+
+                        <Label Style="{StaticResource SecondaryText}" Text="Subtotal" />
+                        <Label
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Style="{StaticResource SecondaryText}"
+                            Text="{Binding Subtotal, StringFormat='{0:C2}'}" />
+                        <Label
+                            Grid.Row="1"
+                            Style="{StaticResource SecondaryText}"
+                            Text="Shipping Charges" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Style="{StaticResource SecondaryText}"
+                            Text="{Binding ShippingCost, StringFormat='{0:C2}'}" />
+                        <BoxView
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            HeightRequest="1"
+                            VerticalOptions="Center"
+                            Color="#EBEBEB" />
+                        <Label
+                            Grid.Row="3"
+                            Style="{StaticResource PrimaryText}"
+                            Text="Total" />
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Style="{StaticResource PrimaryText}"
+                            Text="{Binding Total, StringFormat='{0:C2}'}" />
+
+                        <Button
+                            Grid.Row="4"
+                            Grid.ColumnSpan="2"
+                            Margin="0,15,0,0"
+                            Text="Checkout"
+                            VerticalOptions="End" />
+                    </Grid>
+                </StackLayout>
+            </xct:StateView>
+
+            <xct:StateView
+                HorizontalOptions="Center"
+                StateKey="Empty"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    FontSize="25"
+                    Text="No items"
+                    TextColor="{StaticResource TextSecondaryColor}" />
+            </xct:StateView>
+        </xct:StateLayout.StateViews>
+    </StackLayout>
+</pages:Page>

@@ -44,6 +44,9 @@
     <Compile Update="Views\Modals\FilterModal.xaml.cs">
       <DependentUpon>FilterModal.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Pages\CartPage.xaml.cs">
+      <DependentUpon>CartPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Pages\ProductPage.xaml.cs">
       <DependentUpon>ProductPage.xaml</DependentUpon>
     </Compile>
@@ -52,9 +55,6 @@
     </Compile>
     <Compile Update="Views\Pages\CategoriesPage.xaml.cs">
       <DependentUpon>CategoriesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Pages\MainPage\ShopTab.xaml.cs">
-      <DependentUpon>ShopTab.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Pages\MainPage\FavoritesTab.xaml.cs">
       <DependentUpon>FavoritesTab.xaml</DependentUpon>

@@ -33,5 +33,6 @@
         public const string Transactions = "\ue91c";
         public const string CreditCard = "\ue91d";
         public const string Camera = "\ue91e";
+        public const string Trash = "\ue91f";
     }
 }

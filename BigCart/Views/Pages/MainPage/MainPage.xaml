@@ -57,9 +57,6 @@
                 <xct:TabViewItem>
                     <pages:FavoritesTab />
                 </xct:TabViewItem>
-                <xct:TabViewItem>
-                    <pages:ShopTab />
-                </xct:TabViewItem>
             </xct:TabView>
         </StackLayout>
 
@@ -111,7 +108,7 @@
                     FlexLayout.AlignSelf="Start"
                     HeightRequest="70"
                     WidthRequest="70">
-                    <ev:SfEffectsView Style="{StaticResource TabButton}" TabIndex="3">
+                    <ev:SfEffectsView TouchUpCommand="{Binding ViewCartCommand}">
                         <Image HeightRequest="25" Style="{StaticResource TabIcon}">
                             <Image.Source>
                                 <FontImageSource
