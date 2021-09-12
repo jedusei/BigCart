@@ -3,6 +3,7 @@
     x:Class="BigCart.Pages.CartPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:models="clr-namespace:BigCart.Models"
@@ -33,7 +34,7 @@
                     <CollectionView ItemsSource="{Binding Items}">
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:Product">
-                                <SwipeView
+                                <controls:SwipeViewEx
                                     Padding="10,10,10,0"
                                     BackgroundColor="Transparent"
                                     Threshold="80">
@@ -118,7 +119,7 @@
                                             </ev:SfEffectsView>
                                         </SwipeItemView>
                                     </SwipeView.RightItems>
-                                </SwipeView>
+                                </controls:SwipeViewEx>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                         <CollectionView.Footer>
