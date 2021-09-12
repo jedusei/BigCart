@@ -19,6 +19,7 @@ namespace BigCart.ViewModels
             set => SetProperty(ref _loadStatus, value);
         }
         public Product[] Products { get; private set; }
+        public ICommand OpenSearchCommand { get; }
         public ICommand ViewCategoriesCommand { get; }
         public ICommand ViewCategoryCommand { get; }
         public ICommand ToggleFavoriteCommand { get; }
@@ -28,6 +29,7 @@ namespace BigCart.ViewModels
         public HomeViewModel(IProductService productService)
         {
             _productService = productService;
+            OpenSearchCommand = new AsyncCommand(() => _navigationService.PushAsync<SearchPage>());
             ViewCategoriesCommand = new AsyncCommand(() => _navigationService.PushAsync<CategoriesPage>());
             ViewCategoryCommand = new AsyncCommand<Category>(category => _navigationService.PushAsync<CategoryPage>(new() { Data = category }));
             ViewProductCommand = new AsyncCommand<Product>(product => _navigationService.PushAsync<ProductPage>(new() { Data = product }));

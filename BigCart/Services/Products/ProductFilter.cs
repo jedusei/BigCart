@@ -4,6 +4,7 @@ namespace BigCart.Services.Products
 {
     public class ProductFilter : ObservableObject
     {
+        private string _name;
         private float? _minPrice;
         private float? _maxPrice;
         private float _rating;
@@ -11,6 +12,11 @@ namespace BigCart.Services.Products
         private bool _sameDayDelivery;
         private bool _freeShipping;
 
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value?.Trim());
+        }
         public string Category { get; set; }
         public float? MinPrice
         {

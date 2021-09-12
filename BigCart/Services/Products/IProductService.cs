@@ -10,5 +10,6 @@ namespace BigCart.Services.Products
         Task<Product[]> GetProductsAsync(ProductFilter filter = null);
         void SetFavoriteStatus(Product product, bool isFavorite);
         ReadOnlyObservableCollection<Product> GetFavoriteProducts();
+        ObservableCollection<string> GetSearchHistory();
     }
 }

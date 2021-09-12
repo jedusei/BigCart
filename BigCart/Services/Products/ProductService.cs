@@ -82,19 +82,34 @@ namespace BigCart.Services.Products
         };
         private readonly ObservableCollection<Product> _favorites;
         private readonly ReadOnlyObservableCollection<Product> _favoritesReadonly;
+        private readonly ObservableCollection<string> _searchHistory;
 
         public ProductService()
         {
             _favorites = new ObservableCollection<Product>(_products.Where(p => p.IsFavorite));
             _favoritesReadonly = new ReadOnlyObservableCollection<Product>(_favorites);
+            _searchHistory = new ObservableCollection<string>();
         }
 
         public async Task<Product[]> GetProductsAsync(ProductFilter filter = null)
         {
+            await Task.Delay(1000);
             IEnumerable<Product> results = _products;
 
             if (filter != null)
             {
+                if (!string.IsNullOrWhiteSpace(filter.Name))
+                {
+                    results = results.Where(p => p.Name.Contains(filter.Name, StringComparison.OrdinalIgnoreCase));
+
+                    // Update search history
+                    string historyEntry = _searchHistory.FirstOrDefault(s => s.Equals(filter.Name, StringComparison.OrdinalIgnoreCase));
+                    if (historyEntry == null)
+                        _searchHistory.Insert(0, filter.Name);
+                    else
+                        _searchHistory.Move(_searchHistory.IndexOf(historyEntry), 0);
+                }
+
                 if (!string.IsNullOrWhiteSpace(filter.Category))
                     results = results.Where(p => filter.Category.Equals(p.Category, StringComparison.OrdinalIgnoreCase));
 
@@ -111,7 +126,6 @@ namespace BigCart.Services.Products
                     results = results.Where(p => p.Discount > 0);
             }
 
-            await Task.Delay(1000);
             return results.ToArray();
         }
 
@@ -128,6 +142,11 @@ namespace BigCart.Services.Products
         public ReadOnlyObservableCollection<Product> GetFavoriteProducts()
         {
             return _favoritesReadonly;
+        }
+
+        public ObservableCollection<string> GetSearchHistory()
+        {
+            return _searchHistory;
         }
     }
 }

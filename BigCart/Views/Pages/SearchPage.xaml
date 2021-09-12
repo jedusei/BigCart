@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.SearchPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:effects="clr-namespace:BigCart.Effects"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="root"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:SearchViewModel">
+    <StackLayout effects:SafeAreaEffect.SafeArea="Bottom">
+        <ContentView BackgroundColor="{StaticResource BackgroundPrimaryColor}">
+            <StackLayout
+                effects:SafeAreaEffect.Margin="5,15,15,15"
+                effects:SafeAreaEffect.SafeArea="Top"
+                Orientation="Horizontal"
+                Spacing="5">
+                <ev:SfEffectsView
+                    CornerRadius="25"
+                    HeightRequest="50"
+                    TouchUpCommand="{Binding GoBackCommand}"
+                    VerticalOptions="Center"
+                    WidthRequest="50">
+                    <Image
+                        HeightRequest="16"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Back}"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                </ev:SfEffectsView>
+                <border:SfBorder
+                    BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+                    BorderWidth="0"
+                    CornerRadius="5"
+                    HorizontalOptions="FillAndExpand">
+                    <StackLayout
+                        Padding="20,0,10,0"
+                        Orientation="Horizontal"
+                        Spacing="10">
+                        <Image
+                            HeightRequest="17"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="{StaticResource Icons}"
+                                    Glyph="{Static icons:Icons.Search}"
+                                    Color="{StaticResource TextSecondaryColor}" />
+                            </Image.Source>
+                        </Image>
+                        <txt:SfTextInputLayout
+                            ContainerBackgroundColor="Transparent"
+                            HorizontalOptions="FillAndExpand"
+                            InputViewPadding="0"
+                            VerticalOptions="Center">
+                            <Entry
+                                x:Name="_txtSearch"
+                                HeightRequest="30"
+                                Keyboard="Email"
+                                Placeholder="Search keywords..."
+                                ReturnCommand="{Binding SearchCommand}"
+                                ReturnType="Search"
+                                Text="{Binding Query}" />
+                        </txt:SfTextInputLayout>
+                        <ev:SfEffectsView
+                            CornerRadius="24"
+                            HeightRequest="48"
+                            TouchUpCommand="{Binding ApplyFilterCommand}"
+                            VerticalOptions="Center"
+                            WidthRequest="48">
+                            <Image
+                                HeightRequest="17"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center">
+                                <Image.Source>
+                                    <FontImageSource
+                                        FontFamily="{StaticResource Icons}"
+                                        Glyph="{Static icons:Icons.Filter}"
+                                        Color="{StaticResource TextSecondaryColor}" />
+                                </Image.Source>
+                            </Image>
+                        </ev:SfEffectsView>
+                    </StackLayout>
+                </border:SfBorder>
+            </StackLayout>
+        </ContentView>
+
+        <StackLayout xct:StateLayout.CurrentState="{Binding State}" VerticalOptions="FillAndExpand">
+            <StackLayout Padding="15">
+                <StackLayout.Triggers>
+                    <DataTrigger
+                        Binding="{Binding SearchHistory.Count, FallbackValue=0}"
+                        TargetType="StackLayout"
+                        Value="0">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                </StackLayout.Triggers>
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        FontFamily="{StaticResource MediumFontFamily}"
+                        FontSize="22"
+                        Text="Search History" />
+                    <ev:SfEffectsView
+                        Padding="5"
+                        HorizontalOptions="EndAndExpand"
+                        TouchUpCommand="{Binding ClearHistoryCommand}"
+                        VerticalOptions="Center">
+                        <Label Text="clear" TextColor="{StaticResource TextLinkColor}" />
+                    </ev:SfEffectsView>
+                </StackLayout>
+                <FlexLayout
+                    BindableLayout.ItemsSource="{Binding SearchHistory}"
+                    Direction="Row"
+                    Wrap="Wrap">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <ContentView Padding="0,0,10,10">
+                                <ev:SfEffectsView
+                                    Padding="10,5"
+                                    BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                                    HorizontalOptions="EndAndExpand"
+                                    TouchUpCommand="{Binding BindingContext.SetQueryCommand, Source={Reference root}}"
+                                    TouchUpCommandParameter="{Binding}"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding}"
+                                        TextColor="{StaticResource TextSecondaryColor}" />
+                                </ev:SfEffectsView>
+                            </ContentView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+            </StackLayout>
+
+            <xct:StateLayout.StateViews>
+                <xct:StateView
+                    HorizontalOptions="Center"
+                    StateKey="Loading"
+                    VerticalOptions="CenterAndExpand">
+                    <ActivityIndicator IsRunning="True" WidthRequest="50" />
+                </xct:StateView>
+
+                <xct:StateView StateKey="Success">
+                    <lv:SfListView
+                        AutoFitMode="Height"
+                        IsScrollBarVisible="False"
+                        ItemsSource="{Binding Results}"
+                        SelectionMode="None">
+                        <lv:SfListView.LayoutManager>
+                            <lv:GridLayout SpanCount="2" />
+                        </lv:SfListView.LayoutManager>
+                        <lv:SfListView.HeaderTemplate>
+                            <DataTemplate>
+                                <BoxView HeightRequest="7.5" />
+                            </DataTemplate>
+                        </lv:SfListView.HeaderTemplate>
+                        <lv:SfListView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Product">
+                                <controls:ProductView
+                                    Margin="15,0,7.5,15"
+                                    AddToCartCommand="{Binding BindingContext.AddToCartCommand, Source={Reference root}}"
+                                    Product="{Binding}"
+                                    ToggleFavoriteCommand="{Binding BindingContext.ToggleFavoriteCommand, Source={Reference root}}"
+                                    ViewCommand="{Binding BindingContext.ViewProductCommand, Source={Reference root}}">
+                                    <View.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding Column}"
+                                            TargetType="controls:ProductView"
+                                            Value="1">
+                                            <Setter Property="Margin" Value="7.5,0,15,15" />
+                                        </DataTrigger>
+                                    </View.Triggers>
+                                </controls:ProductView>
+                            </DataTemplate>
+                        </lv:SfListView.ItemTemplate>
+                    </lv:SfListView>
+                </xct:StateView>
+
+                <xct:StateView
+                    HorizontalOptions="Center"
+                    StateKey="Empty"
+                    VerticalOptions="CenterAndExpand">
+                    <Label
+                        FontSize="25"
+                        Text="No results"
+                        TextColor="{StaticResource TextSecondaryColor}" />
+                </xct:StateView>
+            </xct:StateLayout.StateViews>
+        </StackLayout>
+    </StackLayout>
+</pages:Page>
