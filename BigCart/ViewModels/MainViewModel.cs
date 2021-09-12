@@ -1,4 +1,5 @@
-﻿using BigCart.Pages;
+﻿using BigCart.Messaging;
+using BigCart.Pages;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
@@ -21,6 +22,14 @@ namespace BigCart.ViewModels
         {
             GoToTabCommand = new Command<int>(tabIndex => CurrentTabIndex = tabIndex);
             ViewCartCommand = new AsyncCommand(() => _navigationService.PushAsync<CartPage>(), allowsMultipleExecutions: false);
+
+            MessagingCenter.Subscribe<object, int>(this, MessageKeys.GoToTab, (_, tabIndex) => GoToTabCommand.Execute(tabIndex));
+        }
+
+        public override void OnStop()
+        {
+            base.OnStop();
+            MessagingCenter.Unsubscribe<object, int>(this, MessageKeys.GoToTab);
         }
     }
 }

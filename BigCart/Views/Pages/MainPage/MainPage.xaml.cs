@@ -7,6 +7,7 @@ namespace BigCart.Pages
 {
     public partial class MainPage : TabbedPage
     {
+        public const int TAB_FAVORITES = 2;
         private List<Image> _tabIcons = new List<Image>();
 
         public MainPage()

@@ -1,7 +1,9 @@
-﻿using BigCart.Pages;
+﻿using BigCart.Messaging;
+using BigCart.Pages;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace BigCart.ViewModels
 {
@@ -20,6 +22,10 @@ namespace BigCart.ViewModels
             {
                 case AccountTab.MENU_ITEM_ABOUT:
                     await _navigationService.PushAsync<AboutPage>();
+                    break;
+
+                case AccountTab.MENU_ITEM_FAVORITES:
+                    MessagingCenter.Send((object)this, MessageKeys.GoToTab, MainPage.TAB_FAVORITES);
                     break;
 
                 case AccountTab.MENU_ITEM_LOGOUT:
