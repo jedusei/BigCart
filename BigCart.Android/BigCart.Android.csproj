@@ -74,6 +74,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfNumericTextBox">
       <Version>19.2.0.59</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
+      <Version>19.2.0.59</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRating">
       <Version>19.2.0.59</Version>
     </PackageReference>

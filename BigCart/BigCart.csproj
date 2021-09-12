@@ -31,6 +31,7 @@
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfNumericTextBox" Version="19.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="19.2.0.59" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
@@ -76,6 +77,9 @@
     </Compile>
     <Compile Update="Views\Pages\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Pages\CheckoutPage.xaml.cs">
+      <DependentUpon>CheckoutPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

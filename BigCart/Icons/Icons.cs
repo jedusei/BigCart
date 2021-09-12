@@ -34,5 +34,6 @@
         public const string CreditCard = "\ue91d";
         public const string Camera = "\ue91e";
         public const string Trash = "\ue91f";
+        public const string Tick = "\ue920";
     }
 }
