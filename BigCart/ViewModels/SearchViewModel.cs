@@ -1,6 +1,7 @@
 ﻿using BigCart.Modals;
 using BigCart.Models;
 using BigCart.Pages;
+using BigCart.Services.Cart;
 using BigCart.Services.Products;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace BigCart.ViewModels
         public ICommand ViewProductCommand { get; }
         public ICommand AddToCartCommand { get; }
 
-        public SearchViewModel(IProductService productService)
+        public SearchViewModel(IProductService productService, ICartService cartService)
         {
             _productService = productService;
             SearchHistory = productService.GetSearchHistory();
@@ -55,11 +56,7 @@ namespace BigCart.ViewModels
             SetQueryCommand = new Command<string>(query => Query = query);
             ToggleFavoriteCommand = new Command<Product>(p => _productService.SetFavoriteStatus(p, !p.IsFavorite));
             ViewProductCommand = new AsyncCommand<Product>(p => _navigationService.PushAsync<ProductPage>(new() { Data = p }), allowsMultipleExecutions: false);
-            AddToCartCommand = new Command<Product>(p =>
-            {
-                p.IsInCart = true;
-                p.Quantity = 1;
-            });
+            AddToCartCommand = new Command<Product>(p => cartService.SetCartStatus(p, true));
         }
 
         private async Task SearchAsync()

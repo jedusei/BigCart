@@ -1,6 +1,7 @@
 ﻿using BigCart.Modals;
 using BigCart.Models;
 using BigCart.Pages;
+using BigCart.Services.Cart;
 using BigCart.Services.Products;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -28,18 +29,14 @@ namespace BigCart.ViewModels
         public ICommand ViewProductCommand { get; }
         public ICommand AddToCartCommand { get; }
 
-        public CategoryViewModel(IProductService productService)
+        public CategoryViewModel(IProductService productService, ICartService cartService)
         {
             _productService = productService;
             LoadCommand = new AsyncCommand(LoadProductsAsync);
             FilterCommand = new AsyncCommand(FilterProductsAsync, allowsMultipleExecutions: false);
             ToggleFavoriteCommand = new Command<Product>(p => _productService.SetFavoriteStatus(p, !p.IsFavorite));
             ViewProductCommand = new AsyncCommand<Product>(p => _navigationService.PushAsync<ProductPage>(new() { Data = p }), allowsMultipleExecutions: false);
-            AddToCartCommand = new Command<Product>(p =>
-            {
-                p.IsInCart = true;
-                p.Quantity = 1;
-            });
+            AddToCartCommand = new Command<Product>(p => cartService.SetCartStatus(p, true));
         }
 
         public override void Initialize(object navigationData)

@@ -1,4 +1,5 @@
 ﻿using BigCart.Models;
+using BigCart.Services.Cart;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -11,7 +12,7 @@ namespace BigCart.ViewModels
         public ICommand ChangeQuantityCommand { get; }
         public ICommand AddToCartCommand { get; }
 
-        public ProductViewModel()
+        public ProductViewModel(ICartService cartService)
         {
             ToggleFavoriteCommand = new Command(() => Product.IsFavorite = !Product.IsFavorite);
             ChangeQuantityCommand = new Command<int>(delta =>
@@ -19,7 +20,7 @@ namespace BigCart.ViewModels
                 if (delta > 0 || Product.Quantity > 1)
                     Product.Quantity += delta;
             });
-            AddToCartCommand = new Command(() => Product.IsInCart = true);
+            AddToCartCommand = new Command(() => cartService.SetCartStatus(Product, true));
         }
 
         public override void Initialize(object navigationData)
