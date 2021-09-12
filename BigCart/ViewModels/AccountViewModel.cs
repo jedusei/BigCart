@@ -28,6 +28,10 @@ namespace BigCart.ViewModels
                     MessagingCenter.Send((object)this, MessageKeys.GoToTab, MainPage.TAB_FAVORITES);
                     break;
 
+                case AccountTab.MENU_ITEM_NOTIFICATIONS:
+                    await _navigationService.PushAsync<NotificationsPage>();
+                    break;
+
                 case AccountTab.MENU_ITEM_LOGOUT:
                     await LogoutAsync();
                     break;

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.NotificationsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="Notifications"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    Style="{StaticResource PageWithTitleBar}">
+    <ScrollView>
+        <StackLayout>
+            <StackLayout Padding="0,10,0,0" Spacing="10">
+                <BindableLayout.ItemsSource>
+                    <x:Array Type="{Type x:String}">
+                        <x:String>Allow Notifications</x:String>
+                        <x:String>General Notifications</x:String>
+                        <x:String>Email Notifications</x:String>
+                        <x:String>Order Notifications</x:String>
+                    </x:Array>
+                </BindableLayout.ItemsSource>
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Padding="20"
+                            BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                            ColumnDefinitions="*,Auto"
+                            RowDefinitions="*,*">
+                            <Label
+                                FontFamily="{StaticResource MediumFontFamily}"
+                                FontSize="17"
+                                Text="{Binding}" />
+                            <Label
+                                Grid.Row="1"
+                                FontFamily="{StaticResource MediumFontFamily}"
+                                FontSize="13"
+                                Text="{StaticResource LoremIpsum}"
+                                TextColor="{StaticResource TextSecondaryColor}" />
+                            <controls:SwitchEx
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                IsOn="True"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <Button
+                Margin="0,20"
+                Text="Save settings"
+                VerticalOptions="EndAndExpand" />
+        </StackLayout>
+    </ScrollView>
+</pages:Page>
