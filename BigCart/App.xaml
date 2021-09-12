@@ -123,13 +123,13 @@
                                         <buttons:DefaultSwitchSettings
                                             x:TypeArguments="buttons:OnState"
                                             HasThumbShadow="False"
-                                            ThumbBorderColor="{StaticResource PrimaryColor}"
+                                            ThumbBorderColor="{StaticResource PrimaryDarkColor}"
                                             ThumbBorderWidth="1.5"
                                             ThumbColor="{StaticResource BackgroundPrimaryColor}"
                                             ThumbHeightRequest="16"
                                             ThumbWidthRequest="16"
                                             TrackBorderWidth="0"
-                                            TrackColor="{StaticResource PrimaryColor}"
+                                            TrackColor="{StaticResource PrimaryDarkColor}"
                                             TrackCornerRadius="20"
                                             TrackHeightRequest="16"
                                             TrackWidthRequest="30" />
