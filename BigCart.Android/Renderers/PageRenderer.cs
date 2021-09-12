@@ -68,9 +68,9 @@ namespace BigCart.Droid.Renderers
         {
             base.OnElementChanged(e);
 
-            if (e.NewElement != null)
+            if (e.NewElement?.Parent is NavigationPage navigationPage)
             {
-                _navigationPageRenderer = Platform.GetRenderer((VisualElement)e.NewElement.Parent) as NavigationPageRenderer;
+                _navigationPageRenderer = Platform.GetRenderer(navigationPage) as NavigationPageRenderer;
                 if (_navigationPageRenderer != null)
                 {
                     _fragment = _navigationPageRenderer.GetCurrentFragment();
