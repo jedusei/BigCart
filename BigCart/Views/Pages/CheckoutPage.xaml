@@ -22,6 +22,7 @@
             LayoutOption="Equal"
             Orientation="Horizontal"
             ProgressAnimationDuration="250"
+            StepTapped="SfStepProgressBar_StepTapped"
             TitleSpace="{OnPlatform 5, iOS=10}">
             <progressBar:SfStepProgressBar.NotStartedStepStyle>
                 <progressBar:StepStyle
@@ -141,11 +142,18 @@
                         <Setter Property="Status" Value="InProgress" />
                         <Setter Property="ProgressValue" Value="100" />
                     </DataTrigger>
+                    <DataTrigger
+                        Binding="{Binding IsComplete}"
+                        TargetType="progressBar:StepView"
+                        Value="True">
+                        <Setter Property="Status" Value="Completed" />
+                    </DataTrigger>
                 </View.Triggers>
             </progressBar:StepView>
         </progressBar:SfStepProgressBar>
 
         <xct:TabView
+            IsSwipeEnabled="False"
             IsTabStripVisible="False"
             SelectedIndex="{Binding CurrentStep}"
             VerticalOptions="FillAndExpand">
@@ -159,5 +167,19 @@
                 <BoxView Color="Green" />
             </xct:TabViewItem>
         </xct:TabView>
+
+        <Button
+            Margin="15,20"
+            Command="{Binding NextStepCommand}"
+            Text="Next">
+            <Button.Triggers>
+                <DataTrigger
+                    Binding="{Binding CurrentStep}"
+                    TargetType="Button"
+                    Value="2">
+                    <Setter Property="Text" Value="Make payment" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
     </StackLayout>
 </pages:Page>
