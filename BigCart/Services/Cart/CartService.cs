@@ -35,10 +35,13 @@ namespace BigCart.Services.Cart
 
         public void SetCartStatus(Product product, bool isInCart)
         {
-            if (!isInCart)
-                _items.Remove(product);
-            else if (!_items.Contains(product))
-                _items.Add(product);
+            if (_items != null)
+            {
+                if (!isInCart)
+                    _items.Remove(product);
+                else if (!_items.Contains(product))
+                    _items.Add(product);
+            }
 
             product.IsInCart = isInCart;
             product.Quantity = isInCart ? 1 : 0;
