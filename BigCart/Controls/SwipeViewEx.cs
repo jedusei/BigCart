@@ -7,31 +7,13 @@ namespace BigCart.Controls
         private const string MSG_OPENED = nameof(MSG_OPENED);
         private const string MSG_CLOSE = nameof(MSG_CLOSE);
 
-        private Page Page
-        {
-            get
-            {
-                Element parent = Parent;
-
-                while (parent != null)
-                {
-                    if (parent is Page page)
-                        return page;
-
-                    parent = parent.Parent;
-                }
-
-                return null;
-            }
-        }
-
         public SwipeViewEx()
         {
             SwipeEnded += OnSwipeEnded;
 
-            MessagingCenter.Subscribe<SwipeViewEx, Page>(this, MSG_OPENED, (sender, page) =>
+            MessagingCenter.Subscribe<SwipeViewEx>(this, MSG_OPENED, sender =>
             {
-                if (sender != this && page == Page)
+                if (sender != this)
                     Close();
             });
 
@@ -50,7 +32,7 @@ namespace BigCart.Controls
         private void OnSwipeEnded(object sender, SwipeEndedEventArgs e)
         {
             if (e.IsOpen)
-                MessagingCenter.Send(this, MSG_OPENED, Page);
+                MessagingCenter.Send(this, MSG_OPENED);
         }
     }
 }
