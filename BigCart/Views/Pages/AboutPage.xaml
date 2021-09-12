@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.AboutPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="About me"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    Style="{StaticResource PageWithTitleBar}">
+    <ContentPage.Resources>
+        <Style x:Key="SectionTitle" TargetType="Label">
+            <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Margin" Value="0,15,0,0" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <StackLayout Spacing="10">
+            <Label Style="{StaticResource SectionTitle}" Text="Personal Details" />
+
+            <txt:SfTextInputLayout>
+                <txt:SfTextInputLayout.LeadingView>
+                    <Image Aspect="AspectFit" HeightRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.User}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </txt:SfTextInputLayout.LeadingView>
+                <Entry
+                    Placeholder="Name"
+                    ReturnType="Next"
+                    Text="Olivia Austin" />
+            </txt:SfTextInputLayout>
+            <txt:SfTextInputLayout>
+                <txt:SfTextInputLayout.LeadingView>
+                    <Image HeightRequest="17">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Mail}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </txt:SfTextInputLayout.LeadingView>
+                <Entry
+                    Keyboard="Email"
+                    Placeholder="Email Address"
+                    ReturnType="Next"
+                    TabIndex="1"
+                    Text="oliviaaustin@gmail.com" />
+            </txt:SfTextInputLayout>
+            <txt:SfTextInputLayout>
+                <txt:SfTextInputLayout.LeadingView>
+                    <Image HeightRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Phone}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </txt:SfTextInputLayout.LeadingView>
+                <Entry
+                    Keyboard="Telephone"
+                    Placeholder="Phone number"
+                    ReturnType="Done"
+                    TabIndex="2"
+                    Text="+1 123 456 789" />
+            </txt:SfTextInputLayout>
+
+            <Label Style="{StaticResource SectionTitle}" Text="Change Password" />
+
+            <txt:SfTextInputLayout EnablePasswordVisibilityToggle="True">
+                <txt:SfTextInputLayout.LeadingView>
+                    <Image HeightRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Lock}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </txt:SfTextInputLayout.LeadingView>
+                <Entry
+                    IsPassword="True"
+                    Placeholder="Current password"
+                    ReturnType="Next"
+                    TabIndex="3" />
+                <txt:SfTextInputLayout.TrailingView>
+                    <BoxView WidthRequest="10" />
+                </txt:SfTextInputLayout.TrailingView>
+            </txt:SfTextInputLayout>
+            <txt:SfTextInputLayout EnablePasswordVisibilityToggle="True">
+                <txt:SfTextInputLayout.LeadingView>
+                    <Image HeightRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Lock}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </txt:SfTextInputLayout.LeadingView>
+                <Entry
+                    IsPassword="True"
+                    Placeholder="New password"
+                    ReturnType="Next"
+                    TabIndex="4" />
+                <txt:SfTextInputLayout.TrailingView>
+                    <BoxView WidthRequest="10" />
+                </txt:SfTextInputLayout.TrailingView>
+            </txt:SfTextInputLayout>
+            <txt:SfTextInputLayout EnablePasswordVisibilityToggle="True">
+                <txt:SfTextInputLayout.LeadingView>
+                    <Image HeightRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Lock}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </txt:SfTextInputLayout.LeadingView>
+                <Entry
+                    IsPassword="True"
+                    Placeholder="Confirm password"
+                    ReturnType="Done"
+                    TabIndex="5" />
+                <txt:SfTextInputLayout.TrailingView>
+                    <BoxView WidthRequest="10" />
+                </txt:SfTextInputLayout.TrailingView>
+            </txt:SfTextInputLayout>
+
+            <Button
+                Margin="0,20"
+                Text="Save settings"
+                VerticalOptions="EndAndExpand" />
+        </StackLayout>
+    </ScrollView>
+</pages:Page>

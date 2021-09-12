@@ -18,6 +18,10 @@ namespace BigCart.ViewModels
         {
             switch (menuItemId)
             {
+                case AccountTab.MENU_ITEM_ABOUT:
+                    await _navigationService.PushAsync<AboutPage>();
+                    break;
+
                 case AccountTab.MENU_ITEM_LOGOUT:
                     await LogoutAsync();
                     break;
