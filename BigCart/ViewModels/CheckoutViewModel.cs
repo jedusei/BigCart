@@ -7,7 +7,7 @@ namespace BigCart.ViewModels
     public class CheckoutViewModel : ViewModel
     {
         private int _currentStep;
-        private bool _isComplete;
+        private int _stepsCompleted;
 
         public string Title { get; private set; }
         public int CurrentStep
@@ -15,10 +15,10 @@ namespace BigCart.ViewModels
             get => _currentStep;
             set => SetProperty(ref _currentStep, value, onChanged: UpdateTitle);
         }
-        public bool IsComplete
+        public int StepsCompleted
         {
-            get => _isComplete;
-            set => SetProperty(ref _isComplete, value);
+            get => _stepsCompleted;
+            private set => SetProperty(ref _stepsCompleted, value);
         }
         public ICommand NextStepCommand { get; }
 
@@ -43,10 +43,14 @@ namespace BigCart.ViewModels
         private async Task NextStepAsync()
         {
             if (_currentStep < 2)
+            {
                 CurrentStep++;
+                if (_stepsCompleted < _currentStep)
+                    StepsCompleted++;
+            }
             else
             {
-                IsComplete = true;
+                StepsCompleted = 3;
                 _modalService.ShowLoading("Making payment...");
                 await Task.Delay(1000);
                 _modalService.HideLoading();

@@ -16,6 +16,7 @@
     <ContentPage.Resources>
         <x:Int32 x:Key="Zero">0</x:Int32>
         <x:Int32 x:Key="One">1</x:Int32>
+        <x:Int32 x:Key="Two">2</x:Int32>
     </ContentPage.Resources>
     <StackLayout Margin="-15,0">
         <progressBar:SfStepProgressBar
@@ -82,7 +83,7 @@
                     </Trigger>
                     <DataTrigger TargetType="progressBar:StepView" Value="True">
                         <DataTrigger.Binding>
-                            <Binding Converter="{xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource Zero}}" Path="CurrentStep" />
+                            <Binding Converter="{xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource Zero}}" Path="StepsCompleted" />
                         </DataTrigger.Binding>
                         <DataTrigger.Setters>
                             <Setter Property="Status" Value="Completed" />
@@ -102,14 +103,14 @@
                         </Setter>
                     </Trigger>
                     <DataTrigger
-                        Binding="{Binding CurrentStep}"
+                        Binding="{Binding StepsCompleted}"
                         TargetType="progressBar:StepView"
                         Value="1">
                         <Setter Property="Status" Value="InProgress" />
                     </DataTrigger>
                     <DataTrigger TargetType="progressBar:StepView" Value="True">
                         <DataTrigger.Binding>
-                            <Binding Converter="{xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource One}}" Path="CurrentStep" />
+                            <Binding Converter="{xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource One}}" Path="StepsCompleted" />
                         </DataTrigger.Binding>
                         <DataTrigger.Setters>
                             <Setter Property="Status" Value="Completed" />
@@ -117,7 +118,7 @@
                     </DataTrigger>
                     <DataTrigger TargetType="progressBar:StepView" Value="True">
                         <DataTrigger.Binding>
-                            <Binding Converter="{xct:CompareConverter ComparisonOperator=GreaterOrEqual, ComparingValue={StaticResource One}}" Path="CurrentStep" />
+                            <Binding Converter="{xct:CompareConverter ComparisonOperator=GreaterOrEqual, ComparingValue={StaticResource One}}" Path="StepsCompleted" />
                         </DataTrigger.Binding>
                         <DataTrigger.Setters>
                             <Setter Property="ProgressValue" Value="100" />
@@ -137,16 +138,23 @@
                         </Setter>
                     </Trigger>
                     <DataTrigger
-                        Binding="{Binding CurrentStep}"
+                        Binding="{Binding StepsCompleted}"
                         TargetType="progressBar:StepView"
                         Value="2">
                         <Setter Property="Status" Value="InProgress" />
-                        <Setter Property="ProgressValue" Value="100" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="progressBar:StepView" Value="True">
+                        <DataTrigger.Binding>
+                            <Binding Converter="{xct:CompareConverter ComparisonOperator=GreaterOrEqual, ComparingValue={StaticResource Two}}" Path="StepsCompleted" />
+                        </DataTrigger.Binding>
+                        <DataTrigger.Setters>
+                            <Setter Property="ProgressValue" Value="100" />
+                        </DataTrigger.Setters>
                     </DataTrigger>
                     <DataTrigger
-                        Binding="{Binding IsComplete}"
+                        Binding="{Binding StepsCompleted}"
                         TargetType="progressBar:StepView"
-                        Value="True">
+                        Value="3">
                         <Setter Property="Status" Value="Completed" />
                     </DataTrigger>
                 </View.Triggers>
