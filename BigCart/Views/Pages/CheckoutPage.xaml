@@ -3,6 +3,7 @@
     x:Class="BigCart.Pages.CheckoutPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
@@ -158,7 +159,33 @@
             SelectedIndex="{Binding CurrentStep}"
             VerticalOptions="FillAndExpand">
             <xct:TabViewItem>
-                <BoxView Color="Red" />
+                <StackLayout
+                    x:Name="_shippingMethodLayout"
+                    Padding="10,0"
+                    Spacing="10">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Null}">
+                            <ev:SfEffectsView Padding="20" BackgroundColor="{StaticResource BackgroundPrimaryColor}">
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="20">
+                                    <StackLayout HorizontalOptions="FillAndExpand">
+                                        <Label
+                                            FontFamily="{StaticResource MediumFontFamily}"
+                                            FontSize="17"
+                                            Text="{Binding Title}" />
+                                        <Label Text="{Binding Description}" TextColor="{StaticResource TextSecondaryColor}" />
+                                    </StackLayout>
+                                    <Label
+                                        Grid.Column="1"
+                                        FontFamily="{StaticResource MediumFontFamily}"
+                                        FontSize="17"
+                                        Text="{Binding Price, StringFormat='{0:C0}'}"
+                                        TextColor="{StaticResource PrimaryDarkColor}"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </ev:SfEffectsView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
             </xct:TabViewItem>
             <xct:TabViewItem>
                 <BoxView Color="Gold" />
