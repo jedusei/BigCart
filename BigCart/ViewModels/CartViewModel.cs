@@ -1,5 +1,6 @@
 ﻿using BigCart.Controls;
 using BigCart.Models;
+using BigCart.Pages;
 using BigCart.Services.Cart;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -45,12 +46,14 @@ namespace BigCart.ViewModels
         }
         public ICommand RemoveItemCommand { get; }
         public ICommand UpdateCostsCommand { get; }
+        public ICommand CheckoutCommand { get; }
 
         public CartViewModel(ICartService cartService)
         {
             _cartService = cartService;
             RemoveItemCommand = new AsyncCommand<Product>(RemoveItemAsync);
             UpdateCostsCommand = new Command(UpdateCosts);
+            CheckoutCommand = new AsyncCommand(() => _navigationService.PushAsync<CheckoutPage>(), allowsMultipleExecutions: false);
         }
 
         public override void OnStart()

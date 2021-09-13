@@ -182,6 +182,7 @@
                             Grid.Row="4"
                             Grid.ColumnSpan="2"
                             Margin="0,15,0,0"
+                            Command="{Binding CheckoutCommand}"
                             Text="Checkout"
                             VerticalOptions="End" />
                     </Grid>
