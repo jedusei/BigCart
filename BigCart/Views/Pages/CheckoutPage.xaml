@@ -327,7 +327,8 @@
             <Button
                 Margin="15,20"
                 Command="{Binding NextStepCommand}"
-                Text="Next">
+                Text="Next"
+                VerticalOptions="EndAndExpand">
                 <Button.Triggers>
                     <DataTrigger
                         Binding="{Binding CurrentStep}"
