@@ -30,7 +30,7 @@
                 <progressBar:StepStyle
                     x:TypeArguments="progressBar:NotStartedStepState"
                     FontColor="{StaticResource TextSecondaryColor}"
-                    FontSize="15"
+                    FontSize="12"
                     GapWidth="5"
                     MarkerContentFillColor="{StaticResource TextSecondaryColor}"
                     MarkerContentSize="20"
@@ -47,7 +47,7 @@
                 <progressBar:StepStyle
                     x:TypeArguments="progressBar:InProgressStepState"
                     FontColor="{StaticResource TextSecondaryColor}"
-                    FontSize="15"
+                    FontSize="12"
                     MarkerContentSize="20"
                     MarkerContentType="Numbering"
                     MarkerFillColor="#6CC51D"
@@ -61,7 +61,7 @@
                 <progressBar:StepStyle
                     x:TypeArguments="progressBar:CompletedStepState"
                     FontColor="{StaticResource TextSecondaryColor}"
-                    FontSize="15"
+                    FontSize="12"
                     MarkerContentSize="17"
                     MarkerFillColor="#6CC51D"
                     MarkerShapeType="Circle"
