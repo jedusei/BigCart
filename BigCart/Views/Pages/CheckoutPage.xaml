@@ -20,158 +20,154 @@
         <x:Int32 x:Key="One">1</x:Int32>
         <x:Int32 x:Key="Two">2</x:Int32>
     </ContentPage.Resources>
-    <StackLayout Margin="-15,0">
-        <progressBar:SfStepProgressBar
-            Margin="15"
-            LayoutOption="Equal"
-            Orientation="Horizontal"
-            ProgressAnimationDuration="250"
-            StepTapped="SfStepProgressBar_StepTapped"
-            TitleSpace="{OnPlatform 5, iOS=10}">
-            <progressBar:SfStepProgressBar.NotStartedStepStyle>
-                <progressBar:StepStyle
-                    x:TypeArguments="progressBar:NotStartedStepState"
-                    FontColor="{StaticResource TextSecondaryColor}"
-                    FontSize="12"
-                    GapWidth="5"
-                    MarkerContentFillColor="{StaticResource TextSecondaryColor}"
-                    MarkerContentSize="20"
-                    MarkerContentType="Numbering"
-                    MarkerFillColor="{StaticResource BackgroundPrimaryColor}"
-                    MarkerShapeType="Circle"
-                    MarkerSize="40"
-                    MarkerStrokeColor="#EBEBEB"
-                    ProgressLineColor="#6CC51D"
-                    SegmentCount="10"
-                    TrackColor="#EBEBEB" />
-            </progressBar:SfStepProgressBar.NotStartedStepStyle>
-            <progressBar:SfStepProgressBar.InProgressStepStyle>
-                <progressBar:StepStyle
-                    x:TypeArguments="progressBar:InProgressStepState"
-                    FontColor="{StaticResource TextSecondaryColor}"
-                    FontSize="12"
-                    MarkerContentSize="20"
-                    MarkerContentType="Numbering"
-                    MarkerFillColor="#6CC51D"
-                    MarkerShapeType="Circle"
-                    MarkerSize="40"
-                    MarkerStrokeWidth="0"
-                    ProgressLineColor="#6CC51D"
-                    TrackColor="#EBEBEB" />
-            </progressBar:SfStepProgressBar.InProgressStepStyle>
-            <progressBar:SfStepProgressBar.CompletedStepStyle>
-                <progressBar:StepStyle
-                    x:TypeArguments="progressBar:CompletedStepState"
-                    FontColor="{StaticResource TextSecondaryColor}"
-                    FontSize="12"
-                    MarkerContentSize="17"
-                    MarkerFillColor="#6CC51D"
-                    MarkerShapeType="Circle"
-                    MarkerSize="40"
-                    MarkerStrokeWidth="0"
-                    ProgressLineColor="#6CC51D"
-                    TrackColor="#EBEBEB" />
-            </progressBar:SfStepProgressBar.CompletedStepStyle>
+    <ScrollView Margin="-15,0">
+        <StackLayout>
+            <progressBar:SfStepProgressBar
+                Margin="15"
+                LayoutOption="Equal"
+                Orientation="Horizontal"
+                ProgressAnimationDuration="250"
+                StepTapped="SfStepProgressBar_StepTapped"
+                TitleSpace="{OnPlatform 5, iOS=10}">
+                <progressBar:SfStepProgressBar.NotStartedStepStyle>
+                    <progressBar:StepStyle
+                        x:TypeArguments="progressBar:NotStartedStepState"
+                        FontColor="{StaticResource TextSecondaryColor}"
+                        FontSize="12"
+                        GapWidth="5"
+                        MarkerContentFillColor="{StaticResource TextSecondaryColor}"
+                        MarkerContentSize="20"
+                        MarkerContentType="Numbering"
+                        MarkerFillColor="{StaticResource BackgroundPrimaryColor}"
+                        MarkerShapeType="Circle"
+                        MarkerSize="40"
+                        MarkerStrokeColor="#EBEBEB"
+                        ProgressLineColor="#6CC51D"
+                        SegmentCount="10"
+                        TrackColor="#EBEBEB" />
+                </progressBar:SfStepProgressBar.NotStartedStepStyle>
+                <progressBar:SfStepProgressBar.InProgressStepStyle>
+                    <progressBar:StepStyle
+                        x:TypeArguments="progressBar:InProgressStepState"
+                        FontColor="{StaticResource TextSecondaryColor}"
+                        FontSize="12"
+                        MarkerContentSize="20"
+                        MarkerContentType="Numbering"
+                        MarkerFillColor="#6CC51D"
+                        MarkerShapeType="Circle"
+                        MarkerSize="40"
+                        MarkerStrokeWidth="0"
+                        ProgressLineColor="#6CC51D"
+                        TrackColor="#EBEBEB" />
+                </progressBar:SfStepProgressBar.InProgressStepStyle>
+                <progressBar:SfStepProgressBar.CompletedStepStyle>
+                    <progressBar:StepStyle
+                        x:TypeArguments="progressBar:CompletedStepState"
+                        FontColor="{StaticResource TextSecondaryColor}"
+                        FontSize="12"
+                        MarkerContentSize="17"
+                        MarkerFillColor="#6CC51D"
+                        MarkerShapeType="Circle"
+                        MarkerSize="40"
+                        MarkerStrokeWidth="0"
+                        ProgressLineColor="#6CC51D"
+                        TrackColor="#EBEBEB" />
+                </progressBar:SfStepProgressBar.CompletedStepStyle>
 
-            <progressBar:StepView PrimaryText="DELIVERY" Status="InProgress">
-                <View.Triggers>
-                    <Trigger TargetType="progressBar:StepView" Property="Status" Value="Completed">
-                        <Setter Property="ImageSource">
-                            <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.Tick}"
-                                Color="White" />
-                        </Setter>
-                    </Trigger>
-                    <DataTrigger TargetType="progressBar:StepView" Value="True">
-                        <DataTrigger.Binding>
-                            <Binding Converter="{xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource Zero}}" Path="StepsCompleted" />
-                        </DataTrigger.Binding>
-                        <DataTrigger.Setters>
+                <progressBar:StepView PrimaryText="DELIVERY" Status="InProgress">
+                    <View.Triggers>
+                        <Trigger TargetType="progressBar:StepView" Property="Status" Value="Completed">
+                            <Setter Property="ImageSource">
+                                <FontImageSource
+                                    FontFamily="{StaticResource Icons}"
+                                    Glyph="{Static icons:Icons.Tick}"
+                                    Color="White" />
+                            </Setter>
+                        </Trigger>
+                        <DataTrigger TargetType="progressBar:StepView" Value="True">
+                            <DataTrigger.Binding>
+                                <Binding Converter="{xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource Zero}}" Path="StepsCompleted" />
+                            </DataTrigger.Binding>
+                            <DataTrigger.Setters>
+                                <Setter Property="Status" Value="Completed" />
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </View.Triggers>
+                </progressBar:StepView>
+
+                <progressBar:StepView PrimaryText="ADDRESS">
+                    <View.Triggers>
+                        <Trigger TargetType="progressBar:StepView" Property="Status" Value="Completed">
+                            <Setter Property="ImageSource">
+                                <FontImageSource
+                                    FontFamily="{StaticResource Icons}"
+                                    Glyph="{Static icons:Icons.Tick}"
+                                    Color="White" />
+                            </Setter>
+                        </Trigger>
+                        <DataTrigger
+                            Binding="{Binding StepsCompleted}"
+                            TargetType="progressBar:StepView"
+                            Value="1">
+                            <Setter Property="Status" Value="InProgress" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="progressBar:StepView" Value="True">
+                            <DataTrigger.Binding>
+                                <Binding Converter="{xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource One}}" Path="StepsCompleted" />
+                            </DataTrigger.Binding>
+                            <DataTrigger.Setters>
+                                <Setter Property="Status" Value="Completed" />
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                        <DataTrigger TargetType="progressBar:StepView" Value="True">
+                            <DataTrigger.Binding>
+                                <Binding Converter="{xct:CompareConverter ComparisonOperator=GreaterOrEqual, ComparingValue={StaticResource One}}" Path="StepsCompleted" />
+                            </DataTrigger.Binding>
+                            <DataTrigger.Setters>
+                                <Setter Property="ProgressValue" Value="100" />
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </View.Triggers>
+                </progressBar:StepView>
+
+                <progressBar:StepView PrimaryText="PAYMENT">
+                    <View.Triggers>
+                        <Trigger TargetType="progressBar:StepView" Property="Status" Value="Completed">
+                            <Setter Property="ImageSource">
+                                <FontImageSource
+                                    FontFamily="{StaticResource Icons}"
+                                    Glyph="{Static icons:Icons.Tick}"
+                                    Color="White" />
+                            </Setter>
+                        </Trigger>
+                        <DataTrigger
+                            Binding="{Binding StepsCompleted}"
+                            TargetType="progressBar:StepView"
+                            Value="2">
+                            <Setter Property="Status" Value="InProgress" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="progressBar:StepView" Value="True">
+                            <DataTrigger.Binding>
+                                <Binding Converter="{xct:CompareConverter ComparisonOperator=GreaterOrEqual, ComparingValue={StaticResource Two}}" Path="StepsCompleted" />
+                            </DataTrigger.Binding>
+                            <DataTrigger.Setters>
+                                <Setter Property="ProgressValue" Value="100" />
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding StepsCompleted}"
+                            TargetType="progressBar:StepView"
+                            Value="3">
                             <Setter Property="Status" Value="Completed" />
-                        </DataTrigger.Setters>
-                    </DataTrigger>
-                </View.Triggers>
-            </progressBar:StepView>
+                        </DataTrigger>
+                    </View.Triggers>
+                </progressBar:StepView>
+            </progressBar:SfStepProgressBar>
 
-            <progressBar:StepView PrimaryText="ADDRESS">
-                <View.Triggers>
-                    <Trigger TargetType="progressBar:StepView" Property="Status" Value="Completed">
-                        <Setter Property="ImageSource">
-                            <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.Tick}"
-                                Color="White" />
-                        </Setter>
-                    </Trigger>
-                    <DataTrigger
-                        Binding="{Binding StepsCompleted}"
-                        TargetType="progressBar:StepView"
-                        Value="1">
-                        <Setter Property="Status" Value="InProgress" />
-                    </DataTrigger>
-                    <DataTrigger TargetType="progressBar:StepView" Value="True">
-                        <DataTrigger.Binding>
-                            <Binding Converter="{xct:CompareConverter ComparisonOperator=Greater, ComparingValue={StaticResource One}}" Path="StepsCompleted" />
-                        </DataTrigger.Binding>
-                        <DataTrigger.Setters>
-                            <Setter Property="Status" Value="Completed" />
-                        </DataTrigger.Setters>
-                    </DataTrigger>
-                    <DataTrigger TargetType="progressBar:StepView" Value="True">
-                        <DataTrigger.Binding>
-                            <Binding Converter="{xct:CompareConverter ComparisonOperator=GreaterOrEqual, ComparingValue={StaticResource One}}" Path="StepsCompleted" />
-                        </DataTrigger.Binding>
-                        <DataTrigger.Setters>
-                            <Setter Property="ProgressValue" Value="100" />
-                        </DataTrigger.Setters>
-                    </DataTrigger>
-                </View.Triggers>
-            </progressBar:StepView>
-
-            <progressBar:StepView PrimaryText="PAYMENT">
-                <View.Triggers>
-                    <Trigger TargetType="progressBar:StepView" Property="Status" Value="Completed">
-                        <Setter Property="ImageSource">
-                            <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.Tick}"
-                                Color="White" />
-                        </Setter>
-                    </Trigger>
-                    <DataTrigger
-                        Binding="{Binding StepsCompleted}"
-                        TargetType="progressBar:StepView"
-                        Value="2">
-                        <Setter Property="Status" Value="InProgress" />
-                    </DataTrigger>
-                    <DataTrigger TargetType="progressBar:StepView" Value="True">
-                        <DataTrigger.Binding>
-                            <Binding Converter="{xct:CompareConverter ComparisonOperator=GreaterOrEqual, ComparingValue={StaticResource Two}}" Path="StepsCompleted" />
-                        </DataTrigger.Binding>
-                        <DataTrigger.Setters>
-                            <Setter Property="ProgressValue" Value="100" />
-                        </DataTrigger.Setters>
-                    </DataTrigger>
-                    <DataTrigger
-                        Binding="{Binding StepsCompleted}"
-                        TargetType="progressBar:StepView"
-                        Value="3">
-                        <Setter Property="Status" Value="Completed" />
-                    </DataTrigger>
-                </View.Triggers>
-            </progressBar:StepView>
-        </progressBar:SfStepProgressBar>
-
-        <xct:TabView
-            IsSwipeEnabled="False"
-            IsTabStripVisible="False"
-            SelectedIndex="{Binding CurrentStep}"
-            VerticalOptions="FillAndExpand">
-            <xct:TabViewItem>
+            <controls:AutoSizeCarouselView Margin="-15,0" Position="{Binding CurrentStep}">
                 <StackLayout
                     x:Name="_shippingMethodLayout"
-                    Padding="10,0"
+                    Padding="30,0"
                     Spacing="10">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="{x:Null}">
@@ -196,9 +192,8 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
-            </xct:TabViewItem>
-            <xct:TabViewItem>
-                <StackLayout Padding="15,0" Spacing="10">
+
+                <StackLayout Padding="30,0" Spacing="10">
                     <StackLayout.Resources>
                         <Style x:Key="Icon" TargetType="Image">
                             <Setter Property="HeightRequest" Value="20" />
@@ -325,24 +320,23 @@
                         <Label FontFamily="{StaticResource MediumFontFamily}" Text="Save this address" />
                     </StackLayout>
                 </StackLayout>
-            </xct:TabViewItem>
-            <xct:TabViewItem>
-                <BoxView Color="Green" />
-            </xct:TabViewItem>
-        </xct:TabView>
 
-        <Button
-            Margin="15,20"
-            Command="{Binding NextStepCommand}"
-            Text="Next">
-            <Button.Triggers>
-                <DataTrigger
-                    Binding="{Binding CurrentStep}"
-                    TargetType="Button"
-                    Value="2">
-                    <Setter Property="Text" Value="Make payment" />
-                </DataTrigger>
-            </Button.Triggers>
-        </Button>
-    </StackLayout>
+                <BoxView Color="Green" />
+            </controls:AutoSizeCarouselView>
+
+            <Button
+                Margin="15,20"
+                Command="{Binding NextStepCommand}"
+                Text="Next">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding CurrentStep}"
+                        TargetType="Button"
+                        Value="2">
+                        <Setter Property="Text" Value="Make payment" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+        </StackLayout>
+    </ScrollView>
 </pages:Page>
