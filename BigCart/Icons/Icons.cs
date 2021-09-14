@@ -37,5 +37,8 @@
         public const string Tick = "\ue920";
         public const string City = "\ue921";
         public const string ZipCode = "\ue922";
+        public const string AppleLogo = "\ue923";
+        public const string Paypal = "\ue924";
+        public const string Calendar = "\ue925";
     }
 }

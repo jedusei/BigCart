@@ -1,6 +1,7 @@
 ﻿using BigCart.ViewModels;
 using Syncfusion.XForms.ProgressBar;
 using Xamarin.Forms;
+using AppIcons = BigCart.Icons.Icons;
 
 namespace BigCart.Pages
 {
@@ -11,6 +12,7 @@ namespace BigCart.Pages
         public CheckoutPage()
         {
             InitializeComponent();
+
             BindableLayout.SetItemsSource(_shippingMethodLayout, new[]
             {
                 new
@@ -30,6 +32,42 @@ namespace BigCart.Pages
                     Title = "Nominated Delivery",
                     Description = "Order will be delivered on your chosen date.",
                     Price = 3
+                }
+            });
+
+            string iconFontFamily = (string)Application.Current.Resources["Icons"];
+            Color iconColor = (Color)Application.Current.Resources["TextSecondaryColor"];
+            BindableLayout.SetItemsSource(_paymentMethodLayout, new[]
+            {
+                new
+                {
+                    Label = "Paypal",
+                    Icon = new FontImageSource
+                    {
+                        FontFamily = iconFontFamily,
+                        Glyph = AppIcons.Paypal,
+                        Color = iconColor
+                    }
+                },
+                new
+                {
+                    Label = "Credit Card",
+                    Icon = new FontImageSource
+                    {
+                        FontFamily = iconFontFamily,
+                        Glyph = AppIcons.CreditCard,
+                        Color = iconColor
+                    }
+                },
+                new
+                {
+                    Label = "Apple Pay",
+                    Icon = new FontImageSource
+                    {
+                        FontFamily = iconFontFamily,
+                        Glyph = AppIcons.AppleLogo,
+                        Color = iconColor
+                    }
                 }
             });
         }

@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:droid="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:pages="clr-namespace:BigCart.Pages"
@@ -19,6 +20,12 @@
         <x:Int32 x:Key="Zero">0</x:Int32>
         <x:Int32 x:Key="One">1</x:Int32>
         <x:Int32 x:Key="Two">2</x:Int32>
+        <Style x:Key="Icon" TargetType="Image">
+            <Setter Property="HeightRequest" Value="20" />
+            <Setter Property="WidthRequest" Value="20" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
     </ContentPage.Resources>
     <ScrollView Margin="-15,0">
         <StackLayout>
@@ -194,14 +201,6 @@
                 </StackLayout>
 
                 <StackLayout Padding="30,0" Spacing="10">
-                    <StackLayout.Resources>
-                        <Style x:Key="Icon" TargetType="Image">
-                            <Setter Property="HeightRequest" Value="20" />
-                            <Setter Property="WidthRequest" Value="20" />
-                            <Setter Property="HorizontalOptions" Value="Center" />
-                            <Setter Property="VerticalOptions" Value="Center" />
-                        </Style>
-                    </StackLayout.Resources>
                     <txt:SfTextInputLayout>
                         <txt:SfTextInputLayout.LeadingView>
                             <ContentView>
@@ -321,7 +320,146 @@
                     </StackLayout>
                 </StackLayout>
 
-                <BoxView Color="Green" />
+                <StackLayout Padding="30,0" Spacing="10">
+                    <FlexLayout
+                        x:Name="_paymentMethodLayout"
+                        Padding="0,5"
+                        Direction="Row"
+                        JustifyContent="SpaceBetween">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="{x:Null}">
+                                <Frame
+                                    Padding="0"
+                                    droid:VisualElement.Elevation="4"
+                                    CornerRadius="5"
+                                    FlexLayout.Basis="120"
+                                    HasShadow="False"
+                                    HeightRequest="110"
+                                    IsClippedToBounds="True">
+                                    <ev:SfEffectsView>
+                                        <FlexLayout
+                                            AlignItems="Center"
+                                            Direction="Column"
+                                            JustifyContent="Center">
+                                            <Image HeightRequest="25" Source="{Binding Icon}" />
+                                            <Label
+                                                Margin="0,15,0,0"
+                                                FontFamily="{StaticResource MediumFontFamily}"
+                                                FontSize="12"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{Binding Label}"
+                                                TextColor="{StaticResource TextSecondaryColor}" />
+                                        </FlexLayout>
+                                    </ev:SfEffectsView>
+                                </Frame>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+
+                    <BoxView
+                        Margin="0,0,0,5"
+                        CornerRadius="10"
+                        HeightRequest="200"
+                        HorizontalOptions="Center"
+                        WidthRequest="380">
+                        <BoxView.Background>
+                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                <GradientStop Offset="0" Color="{StaticResource PrimaryDarkColor}" />
+                                <GradientStop Offset="1" Color="{StaticResource PrimaryColor}" />
+                            </LinearGradientBrush>
+                        </BoxView.Background>
+                    </BoxView>
+
+                    <txt:SfTextInputLayout>
+                        <txt:SfTextInputLayout.LeadingView>
+                            <ContentView>
+                                <Image Style="{StaticResource Icon}">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{StaticResource Icons}"
+                                            Glyph="{Static icons:Icons.User}"
+                                            Color="{StaticResource TextSecondaryColor}" />
+                                    </Image.Source>
+                                </Image>
+                            </ContentView>
+                        </txt:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Placeholder="Name on the card"
+                            ReturnType="Next"
+                            TabIndex="6" />
+                    </txt:SfTextInputLayout>
+                    <txt:SfTextInputLayout>
+                        <txt:SfTextInputLayout.LeadingView>
+                            <ContentView>
+                                <Image Style="{StaticResource Icon}">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{StaticResource Icons}"
+                                            Glyph="{Static icons:Icons.CreditCard}"
+                                            Color="{StaticResource TextSecondaryColor}" />
+                                    </Image.Source>
+                                </Image>
+                            </ContentView>
+                        </txt:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Keyboard="Numeric"
+                            Placeholder="Card number"
+                            ReturnType="Next"
+                            TabIndex="7" />
+                    </txt:SfTextInputLayout>
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="6">
+                        <txt:SfTextInputLayout>
+                            <txt:SfTextInputLayout.LeadingView>
+                                <ContentView>
+                                    <Image Style="{StaticResource Icon}">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="{StaticResource Icons}"
+                                                Glyph="{Static icons:Icons.Calendar}"
+                                                Color="{StaticResource TextSecondaryColor}" />
+                                        </Image.Source>
+                                    </Image>
+                                </ContentView>
+                            </txt:SfTextInputLayout.LeadingView>
+                            <Entry
+                                Keyboard="Numeric"
+                                Placeholder="Month / Year"
+                                ReturnType="Next"
+                                TabIndex="8" />
+                        </txt:SfTextInputLayout>
+
+                        <txt:SfTextInputLayout Grid.Column="1">
+                            <txt:SfTextInputLayout.LeadingView>
+                                <ContentView>
+                                    <Image Style="{StaticResource Icon}">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="{StaticResource Icons}"
+                                                Glyph="{Static icons:Icons.Lock}"
+                                                Color="{StaticResource TextSecondaryColor}" />
+                                        </Image.Source>
+                                    </Image>
+                                </ContentView>
+                            </txt:SfTextInputLayout.LeadingView>
+                            <Entry
+                                IsPassword="True"
+                                Keyboard="Numeric"
+                                MaxLength="3"
+                                Placeholder="CVV"
+                                ReturnType="Done"
+                                TabIndex="9" />
+                        </txt:SfTextInputLayout>
+                    </Grid>
+
+                    <StackLayout
+                        Padding="15,10,0,0"
+                        Orientation="Horizontal"
+                        Spacing="0">
+                        <controls:SwitchEx IsOn="True" />
+                        <Label FontFamily="{StaticResource MediumFontFamily}" Text="Save this card" />
+                    </StackLayout>
+                </StackLayout>
             </controls:AutoSizeCarouselView>
 
             <Button
