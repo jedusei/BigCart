@@ -35,5 +35,7 @@
         public const string Camera = "\ue91e";
         public const string Trash = "\ue91f";
         public const string Tick = "\ue920";
+        public const string City = "\ue921";
+        public const string ZipCode = "\ue922";
     }
 }

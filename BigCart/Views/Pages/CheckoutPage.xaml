@@ -3,10 +3,12 @@
     x:Class="BigCart.Pages.CheckoutPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="{Binding Title}"
@@ -196,7 +198,133 @@
                 </StackLayout>
             </xct:TabViewItem>
             <xct:TabViewItem>
-                <BoxView Color="Gold" />
+                <StackLayout Padding="15,0" Spacing="10">
+                    <StackLayout.Resources>
+                        <Style x:Key="Icon" TargetType="Image">
+                            <Setter Property="HeightRequest" Value="20" />
+                            <Setter Property="WidthRequest" Value="20" />
+                            <Setter Property="HorizontalOptions" Value="Center" />
+                            <Setter Property="VerticalOptions" Value="Center" />
+                        </Style>
+                    </StackLayout.Resources>
+                    <txt:SfTextInputLayout>
+                        <txt:SfTextInputLayout.LeadingView>
+                            <ContentView>
+                                <Image Style="{StaticResource Icon}">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{StaticResource Icons}"
+                                            Glyph="{Static icons:Icons.User}"
+                                            Color="{StaticResource TextSecondaryColor}" />
+                                    </Image.Source>
+                                </Image>
+                            </ContentView>
+                        </txt:SfTextInputLayout.LeadingView>
+                        <Entry Placeholder="Name" ReturnType="Next" />
+                    </txt:SfTextInputLayout>
+                    <txt:SfTextInputLayout>
+                        <txt:SfTextInputLayout.LeadingView>
+                            <ContentView>
+                                <Image Style="{StaticResource Icon}">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{StaticResource Icons}"
+                                            Glyph="{Static icons:Icons.Mail}"
+                                            Color="{StaticResource TextSecondaryColor}" />
+                                    </Image.Source>
+                                </Image>
+                            </ContentView>
+                        </txt:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Keyboard="Email"
+                            Placeholder="Email address"
+                            ReturnType="Next"
+                            TabIndex="1" />
+                    </txt:SfTextInputLayout>
+                    <txt:SfTextInputLayout>
+                        <txt:SfTextInputLayout.LeadingView>
+                            <ContentView>
+                                <Image Style="{StaticResource Icon}">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{StaticResource Icons}"
+                                            Glyph="{Static icons:Icons.Phone}"
+                                            Color="{StaticResource TextSecondaryColor}" />
+                                    </Image.Source>
+                                </Image>
+                            </ContentView>
+                        </txt:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Keyboard="Telephone"
+                            Placeholder="Phone number"
+                            ReturnType="Next"
+                            TabIndex="2" />
+                    </txt:SfTextInputLayout>
+                    <txt:SfTextInputLayout>
+                        <txt:SfTextInputLayout.LeadingView>
+                            <ContentView>
+                                <Image Style="{StaticResource Icon}">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{StaticResource Icons}"
+                                            Glyph="{Static icons:Icons.MapMarker}"
+                                            Color="{StaticResource TextSecondaryColor}" />
+                                    </Image.Source>
+                                </Image>
+                            </ContentView>
+                        </txt:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Placeholder="Address"
+                            ReturnType="Next"
+                            TabIndex="3" />
+                    </txt:SfTextInputLayout>
+                    <txt:SfTextInputLayout>
+                        <txt:SfTextInputLayout.LeadingView>
+                            <ContentView>
+                                <Image Style="{StaticResource Icon}">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{StaticResource Icons}"
+                                            Glyph="{Static icons:Icons.ZipCode}"
+                                            Color="{StaticResource TextSecondaryColor}" />
+                                    </Image.Source>
+                                </Image>
+                            </ContentView>
+                        </txt:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Keyboard="Numeric"
+                            MaxLength="5"
+                            Placeholder="Zip Code"
+                            ReturnType="Next"
+                            TabIndex="4" />
+                    </txt:SfTextInputLayout>
+                    <txt:SfTextInputLayout>
+                        <txt:SfTextInputLayout.LeadingView>
+                            <ContentView>
+                                <Image Style="{StaticResource Icon}">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{StaticResource Icons}"
+                                            Glyph="{Static icons:Icons.City}"
+                                            Color="{StaticResource TextSecondaryColor}" />
+                                    </Image.Source>
+                                </Image>
+                            </ContentView>
+                        </txt:SfTextInputLayout.LeadingView>
+                        <Entry
+                            Placeholder="City"
+                            ReturnType="Done"
+                            TabIndex="5" />
+                    </txt:SfTextInputLayout>
+
+                    <StackLayout
+                        Padding="15,10,0,0"
+                        Orientation="Horizontal"
+                        Spacing="0">
+                        <controls:SwitchEx IsOn="True" />
+                        <Label FontFamily="{StaticResource MediumFontFamily}" Text="Save this address" />
+                    </StackLayout>
+                </StackLayout>
             </xct:TabViewItem>
             <xct:TabViewItem>
                 <BoxView Color="Green" />
