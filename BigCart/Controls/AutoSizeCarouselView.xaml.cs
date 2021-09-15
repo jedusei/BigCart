@@ -44,6 +44,16 @@ namespace BigCart.Controls
             _rootLayout = (Layout<View>)GetTemplateChild("rootLayout");
         }
 
+        protected override void OnBindingContextChanged()
+        {
+            base.OnBindingContextChanged();
+            if (_children != null)
+            {
+                foreach (View child in _children)
+                    child.BindingContext = BindingContext;
+            }
+        }
+
         protected override void OnSizeAllocated(double width, double height)
         {
             base.OnSizeAllocated(width, height);
@@ -57,6 +67,7 @@ namespace BigCart.Controls
 
                 foreach (View child in _children)
                 {
+                    child.BindingContext = BindingContext;
                     if (child != activeChild)
                         child.TranslationY = 10000;
                 }
