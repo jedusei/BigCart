@@ -42,6 +42,7 @@ namespace BigCart.Controls
             _txtCardHolder = (Label)GetTemplateChild("txtCardHolder");
             _txtExpiryDate = (Label)GetTemplateChild("txtExpiryDate");
 
+            UpdateCardHolder();
             UpdateCardNumber();
             UpdateExpiryDate();
         }
@@ -86,7 +87,7 @@ namespace BigCart.Controls
 
         private void UpdateExpiryDate()
         {
-            _txtExpiryDate.Text = ExpiryDate.HasValue ? ExpiryDate.Value.ToString("MM/yy") : null;
+            _txtExpiryDate.Text = ExpiryDate.HasValue ? ExpiryDate.Value.ToString("MM/yy") : " ";
         }
     }
 }
