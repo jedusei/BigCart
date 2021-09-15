@@ -7,8 +7,10 @@
     xmlns:droid="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
@@ -331,8 +333,13 @@
                                 <Frame
                                     Padding="0"
                                     droid:VisualElement.Elevation="4"
+                                    ios:VisualElement.IsShadowEnabled="True"
+                                    ios:VisualElement.ShadowColor="Black"
+                                    ios:VisualElement.ShadowOffset="0,3"
+                                    ios:VisualElement.ShadowOpacity="0.1"
+                                    ios:VisualElement.ShadowRadius="5"
                                     CornerRadius="5"
-                                    FlexLayout.Basis="120"
+                                    FlexLayout.Basis="110"
                                     HasShadow="False"
                                     HeightRequest="110"
                                     IsClippedToBounds="True">
@@ -356,19 +363,12 @@
                         </BindableLayout.ItemTemplate>
                     </FlexLayout>
 
-                    <BoxView
+                    <controls:CreditCardView
                         Margin="0,0,0,5"
-                        CornerRadius="10"
-                        HeightRequest="200"
-                        HorizontalOptions="Center"
-                        WidthRequest="380">
-                        <BoxView.Background>
-                            <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                <GradientStop Offset="0" Color="{StaticResource PrimaryDarkColor}" />
-                                <GradientStop Offset="1" Color="{StaticResource PrimaryColor}" />
-                            </LinearGradientBrush>
-                        </BoxView.Background>
-                    </BoxView>
+                        CardHolder="{Binding CardHolder}"
+                        CardNumber="{Binding CardNumber}"
+                        ExpiryDate="{Binding CardExpiryDate}"
+                        HorizontalOptions="Center" />
 
                     <txt:SfTextInputLayout>
                         <txt:SfTextInputLayout.LeadingView>
@@ -386,7 +386,8 @@
                         <Entry
                             Placeholder="Name on the card"
                             ReturnType="Next"
-                            TabIndex="6" />
+                            TabIndex="6"
+                            Text="{Binding CardHolder}" />
                     </txt:SfTextInputLayout>
                     <txt:SfTextInputLayout>
                         <txt:SfTextInputLayout.LeadingView>
@@ -405,7 +406,8 @@
                             Keyboard="Numeric"
                             Placeholder="Card number"
                             ReturnType="Next"
-                            TabIndex="7" />
+                            TabIndex="7"
+                            Text="{Binding CardNumber}" />
                     </txt:SfTextInputLayout>
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="6">
@@ -422,11 +424,11 @@
                                     </Image>
                                 </ContentView>
                             </txt:SfTextInputLayout.LeadingView>
-                            <Entry
-                                Keyboard="Numeric"
-                                Placeholder="Month / Year"
-                                ReturnType="Next"
-                                TabIndex="8" />
+                            <controls:DatePickerEx
+                                Format="MM/yy"
+                                MinimumDate="{Static sys:DateTime.Today}"
+                                NullableDate="{Binding CardExpiryDate}"
+                                Placeholder="Month / Year" />
                         </txt:SfTextInputLayout>
 
                         <txt:SfTextInputLayout Grid.Column="1">
@@ -448,7 +450,7 @@
                                 MaxLength="3"
                                 Placeholder="CVV"
                                 ReturnType="Done"
-                                TabIndex="9" />
+                                TabIndex="8" />
                         </txt:SfTextInputLayout>
                     </Grid>
 

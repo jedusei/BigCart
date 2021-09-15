@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 
@@ -8,6 +9,9 @@ namespace BigCart.ViewModels
     {
         private int _currentStep;
         private int _stepsCompleted;
+        private string _cardHolder;
+        private string _cardNumber;
+        private DateTime? _cardExpiryDate;
 
         public string Title { get; private set; }
         public int CurrentStep
@@ -20,12 +24,36 @@ namespace BigCart.ViewModels
             get => _stepsCompleted;
             private set => SetProperty(ref _stepsCompleted, value);
         }
+        public string CardHolder
+        {
+            get => _cardHolder;
+            set => SetProperty(ref _cardHolder, value);
+        }
+        public string CardNumber
+        {
+            get => _cardNumber;
+            set => SetProperty(ref _cardNumber, value);
+        }
+        public DateTime? CardExpiryDate
+        {
+            get => _cardExpiryDate;
+            set => SetProperty(ref _cardExpiryDate, value);
+        }
         public ICommand NextStepCommand { get; }
 
         public CheckoutViewModel()
         {
             UpdateTitle();
             NextStepCommand = new AsyncCommand(NextStepAsync, allowsMultipleExecutions: false);
+        }
+
+        public override bool OnBackButtonPressed()
+        {
+            if (_currentStep == 0)
+                return base.OnBackButtonPressed();
+
+            CurrentStep--;
+            return true;
         }
 
         private void UpdateTitle()
@@ -51,9 +79,7 @@ namespace BigCart.ViewModels
             else
             {
                 StepsCompleted = 3;
-                _modalService.ShowLoading("Making payment...");
-                await Task.Delay(1000);
-                _modalService.HideLoading();
+                await _modalService.AlertAsync("Steps completed!");
             }
         }
     }
