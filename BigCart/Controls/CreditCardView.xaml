@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="BigCart.Controls.CreditCardView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentView.ControlTemplate>
+        <ControlTemplate>
+            <Frame
+                Padding="0"
+                BackgroundColor="Transparent"
+                CornerRadius="10"
+                HasShadow="False"
+                IsClippedToBounds="True">
+                <AbsoluteLayout HeightRequest="190" WidthRequest="380">
+                    <Image
+                        Aspect="AspectFill"
+                        Source="credit_card.png"
+                        StyleClass="FillAbsoluteLayout" />
+                    <StackLayout Padding="20" StyleClass="FillAbsoluteLayout">
+                        <StackLayout.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="TextColor" Value="White" />
+                                <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+                            </Style>
+                        </StackLayout.Resources>
+
+                        <StackLayout Orientation="Horizontal" Spacing="-10">
+                            <Ellipse
+                                Fill="#F14336"
+                                HeightRequest="40"
+                                StrokeThickness="0"
+                                WidthRequest="40" />
+                            <Ellipse
+                                Fill="#FFC107"
+                                HeightRequest="40"
+                                StrokeThickness="0"
+                                WidthRequest="40" />
+                        </StackLayout>
+
+                        <Label x:Name="txtCardNumber" FontSize="20" />
+
+                        <Grid
+                            ColumnDefinitions="*,Auto"
+                            RowDefinitions="Auto,Auto"
+                            RowSpacing="0"
+                            VerticalOptions="EndAndExpand">
+                            <Label
+                                FontFamily="{StaticResource FontFamily}"
+                                FontSize="12"
+                                Text="Card Holder"
+                                TextTransform="Uppercase" />
+                            <Label
+                                x:Name="txtCardHolder"
+                                Grid.Row="1"
+                                FontSize="16"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="1"
+                                TextTransform="Uppercase" />
+                            <Label
+                                Grid.Column="1"
+                                FontFamily="{StaticResource FontFamily}"
+                                FontSize="12"
+                                HorizontalOptions="End"
+                                Text="Expires"
+                                TextTransform="Uppercase" />
+                            <Label
+                                x:Name="txtExpiryDate"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                FontSize="16"
+                                HorizontalOptions="End" />
+                        </Grid>
+                    </StackLayout>
+                </AbsoluteLayout>
+            </Frame>
+        </ControlTemplate>
+    </ContentView.ControlTemplate>
+</ContentView>
