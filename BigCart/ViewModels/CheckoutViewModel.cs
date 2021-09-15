@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BigCart.Pages;
+using BigCart.Services.Cart;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -7,6 +9,7 @@ namespace BigCart.ViewModels
 {
     public class CheckoutViewModel : ViewModel
     {
+        private readonly ICartService _cartService;
         private int _currentStep;
         private int _stepsCompleted;
         private string _cardHolder;
@@ -41,8 +44,9 @@ namespace BigCart.ViewModels
         }
         public ICommand NextStepCommand { get; }
 
-        public CheckoutViewModel()
+        public CheckoutViewModel(ICartService cartService)
         {
+            _cartService = cartService;
             UpdateTitle();
             NextStepCommand = new AsyncCommand(NextStepAsync, allowsMultipleExecutions: false);
         }
@@ -79,7 +83,13 @@ namespace BigCart.ViewModels
             else
             {
                 StepsCompleted = 3;
-                await _modalService.AlertAsync("Steps completed!");
+                await Task.Delay(1000);
+                _modalService.ShowLoading("Making payment...");
+
+                await _cartService.ClearCartAsync();
+
+                _modalService.HideLoading();
+                await _navigationService.PushAsync<OrderSuccessPage>();
             }
         }
     }

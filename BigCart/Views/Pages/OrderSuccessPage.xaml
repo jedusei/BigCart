@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.OrderSuccessPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="Order Success"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    Style="{StaticResource PageWithTitleBar}">
+    <StackLayout Spacing="0">
+        <Image HeightRequest="120" VerticalOptions="EndAndExpand">
+            <Image.Source>
+                <FontImageSource
+                    FontFamily="{StaticResource Icons}"
+                    Glyph="{Static icons:Icons.Shop}"
+                    Size="100"
+                    Color="{StaticResource PrimaryDarkColor}" />
+            </Image.Source>
+        </Image>
+        <Label
+            Margin="0,30,0,10"
+            FontFamily="{StaticResource BoldFontFamily}"
+            FontSize="20"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Text="Your order was successful!"
+            WidthRequest="200" />
+        <Label
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            Text="You will get a response within a few minutes."
+            TextColor="{StaticResource TextSecondaryColor}"
+            WidthRequest="230" />
+
+        <Button
+            Margin="0,0,0,15"
+            Text="Track Order"
+            VerticalOptions="EndAndExpand" />
+    </StackLayout>
+</pages:Page>
