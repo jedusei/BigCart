@@ -73,6 +73,7 @@
     <Compile Include="IosModule.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Renderers\DatePickerExRenderer.cs" />
     <Compile Include="Renderers\PageRenderer.cs" />
     <Compile Include="Renderers\ScrollViewExRenderer.cs" />
     <Compile Include="Services\PlatformService.cs" />

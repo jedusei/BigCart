@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:converters="clr-namespace:BigCart.Converters"
     xmlns:effects="clr-namespace:BigCart.Effects"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
@@ -75,6 +76,14 @@
             <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
             <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
             <Setter Property="WatermarkColor" Value="{StaticResource TextSecondaryColor}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
+        </Style>
+
+        <Style ApplyToDerivedTypes="True" TargetType="controls:DatePickerEx">
+            <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+            <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+            <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondaryColor}" />
             <Setter Property="FontSize" Value="15" />
             <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
         </Style>

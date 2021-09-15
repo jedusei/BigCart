@@ -101,6 +101,7 @@
     <Compile Include="Effects\SafeAreaEffectRouter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\CarouselViewRenderer.cs" />
+    <Compile Include="Renderers\DatePickerExRenderer.cs" />
     <Compile Include="Renderers\NavigationPageRenderer.cs" />
     <Compile Include="Renderers\PageRenderer.cs" />
     <Compile Include="Renderers\ScrollViewExRenderer.cs" />
