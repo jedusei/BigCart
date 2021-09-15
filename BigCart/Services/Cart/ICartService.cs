@@ -9,5 +9,6 @@ namespace BigCart.Services.Cart
     {
         Task<ReadOnlyObservableCollection<Product>> GetItemsAsync();
         void SetCartStatus(Product product, bool isInCart);
+        Task ClearCartAsync();
     }
 }

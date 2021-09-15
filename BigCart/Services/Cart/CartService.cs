@@ -46,5 +46,19 @@ namespace BigCart.Services.Cart
             product.IsInCart = isInCart;
             product.Quantity = isInCart ? 1 : 0;
         }
+
+        public async Task ClearCartAsync()
+        {
+            await GetItemsAsync();
+            await Task.Delay(500);
+
+            foreach (var item in _items)
+            {
+                item.IsInCart = false;
+                item.Quantity = 0;
+            }
+
+            _items.Clear();
+        }
     }
 }
