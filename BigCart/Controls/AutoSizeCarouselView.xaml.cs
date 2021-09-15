@@ -49,8 +49,8 @@ namespace BigCart.Controls
             base.OnBindingContextChanged();
             if (_children != null)
             {
-                foreach (View child in _children)
-                    child.BindingContext = BindingContext;
+                foreach (ContentView child in _children)
+                    child.Content.BindingContext = BindingContext;
             }
         }
 
@@ -65,9 +65,9 @@ namespace BigCart.Controls
                 View activeChild = _children[Position];
                 HeightRequest = activeChild.Measure(Width, Height).Request.Height;
 
-                foreach (View child in _children)
+                foreach (ContentView child in _children)
                 {
-                    child.BindingContext = BindingContext;
+                    child.Content.BindingContext = BindingContext;
                     if (child != activeChild)
                         child.TranslationY = 10000;
                 }
