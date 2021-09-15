@@ -2,6 +2,7 @@
 using BigCart.Pages;
 using BigCart.Services.Pages;
 using BigCart.Services.Platform;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Page = BigCart.Pages.Page;
@@ -58,6 +59,25 @@ namespace BigCart.Services.Navigation
                 await navigation.PopAsync();
             else
                 _platformService.Quit();
+        }
+
+        public async Task PopToRootAsync()
+        {
+            INavigation navigation = _pageService.MainPage.Navigation;
+            if (navigation.NavigationStack.Count > 1)
+            {
+                var pagesInBetween = navigation.NavigationStack.Skip(1)
+                    .Take(navigation.NavigationStack.Count - 2)
+                    .ToArray();
+
+                await navigation.PopToRootAsync();
+
+                foreach (Xamarin.Forms.Page page in pagesInBetween)
+                {
+                    if (page is Page p)
+                        p.Stop();
+                }
+            }
         }
     }
 }
