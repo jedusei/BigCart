@@ -15,7 +15,6 @@ namespace BigCart.ViewModels
 {
     public class CartViewModel : ViewModel
     {
-        private const float UNIT_SHIPPING_COST = 2;
         private readonly ICartService _cartService;
         private LayoutState _loadState = LayoutState.Loading;
         private bool _isWatchingCollection;
@@ -107,7 +106,7 @@ namespace BigCart.ViewModels
         private void UpdateCosts()
         {
             Subtotal = Items.Sum(p => p.Price * p.Quantity);
-            ShippingCost = Items.Sum(p => p.Quantity) * UNIT_SHIPPING_COST;
+            ShippingCost = Items.Sum(p => p.Quantity) * AppConsts.UNIT_SHIPPING_COST;
             Total = _subtotal + _shippingCost;
         }
     }
