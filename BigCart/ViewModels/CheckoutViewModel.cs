@@ -1,5 +1,5 @@
 ﻿using BigCart.Pages;
-using BigCart.Services.Cart;
+using BigCart.Services.Orders;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,7 +9,7 @@ namespace BigCart.ViewModels
 {
     public class CheckoutViewModel : ViewModel
     {
-        private readonly ICartService _cartService;
+        private readonly IOrderService _orderService;
         private int _currentStep;
         private int _stepsCompleted;
         private string _cardHolder;
@@ -44,9 +44,9 @@ namespace BigCart.ViewModels
         }
         public ICommand NextStepCommand { get; }
 
-        public CheckoutViewModel(ICartService cartService)
+        public CheckoutViewModel(IOrderService orderService)
         {
-            _cartService = cartService;
+            _orderService = orderService;
             UpdateTitle();
             NextStepCommand = new AsyncCommand(NextStepAsync, allowsMultipleExecutions: false);
         }
@@ -86,7 +86,7 @@ namespace BigCart.ViewModels
                 await Task.Delay(1000);
                 _modalService.ShowLoading("Making payment...");
 
-                await _cartService.ClearCartAsync();
+                await _orderService.PlaceOrderAsync();
 
                 _modalService.HideLoading();
                 await _navigationService.PushAsync<OrderSuccessPage>();
