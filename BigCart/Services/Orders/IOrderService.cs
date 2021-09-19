@@ -6,6 +6,7 @@ namespace BigCart.Services.Orders
 {
     public interface IOrderService : IDependency
     {
+        Order LatestOrder { get; }
         Task<Order> PlaceOrderAsync();
         Task<Order[]> GetOrdersAsync();
     }

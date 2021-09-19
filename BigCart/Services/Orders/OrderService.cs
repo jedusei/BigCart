@@ -1,4 +1,5 @@
-﻿using BigCart.Models;
+﻿using BigCart.DependencyInjection;
+using BigCart.Models;
 using BigCart.Services.Cart;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace BigCart.Services.Orders
 {
-    public class OrderService : IOrderService
+    public class OrderService : IOrderService, ISingletonDependency
     {
+        private static int _nextOrderId = new Random().Next(10000, 99999);
         private readonly ICartService _cartService;
         private List<Order> _orders = new();
-        private static int _nextItemId = new Random().Next(10000, 99999);
+
+        public Order LatestOrder { get; private set; }
 
         public OrderService(ICartService cartService)
         {
@@ -34,8 +37,9 @@ namespace BigCart.Services.Orders
 
             await _cartService.ClearCartAsync();
 
-            Order order = new(_nextItemId++, quantity, cost);
+            Order order = new(_nextOrderId++, quantity, cost);
             _orders.Add(order);
+            LatestOrder = order;
 
             await delayTask;
 

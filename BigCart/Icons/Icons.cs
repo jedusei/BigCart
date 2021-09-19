@@ -40,5 +40,9 @@
         public const string AppleLogo = "\ue923";
         public const string Paypal = "\ue924";
         public const string Calendar = "\ue925";
+        public const string MapNavigation = "\ue926";
+        public const string TickCircle = "\ue927";
+        public const string BoxOpen = "\ue928";
+        public const string BoxCart = "\ue929";
     }
 }

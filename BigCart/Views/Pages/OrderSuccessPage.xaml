@@ -8,6 +8,7 @@
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     Title="Order Success"
     vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:OrderSuccessViewModel"
     Style="{StaticResource PageWithTitleBar}">
     <StackLayout Spacing="0">
         <Image HeightRequest="120" VerticalOptions="EndAndExpand">
@@ -36,6 +37,7 @@
 
         <Button
             Margin="0,0,0,15"
+            Command="{Binding TrackOrderCommand}"
             Text="Track Order"
             VerticalOptions="EndAndExpand" />
     </StackLayout>

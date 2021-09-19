@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.TrackOrderPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:progress="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="Track Order"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:TrackOrderViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <ContentPage.Resources>
+        <Color x:Key="ActiveBackgroundColor">#EBFFD7</Color>
+        <Color x:Key="ActiveIconColor">#28B446</Color>
+        <Color x:Key="InactiveBackgroundColor">#F5F5F5</Color>
+        <Color x:Key="InactiveIconColor">#868889</Color>
+    </ContentPage.Resources>
+    <ScrollView Margin="-15,0" Padding="15">
+        <StackLayout Spacing="15">
+            <Grid
+                Padding="15"
+                BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                ColumnDefinitions="90,Auto,*"
+                ColumnSpacing="15"
+                RowDefinitions="Auto,*,*"
+                RowSpacing="0">
+                <border:SfBorder
+                    Grid.RowSpan="3"
+                    BackgroundColor="{StaticResource ActiveBackgroundColor}"
+                    BorderWidth="0"
+                    CornerRadius="45"
+                    HeightRequest="90"
+                    VerticalOptions="Center">
+                    <Image HeightRequest="40" VerticalOptions="Center">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource Icons}"
+                                Glyph="{Static icons:Icons.Box}"
+                                Color="{StaticResource ActiveIconColor}" />
+                        </Image.Source>
+                    </Image>
+                </border:SfBorder>
+
+                <Label
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    FontFamily="{StaticResource BoldFontFamily}"
+                    FontSize="20"
+                    Text="{Binding Order.Id, StringFormat='Order #{0}'}" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Text="{Binding Order.CreatedAt, StringFormat='Placed on {0:MMMM dd yyyy}'}"
+                    TextColor="{StaticResource TextSecondaryColor}" />
+
+                <Label Grid.Row="2" Grid.Column="1">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Quantity: " />
+                            <Span FontFamily="{StaticResource MediumFontFamily}" Text="{Binding Order.ItemCount}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="2" Grid.Column="2">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Cost: " />
+                            <Span FontFamily="{StaticResource MediumFontFamily}" Text="{Binding Order.Cost, StringFormat='{0:C2}'}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+
+            <AbsoluteLayout BackgroundColor="{StaticResource BackgroundPrimaryColor}">
+                <progress:SfLinearProgressBar
+                    x:Name="_progressBar"
+                    AnchorX="0"
+                    AnchorY="0"
+                    HeightRequest="2"
+                    Progress="{Binding Order.Progress}"
+                    ProgressColor="{StaticResource PrimaryDarkColor}"
+                    Rotation="90" />
+                <StackLayout
+                    x:Name="_orderStepsLayout"
+                    Spacing="5"
+                    StyleClass="FillAbsoluteLayout">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Null}">
+                            <Grid
+                                Padding="15,15,0,15"
+                                ColumnDefinitions="90,*"
+                                ColumnSpacing="15"
+                                HeightRequest="90"
+                                RowDefinitions="*,*,1"
+                                RowSpacing="0">
+                                <border:SfBorder
+                                    x:Name="border"
+                                    Grid.RowSpan="3"
+                                    BackgroundColor="{StaticResource InactiveBackgroundColor}"
+                                    BorderWidth="0"
+                                    CornerRadius="45"
+                                    HeightRequest="90"
+                                    VerticalOptions="Center">
+                                    <View.Resources>
+                                        <DataTrigger
+                                            x:Key="trigger"
+                                            TargetType="border:SfBorder"
+                                            Value="True">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ActiveBackgroundColor}" />
+                                        </DataTrigger>
+                                    </View.Resources>
+                                    <Image
+                                        x:Name="icon"
+                                        HeightRequest="{Binding IconHeight}"
+                                        VerticalOptions="Center">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="{StaticResource Icons}"
+                                                Glyph="{Binding IconGlyph}"
+                                                Size="{Binding IconHeight}"
+                                                Color="{StaticResource InactiveIconColor}" />
+                                        </Image.Source>
+                                        <Image.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding BackgroundColor, Source={Reference border}}"
+                                                TargetType="Image"
+                                                Value="{StaticResource ActiveBackgroundColor}">
+                                                <Setter Property="Source">
+                                                    <FontImageSource
+                                                        FontFamily="{StaticResource Icons}"
+                                                        Glyph="{Binding IconGlyph}"
+                                                        Size="{Binding IconHeight}"
+                                                        Color="{StaticResource ActiveIconColor}" />
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Image.Triggers>
+                                    </Image>
+                                </border:SfBorder>
+
+                                <Label
+                                    Grid.Column="1"
+                                    FontFamily="{StaticResource MediumFontFamily}"
+                                    FontSize="18"
+                                    Text="{Binding Title}"
+                                    VerticalOptions="End" />
+                                <Label
+                                    x:Name="txtDate"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    FontSize="13"
+                                    IsVisible="False"
+                                    TextColor="{StaticResource TextSecondaryColor}"
+                                    VerticalOptions="Start">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding BackgroundColor, Source={Reference border}}"
+                                            TargetType="Label"
+                                            Value="{StaticResource ActiveBackgroundColor}">
+                                            <Setter Property="IsVisible" Value="True" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    FontSize="13"
+                                    IsVisible="{Binding IsVisible, Source={Reference txtDate}, Converter={StaticResource InvertedBoolConverter}}"
+                                    Text="Pending"
+                                    TextColor="{StaticResource TextSecondaryColor}"
+                                    VerticalOptions="Start" />
+
+                                <BoxView
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    IsVisible="{Binding ShowSeparator}"
+                                    Color="#EBEBEB" />
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </AbsoluteLayout>
+        </StackLayout>
+    </ScrollView>
+</pages:Page>
