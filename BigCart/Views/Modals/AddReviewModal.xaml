@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:ModalPage
+    x:Class="BigCart.Modals.AddReviewModal"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="Write a Review"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:AddReviewViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <ScrollView>
+        <StackLayout Padding="0,50,0,0" Spacing="15">
+            <Label
+                FontFamily="{StaticResource BoldFontFamily}"
+                FontSize="20"
+                HorizontalOptions="Center"
+                Text="What do you think?" />
+            <Label
+                FontFamily="{StaticResource MediumFontFamily}"
+                FontSize="16"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                Text="Please give your rating by clicking on the stars below."
+                TextColor="{StaticResource TextSecondaryColor}"
+                WidthRequest="300" />
+
+            <controls:RatingEx
+                Margin="0,15,0,20"
+                HorizontalOptions="Center"
+                ItemSize="30"
+                Value="{Binding Rating}">
+                <rating:SfRating.RatingSettings>
+                    <rating:SfRatingSettings
+                        RatedFill="#FFC107"
+                        RatedStrokeWidth="0"
+                        UnRatedFill="{StaticResource BackgroundPrimaryColor}"
+                        UnRatedStrokeWidth="0" />
+                </rating:SfRating.RatingSettings>
+            </controls:RatingEx>
+
+            <StackLayout
+                Padding="15,20"
+                BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                Orientation="Horizontal"
+                Spacing="10">
+                <Image VerticalOptions="Start">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource Icons}"
+                            Glyph="{Static icons:Icons.Pencil}"
+                            Size="22"
+                            Color="{StaticResource TextSecondaryColor}" />
+                    </Image.Source>
+                </Image>
+                <txt:SfTextInputLayout
+                    CharMaxLength="100"
+                    HorizontalOptions="FillAndExpand"
+                    InputViewPadding="0"
+                    ShowCharCount="True">
+                    <Editor
+                        AutoSize="TextChanges"
+                        Placeholder="Tell us about your experience"
+                        Text="{Binding Comment}" />
+                </txt:SfTextInputLayout>
+            </StackLayout>
+
+            <Button Command="{Binding SubmitCommand}" Text="Add Review" />
+        </StackLayout>
+    </ScrollView>
+</pages:ModalPage>

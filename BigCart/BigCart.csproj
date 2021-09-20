@@ -42,6 +42,9 @@
     <Compile Update="Controls\AutoSizeCarouselView.xaml.cs">
       <DependentUpon>AutoSizeCarouselView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Modals\AddReviewModal.xaml.cs">
+      <DependentUpon>AddReviewModal.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>

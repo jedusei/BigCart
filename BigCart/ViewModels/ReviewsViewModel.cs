@@ -1,11 +1,11 @@
-﻿using BigCart.Models;
+﻿using BigCart.Modals;
+using BigCart.Models;
 using BigCart.Services.Reviews;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.CommunityToolkit.UI.Views;
-using Xamarin.Forms;
 
 namespace BigCart.ViewModels
 {
@@ -53,12 +53,13 @@ namespace BigCart.ViewModels
 
         private async Task AddReviewAsync()
         {
-            await _reviewService.AddReviewAsync(_product, new Review
+            Review review = await _modalService.PushAsync<AddReviewModal, Review>();
+            if (review != null)
             {
-                User = new User { Name = "You", ProfilePicture = ImageSource.FromFile("avatar.png") },
-                Rating = 3,
-                Comment = "This is a test"
-            });
+                _modalService.ShowLoading("Submitting review...");
+                await _reviewService.AddReviewAsync(_product, review);
+                _modalService.HideLoading();
+            }
         }
     }
 }

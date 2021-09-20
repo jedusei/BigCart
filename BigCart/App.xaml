@@ -72,6 +72,14 @@
             <Setter Property="FontSize" Value="15" />
             <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
         </Style>
+        
+        <Style TargetType="Editor">
+            <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+            <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+            <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondaryColor}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
+        </Style>
 
         <Style TargetType="num:SfNumericTextBox">
             <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
