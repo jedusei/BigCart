@@ -123,11 +123,13 @@
                                     ReadOnly="True"
                                     TranslationY="{OnPlatform -1, Android=-2}"
                                     Value="{Binding Product.Rating}" />
-                                <Label
-                                    FontFamily="{StaticResource MediumFontFamily}"
-                                    FontSize="16"
-                                    Text="(100 reviews)"
-                                    TextColor="{StaticResource TextSecondaryColor}" />
+                                <ev:SfEffectsView TouchUpCommand="{Binding ShowReviewsCommand}">
+                                    <Label
+                                        FontFamily="{StaticResource MediumFontFamily}"
+                                        FontSize="16"
+                                        Text="(100 reviews)"
+                                        TextColor="{StaticResource TextSecondaryColor}" />
+                                </ev:SfEffectsView>
                             </FlexLayout>
                             <Label
                                 FontSize="16"

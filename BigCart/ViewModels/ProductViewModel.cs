@@ -1,6 +1,8 @@
 ﻿using BigCart.Models;
+using BigCart.Pages;
 using BigCart.Services.Cart;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace BigCart.ViewModels
@@ -9,12 +11,14 @@ namespace BigCart.ViewModels
     {
         public Product Product { get; private set; }
         public ICommand ToggleFavoriteCommand { get; }
+        public ICommand ShowReviewsCommand { get; }
         public ICommand ChangeQuantityCommand { get; }
         public ICommand AddToCartCommand { get; }
 
         public ProductViewModel(ICartService cartService)
         {
             ToggleFavoriteCommand = new Command(() => Product.IsFavorite = !Product.IsFavorite);
+            ShowReviewsCommand = new AsyncCommand(() => _navigationService.PushAsync<ReviewsPage>(new() { Data = Product }));
             ChangeQuantityCommand = new Command<int>(delta =>
             {
                 if (delta > 0 || Product.Quantity > 1)
