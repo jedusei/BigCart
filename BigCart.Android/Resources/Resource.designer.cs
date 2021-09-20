@@ -18914,13 +18914,25 @@ namespace BigCart.Droid
 			public const int tooltip_frame_light = 2131165399;
 			
 			// aapt resource value: 0x7F0700D8
-			public const int welcome_1 = 2131165400;
+			public const int user_carla_g = 2131165400;
 			
 			// aapt resource value: 0x7F0700D9
-			public const int welcome_2 = 2131165401;
+			public const int user_carla_s = 2131165401;
 			
 			// aapt resource value: 0x7F0700DA
-			public const int welcome_3 = 2131165402;
+			public const int user_haylie = 2131165402;
+			
+			// aapt resource value: 0x7F0700DB
+			public const int user_maren = 2131165403;
+			
+			// aapt resource value: 0x7F0700DC
+			public const int welcome_1 = 2131165404;
+			
+			// aapt resource value: 0x7F0700DD
+			public const int welcome_2 = 2131165405;
+			
+			// aapt resource value: 0x7F0700DE
+			public const int welcome_3 = 2131165406;
 			
 			static Drawable()
 			{

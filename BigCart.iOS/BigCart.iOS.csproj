@@ -253,4 +253,16 @@
   <ItemGroup>
     <BundleResource Include="Resources\credit_card.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\user_maren.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\user_carla_g.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\user_carla_s.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\user_haylie.png" />
+  </ItemGroup>
 </Project>
