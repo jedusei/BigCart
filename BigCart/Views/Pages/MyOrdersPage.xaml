@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.MyOrdersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:progressbar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="My Orders"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:MyOrdersViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <StackLayout
+        Margin="-15,0"
+        xct:StateLayout.AnimateStateChanges="False"
+        xct:StateLayout.CurrentState="{Binding LoadState}"
+        BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+        Spacing="0">
+        <xct:StateLayout.StateViews>
+            <xct:StateView
+                HorizontalOptions="Center"
+                StateKey="Loading"
+                VerticalOptions="CenterAndExpand">
+                <ActivityIndicator IsRunning="True" WidthRequest="50" />
+            </xct:StateView>
+
+            <xct:StateView StateKey="Success">
+                <lv:SfListView
+                    x:Name="_listView"
+                    AutoFitMode="DynamicHeight"
+                    ItemsSource="{Binding Orders}"
+                    SelectionMode="None">
+                    <lv:SfListView.HeaderTemplate>
+                        <DataTemplate>
+                            <BoxView HeightRequest="15" />
+                        </DataTemplate>
+                    </lv:SfListView.HeaderTemplate>
+                    <lv:SfListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Order">
+                            <xct:Expander Padding="15,0,15,15" IsExpanded="{Binding IsExpanded}">
+                                <xct:Expander.Header>
+                                    <Grid
+                                        Padding="15"
+                                        BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                                        ColumnDefinitions="70,Auto,*,20"
+                                        ColumnSpacing="15"
+                                        RowDefinitions="Auto,*,*"
+                                        RowSpacing="0">
+                                        <border:SfBorder
+                                            Grid.RowSpan="3"
+                                            BackgroundColor="#EBFFD7"
+                                            BorderWidth="0"
+                                            CornerRadius="35"
+                                            HeightRequest="70"
+                                            VerticalOptions="Center">
+                                            <Image HeightRequest="30" VerticalOptions="Center">
+                                                <Image.Source>
+                                                    <FontImageSource
+                                                        FontFamily="{StaticResource Icons}"
+                                                        Glyph="{Static icons:Icons.BoxOpen}"
+                                                        Color="#28B446" />
+                                                </Image.Source>
+                                            </Image>
+                                        </border:SfBorder>
+
+                                        <Label
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="2"
+                                            FontFamily="{StaticResource BoldFontFamily}"
+                                            FontSize="20"
+                                            Text="{Binding Id, StringFormat='Order #{0}'}" />
+                                        <Label
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="2"
+                                            MaxLines="1"
+                                            Text="{Binding CreatedAt, StringFormat='Placed on {0:MMMM dd yyyy}'}"
+                                            TextColor="{StaticResource TextSecondaryColor}" />
+
+                                        <Label Grid.Row="2" Grid.Column="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Quantity: " />
+                                                    <Span
+                                                        FontFamily="{StaticResource MediumFontFamily}"
+                                                        FontSize="15"
+                                                        Text="{Binding ItemCount}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label
+                                            Grid.Row="2"
+                                            Grid.Column="2"
+                                            MaxLines="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Cost: " />
+                                                    <Span
+                                                        FontFamily="{StaticResource MediumFontFamily}"
+                                                        FontSize="15"
+                                                        Text="{Binding Cost, StringFormat='{0:C2}'}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+
+                                        <Image
+                                            x:Name="dropdownIcon"
+                                            Grid.RowSpan="3"
+                                            Grid.Column="3"
+                                            HeightRequest="20"
+                                            Source="{FontImage Glyph={Static icons:Icons.DropdownCircle},
+                                                               FontFamily={StaticResource Icons},
+                                                               Color=#28B446}"
+                                            VerticalOptions="Center" />
+                                    </Grid>
+                                </xct:Expander.Header>
+                                <xct:Expander.Content>
+                                    <AbsoluteLayout BackgroundColor="White">
+                                        <BoxView
+                                            AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                            AbsoluteLayout.LayoutFlags="WidthProportional"
+                                            Color="#EBEBEB" />
+                                        <progressbar:SfLinearProgressBar
+                                            x:Name="progressBar"
+                                            AnchorX="0"
+                                            AnchorY="0"
+                                            HeightRequest="1.5"
+                                            Progress="{Binding Progress}"
+                                            ProgressColor="{StaticResource PrimaryDarkColor}"
+                                            Rotation="90"
+                                            TrackColor="#EBEBEB" />
+                                        <StackLayout
+                                            x:Name="stepsLayout"
+                                            Padding="15,20"
+                                            AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
+                                            AbsoluteLayout.LayoutFlags="WidthProportional"
+                                            Spacing="15">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate x:DataType="{x:Null}">
+                                                    <StackLayout Orientation="Horizontal" Spacing="8">
+                                                        <Ellipse
+                                                            x:Name="ellipse"
+                                                            HeightRequest="12"
+                                                            HorizontalOptions="Start"
+                                                            StrokeThickness="0"
+                                                            VerticalOptions="Center"
+                                                            WidthRequest="12">
+                                                            <Ellipse.Fill>
+                                                                <SolidColorBrush Color="{StaticResource PrimaryDarkColor}" />
+                                                            </Ellipse.Fill>
+                                                            <Ellipse.Triggers>
+                                                                <DataTrigger
+                                                                    Binding="{Binding IsVisible, Source={Reference txtPending}}"
+                                                                    TargetType="Ellipse"
+                                                                    Value="True">
+                                                                    <Setter Property="Fill" Value="#EBEBEB" />
+                                                                </DataTrigger>
+                                                            </Ellipse.Triggers>
+                                                        </Ellipse>
+                                                        <Label
+                                                            FontAttributes="Bold"
+                                                            FontFamily="{StaticResource MediumFontFamily}"
+                                                            FontSize="16"
+                                                            Text="{Binding Title}">
+                                                            <Label.Triggers>
+                                                                <DataTrigger
+                                                                    Binding="{Binding IsVisible, Source={Reference txtPending}}"
+                                                                    TargetType="Label"
+                                                                    Value="True">
+                                                                    <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
+                                                                </DataTrigger>
+                                                            </Label.Triggers>
+                                                        </Label>
+                                                        <Label
+                                                            x:Name="txtDate"
+                                                            FontSize="16"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            IsVisible="{Binding IsVisible, Source={Reference txtPending}, Converter={StaticResource InvertedBoolConverter}}"
+                                                            TextColor="{StaticResource TextSecondaryColor}" />
+                                                        <Label
+                                                            x:Name="txtPending"
+                                                            FontSize="16"
+                                                            HorizontalOptions="EndAndExpand"
+                                                            Text="Pending"
+                                                            TextColor="{StaticResource TextSecondaryColor}" />
+                                                    </StackLayout>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
+                                    </AbsoluteLayout>
+                                </xct:Expander.Content>
+                            </xct:Expander>
+                        </DataTemplate>
+                    </lv:SfListView.ItemTemplate>
+                </lv:SfListView>
+            </xct:StateView>
+
+            <xct:StateView
+                HorizontalOptions="Center"
+                StateKey="Empty"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    FontSize="25"
+                    Text="No items"
+                    TextColor="{StaticResource TextSecondaryColor}" />
+            </xct:StateView>
+        </xct:StateLayout.StateViews>
+    </StackLayout>
+
+</pages:Page>

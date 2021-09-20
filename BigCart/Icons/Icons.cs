@@ -44,5 +44,6 @@
         public const string TickCircle = "\ue927";
         public const string BoxOpen = "\ue928";
         public const string BoxCart = "\ue929";
+        public const string DropdownCircle = "\ue92a";
     }
 }

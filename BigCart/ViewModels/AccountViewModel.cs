@@ -24,6 +24,10 @@ namespace BigCart.ViewModels
                     await _navigationService.PushAsync<AboutPage>();
                     break;
 
+                case AccountTab.MENU_ITEM_ORDERS:
+                    await _navigationService.PushAsync<MyOrdersPage>();
+                    break;
+
                 case AccountTab.MENU_ITEM_FAVORITES:
                     MessagingCenter.Send((object)this, MessageKeys.GoToTab, MainPage.TAB_FAVORITES);
                     break;

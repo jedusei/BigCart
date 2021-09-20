@@ -5,8 +5,9 @@ namespace BigCart.Models
 {
     public class Order : ObservableObject
     {
-        private DateTime? _confirmedAt, _shippedAt, _outForDeliveryAt, _deliveredAt;
         private float _progress;
+        private DateTime? _confirmedAt, _shippedAt, _outForDeliveryAt, _deliveredAt;
+        private bool _isExpanded;
 
         public int Id { get; }
         public int ItemCount { get; }
@@ -36,6 +37,11 @@ namespace BigCart.Models
         {
             get => _deliveredAt;
             set => SetProperty(ref _deliveredAt, value, onChanged: UpdateProgress);
+        }
+        public bool IsExpanded
+        {
+            get => _isExpanded;
+            set => SetProperty(ref _isExpanded, value);
         }
 
         public Order(int id, int itemCount, float cost)

@@ -81,6 +81,9 @@
     <Compile Update="Views\Pages\OrderSuccessPage.xaml.cs">
       <DependentUpon>OrderSuccessPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Pages\MyOrdersPage.xaml.cs">
+      <DependentUpon>MyOrdersPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Pages\TrackOrderPage.xaml.cs">
       <DependentUpon>TrackOrderPage.xaml</DependentUpon>
     </Compile>
