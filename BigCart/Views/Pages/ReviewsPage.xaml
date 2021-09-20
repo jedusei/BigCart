@@ -42,7 +42,10 @@
             </xct:StateView>
 
             <xct:StateView StateKey="Success">
-                <lv:SfListView AutoFitMode="Height" ItemsSource="{Binding Reviews}">
+                <lv:SfListView
+                    AutoFitMode="Height"
+                    ItemsSource="{Binding Reviews}"
+                    SelectionMode="None">
                     <lv:SfListView.HeaderTemplate>
                         <DataTemplate>
                             <BoxView HeightRequest="15" />
@@ -71,7 +74,11 @@
                                             FontFamily="{StaticResource BoldFontFamily}"
                                             FontSize="18"
                                             Text="{Binding User.Name}" />
-                                        <Label Text="{Binding DateCreated, Converter={StaticResource DateToTimeAgoConverter}}" TextColor="{StaticResource TextSecondaryColor}" />
+                                        <Label
+                                            FontFamily="{StaticResource MediumFontFamily}"
+                                            FontSize="13"
+                                            Text="{Binding DateCreated, Converter={StaticResource DateToTimeAgoConverter}}"
+                                            TextColor="{StaticResource TextSecondaryColor}" />
                                     </StackLayout>
                                 </StackLayout>
 
