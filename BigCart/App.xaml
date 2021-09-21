@@ -72,7 +72,7 @@
             <Setter Property="FontSize" Value="15" />
             <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
         </Style>
-        
+
         <Style TargetType="Editor">
             <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
             <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
@@ -263,6 +263,7 @@
 
                         <ContentPresenter
                             Padding="15,0"
+                            BackgroundColor="{TemplateBinding BackgroundColor}"
                             Content="{TemplateBinding Content}"
                             VerticalOptions="FillAndExpand" />
                     </StackLayout>
