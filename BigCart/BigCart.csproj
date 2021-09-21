@@ -90,6 +90,9 @@
     <Compile Update="Views\Pages\ReviewsPage.xaml.cs">
       <DependentUpon>ReviewsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Pages\TransactionsPage.xaml.cs">
+      <DependentUpon>TransactionsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Pages\TrackOrderPage.xaml.cs">
       <DependentUpon>TrackOrderPage.xaml</DependentUpon>
     </Compile>

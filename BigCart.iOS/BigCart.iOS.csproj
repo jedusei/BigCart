@@ -265,4 +265,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\user_haylie.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\paypal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\visa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\mastercard.png" />
+  </ItemGroup>
 </Project>

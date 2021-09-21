@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.TransactionsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="Transactions"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:TransactionsViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <StackLayout
+        Margin="-15,0"
+        xct:StateLayout.AnimateStateChanges="False"
+        xct:StateLayout.CurrentState="{Binding LoadState}"
+        BackgroundColor="{StaticResource BackgroundSecondaryColor}">
+        <xct:StateLayout.StateViews>
+            <xct:StateView
+                HorizontalOptions="Center"
+                StateKey="Loading"
+                VerticalOptions="CenterAndExpand">
+                <ActivityIndicator IsRunning="True" WidthRequest="50" />
+            </xct:StateView>
+
+            <xct:StateView StateKey="Success">
+                <lv:SfListView
+                    AutoFitMode="Height"
+                    ItemsSource="{Binding Transactions}"
+                    SelectionMode="None">
+                    <lv:SfListView.HeaderTemplate>
+                        <DataTemplate>
+                            <BoxView HeightRequest="10" />
+                        </DataTemplate>
+                    </lv:SfListView.HeaderTemplate>
+                    <lv:SfListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Transaction">
+                            <StackLayout
+                                Margin="15,0,15,10"
+                                Padding="20,15"
+                                BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                                Orientation="Horizontal"
+                                Spacing="20">
+                                <border:SfBorder
+                                    BackgroundColor="{StaticResource BackgroundTertiaryColor}"
+                                    BorderWidth="0"
+                                    CornerRadius="30"
+                                    HeightRequest="60"
+                                    VerticalOptions="Center"
+                                    WidthRequest="60">
+                                    <Image
+                                        Margin="10,15"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center">
+                                        <Image.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding CreditCardType}"
+                                                TargetType="Image"
+                                                Value="{Static models:CreditCardType.Mastercard}">
+                                                <Setter Property="Source" Value="mastercard.png" />
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding CreditCardType}"
+                                                TargetType="Image"
+                                                Value="{Static models:CreditCardType.Visa}">
+                                                <Setter Property="Source" Value="visa.png" />
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding CreditCardType}"
+                                                TargetType="Image"
+                                                Value="{Static models:CreditCardType.Paypal}">
+                                                <Setter Property="Source" Value="paypal.png" />
+                                            </DataTrigger>
+                                        </Image.Triggers>
+                                    </Image>
+                                </border:SfBorder>
+
+                                <StackLayout
+                                    HorizontalOptions="FillAndExpand"
+                                    Spacing="{OnPlatform 0, Android=-5}"
+                                    VerticalOptions="Center">
+                                    <Label
+                                        FontFamily="{StaticResource BoldFontFamily}"
+                                        FontSize="18"
+                                        VerticalOptions="End">
+                                        <Label.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding CreditCardType}"
+                                                TargetType="Label"
+                                                Value="{Static models:CreditCardType.Mastercard}">
+                                                <Setter Property="Text" Value="Mastercard" />
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding CreditCardType}"
+                                                TargetType="Label"
+                                                Value="{Static models:CreditCardType.Visa}">
+                                                <Setter Property="Text" Value="VISA" />
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding CreditCardType}"
+                                                TargetType="Label"
+                                                Value="{Static models:CreditCardType.Paypal}">
+                                                <Setter Property="Text" Value="Paypal" />
+                                            </DataTrigger>
+                                        </Label.Triggers>
+                                    </Label>
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding DateCreated, StringFormat='{0:MMM dd yyyy &quot;at&quot; h:mm tt}'}"
+                                        VerticalOptions="Start" />
+                                </StackLayout>
+
+                                <Label
+                                    FontFamily="{StaticResource MediumFontFamily}"
+                                    FontSize="18"
+                                    Text="{Binding Amount, StringFormat='{0:C2}'}"
+                                    TextColor="{StaticResource PrimaryDarkColor}"
+                                    VerticalOptions="Center" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </lv:SfListView.ItemTemplate>
+                </lv:SfListView>
+            </xct:StateView>
+
+            <xct:StateView
+                HorizontalOptions="Center"
+                StateKey="Empty"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    FontSize="25"
+                    Text="No transactions"
+                    TextColor="{StaticResource TextSecondaryColor}" />
+            </xct:StateView>
+        </xct:StateLayout.StateViews>
+    </StackLayout>
+</pages:Page>
