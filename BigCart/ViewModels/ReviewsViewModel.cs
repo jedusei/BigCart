@@ -26,7 +26,7 @@ namespace BigCart.ViewModels
         public ReviewsViewModel(IReviewService reviewService)
         {
             _reviewService = reviewService;
-            AddReviewCommand = new AsyncCommand(AddReviewAsync);
+            AddReviewCommand = new AsyncCommand(AddReviewAsync, allowsMultipleExecutions: false);
         }
 
         public override void Initialize(object navigationData)
