@@ -13,8 +13,8 @@
     vm:ViewModelLocator.AutoWireViewModel="True"
     x:DataType="vm:AddReviewViewModel"
     Style="{StaticResource PageWithTitleBar}">
-    <ScrollView>
-        <StackLayout Padding="0,50,0,0" Spacing="15">
+    <ScrollView VerticalScrollBarVisibility="Never">
+        <StackLayout Padding="0,50,0,15" Spacing="15">
             <Label
                 FontFamily="{StaticResource BoldFontFamily}"
                 FontSize="20"
@@ -43,11 +43,13 @@
                 </rating:SfRating.RatingSettings>
             </controls:RatingEx>
 
-            <StackLayout
+            <Grid
                 Padding="15,20"
                 BackgroundColor="{StaticResource BackgroundPrimaryColor}"
-                Orientation="Horizontal"
-                Spacing="10">
+                ColumnDefinitions="22,*"
+                ColumnSpacing="10"
+                MinimumHeightRequest="160"
+                RowDefinitions="Auto,Auto">
                 <Image VerticalOptions="Start">
                     <Image.Source>
                         <FontImageSource
@@ -57,17 +59,35 @@
                             Color="{StaticResource TextSecondaryColor}" />
                     </Image.Source>
                 </Image>
+
+                <!--  MINIMUM HEIGHT REQUEST WORKAROUND  -->
+                <BoxView
+                    Grid.Column="1"
+                    HeightRequest="160"
+                    Color="Transparent" />
+
                 <txt:SfTextInputLayout
-                    CharMaxLength="100"
+                    Grid.Column="1"
                     HorizontalOptions="FillAndExpand"
                     InputViewPadding="0"
-                    ShowCharCount="True">
+                    TranslationY="{OnPlatform iOS=-8}"
+                    VerticalOptions="Start">
                     <Editor
                         AutoSize="TextChanges"
+                        MaxLength="100"
                         Placeholder="Tell us about your experience"
                         Text="{Binding Comment}" />
                 </txt:SfTextInputLayout>
-            </StackLayout>
+
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    FontFamily="{StaticResource MediumFontFamily}"
+                    FontSize="12"
+                    HorizontalOptions="End"
+                    Text="{Binding Comment.Length, FallbackValue='0/100', StringFormat='{0}/100'}"
+                    TextColor="{StaticResource TextSecondaryColor}" />
+            </Grid>
 
             <Button Command="{Binding SubmitCommand}" Text="Add Review" />
         </StackLayout>
