@@ -127,7 +127,7 @@
                                     <Label
                                         FontFamily="{StaticResource MediumFontFamily}"
                                         FontSize="16"
-                                        Text="(100 reviews)"
+                                        Text="{Binding Product.ReviewCount, StringFormat='({0} reviews)'}"
                                         TextColor="{StaticResource TextSecondaryColor}" />
                                 </ev:SfEffectsView>
                             </FlexLayout>

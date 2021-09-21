@@ -27,6 +27,7 @@ namespace BigCart.Services.Reviews
             await Task.Delay(1000);
             ObservableCollection<Review> reviews = GetProductReviewList(product);
             reviews.Insert(0, review);
+            product.ReviewCount = reviews.Count;
         }
 
         private ObservableCollection<Review> GetProductReviewList(Product product)

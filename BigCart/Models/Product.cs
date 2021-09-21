@@ -8,6 +8,7 @@ namespace BigCart.Models
         private bool _isInCart;
         private int _quantity;
         private bool _isFavorite;
+        private int _reviewCount = 4;
 
         public int Column { get; set; }
         public string Name { get; set; }
@@ -32,6 +33,11 @@ namespace BigCart.Models
         {
             get => _isFavorite;
             set => SetProperty(ref _isFavorite, value);
+        }
+        public int ReviewCount
+        {
+            get => _reviewCount;
+            set => SetProperty(ref _reviewCount, value);
         }
     }
 }
