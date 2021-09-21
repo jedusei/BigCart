@@ -250,7 +250,6 @@
                                                 TouchUpCommandParameter="{Binding CommandParameter}"
                                                 WidthRequest="50">
                                                 <Image
-                                                    HeightRequest="16"
                                                     HorizontalOptions="Center"
                                                     Source="{Binding IconImageSource}"
                                                     VerticalOptions="Center" />

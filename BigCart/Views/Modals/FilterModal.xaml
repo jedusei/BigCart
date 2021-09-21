@@ -38,6 +38,7 @@
                 <FontImageSource
                     FontFamily="{StaticResource Icons}"
                     Glyph="{Static icons:Icons.Reload}"
+                    Size="20"
                     Color="Black" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>

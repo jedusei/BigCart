@@ -20,6 +20,7 @@
                 <FontImageSource
                     FontFamily="{StaticResource Icons}"
                     Glyph="{Static icons:Icons.Filter}"
+                    Size="16"
                     Color="Black" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>
