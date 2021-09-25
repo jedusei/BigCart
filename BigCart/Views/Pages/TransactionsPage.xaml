@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:models="clr-namespace:BigCart.Models"
     xmlns:pages="clr-namespace:BigCart.Pages"
@@ -44,6 +45,55 @@
                                 BackgroundColor="{StaticResource BackgroundPrimaryColor}"
                                 Orientation="Horizontal"
                                 Spacing="20">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup Name="CreditCardTypes">
+                                        <VisualState Name="Mastercard">
+                                            <VisualState.StateTriggers>
+                                                <StateTrigger IsActive="{Binding CreditCardType, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:CreditCardType.Mastercard}}" />
+                                            </VisualState.StateTriggers>
+                                            <VisualState.Setters>
+                                                <Setter TargetName="icon" Property="Image.Source" Value="mastercard.png" />
+                                                <Setter TargetName="label" Property="Label.Text" Value="Mastercard" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState Name="Visa">
+                                            <VisualState.StateTriggers>
+                                                <StateTrigger IsActive="{Binding CreditCardType, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:CreditCardType.Visa}}" />
+                                            </VisualState.StateTriggers>
+                                            <VisualState.Setters>
+                                                <Setter TargetName="icon" Property="Image.Source" Value="visa.png" />
+                                                <Setter TargetName="label" Property="Label.Text" Value="VISA" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState Name="Paypal">
+                                            <VisualState.StateTriggers>
+                                                <StateTrigger IsActive="{Binding CreditCardType, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:CreditCardType.Paypal}}" />
+                                            </VisualState.StateTriggers>
+                                            <VisualState.Setters>
+                                                <Setter TargetName="icon" Property="Image.Source" Value="paypal.png" />
+                                                <Setter TargetName="label" Property="Label.Text" Value="Paypal" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+
+                                        <VisualState Name="ApplePay">
+                                            <VisualState.StateTriggers>
+                                                <StateTrigger IsActive="{Binding CreditCardType, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:CreditCardType.ApplePay}}" />
+                                            </VisualState.StateTriggers>
+                                            <VisualState.Setters>
+                                                <Setter TargetName="label" Property="Label.Text" Value="Apple Pay" />
+                                                <Setter TargetName="icon" Property="Image.TranslationY" Value="-2" />
+                                                <Setter TargetName="icon" Property="Image.Source">
+                                                    <FontImageSource
+                                                        FontFamily="{StaticResource Icons}"
+                                                        Glyph="{Static icons:Icons.AppleLogo}"
+                                                        Color="{StaticResource TextSecondaryColor}" />
+                                                </Setter>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
                                 <border:SfBorder
                                     BackgroundColor="{StaticResource BackgroundTertiaryColor}"
                                     BorderWidth="0"
@@ -52,30 +102,10 @@
                                     VerticalOptions="Center"
                                     WidthRequest="60">
                                     <Image
+                                        x:Name="icon"
                                         Margin="10,15"
                                         HorizontalOptions="Center"
-                                        VerticalOptions="Center">
-                                        <Image.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding CreditCardType}"
-                                                TargetType="Image"
-                                                Value="{Static models:CreditCardType.Mastercard}">
-                                                <Setter Property="Source" Value="mastercard.png" />
-                                            </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding CreditCardType}"
-                                                TargetType="Image"
-                                                Value="{Static models:CreditCardType.Visa}">
-                                                <Setter Property="Source" Value="visa.png" />
-                                            </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding CreditCardType}"
-                                                TargetType="Image"
-                                                Value="{Static models:CreditCardType.Paypal}">
-                                                <Setter Property="Source" Value="paypal.png" />
-                                            </DataTrigger>
-                                        </Image.Triggers>
-                                    </Image>
+                                        VerticalOptions="Center" />
                                 </border:SfBorder>
 
                                 <StackLayout
@@ -83,30 +113,10 @@
                                     Spacing="{OnPlatform 0, Android=-5}"
                                     VerticalOptions="Center">
                                     <Label
+                                        x:Name="label"
                                         FontFamily="{StaticResource BoldFontFamily}"
                                         FontSize="18"
-                                        VerticalOptions="End">
-                                        <Label.Triggers>
-                                            <DataTrigger
-                                                Binding="{Binding CreditCardType}"
-                                                TargetType="Label"
-                                                Value="{Static models:CreditCardType.Mastercard}">
-                                                <Setter Property="Text" Value="Mastercard" />
-                                            </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding CreditCardType}"
-                                                TargetType="Label"
-                                                Value="{Static models:CreditCardType.Visa}">
-                                                <Setter Property="Text" Value="VISA" />
-                                            </DataTrigger>
-                                            <DataTrigger
-                                                Binding="{Binding CreditCardType}"
-                                                TargetType="Label"
-                                                Value="{Static models:CreditCardType.Paypal}">
-                                                <Setter Property="Text" Value="Paypal" />
-                                            </DataTrigger>
-                                        </Label.Triggers>
-                                    </Label>
+                                        VerticalOptions="End" />
                                     <Label
                                         FontSize="12"
                                         Text="{Binding DateCreated, StringFormat='{0:MMM dd yyyy &quot;at&quot; h:mm tt}'}"

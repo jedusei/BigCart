@@ -26,7 +26,7 @@ namespace BigCart.Services.Transactions
             },
             new()
             {
-                CreditCardType = CreditCardType.Paypal,
+                CreditCardType = CreditCardType.ApplePay,
                 Amount = 480
             },
             new()
