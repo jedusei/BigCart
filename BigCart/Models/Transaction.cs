@@ -6,7 +6,8 @@ namespace BigCart.Models
     {
         Mastercard,
         Visa,
-        Paypal
+        Paypal,
+        ApplePay
     }
 
     public record Transaction

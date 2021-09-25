@@ -1,6 +1,7 @@
 ﻿using BigCart.DependencyInjection;
 using BigCart.Models;
 using BigCart.Services.Cart;
+using BigCart.Services.Transactions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,13 +12,15 @@ namespace BigCart.Services.Orders
     {
         private static int _nextOrderId = 90897;
         private readonly ICartService _cartService;
+        private readonly ITransactionService _transactionService;
         private List<Order> _orders = new();
 
         public Order LatestOrder { get; private set; }
 
-        public OrderService(ICartService cartService)
+        public OrderService(ICartService cartService, ITransactionService transactionService)
         {
             _cartService = cartService;
+            _transactionService = transactionService;
         }
 
         public async Task<Order[]> GetOrdersAsync()
@@ -26,13 +29,20 @@ namespace BigCart.Services.Orders
             return _orders.ToArray();
         }
 
-        public async Task<Order> PlaceOrderAsync()
+        public async Task<Order> PlaceOrderAsync(CreditCardType creditCardType)
         {
             var delayTask = Task.Delay(1000);
 
             var items = await _cartService.GetItemsAsync();
             int quantity = items.Sum(i => i.Quantity);
             float cost = items.Sum(i => i.Quantity * i.Price) + (quantity * AppConsts.UNIT_SHIPPING_COST);
+
+            Transaction transaction = new()
+            {
+                Amount = cost,
+                CreditCardType = creditCardType
+            };
+            await _transactionService.RegisterTransactionAsync(transaction);
 
             await _cartService.ClearCartAsync();
 

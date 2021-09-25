@@ -1,9 +1,11 @@
-﻿using BigCart.Pages;
+﻿using BigCart.Models;
+using BigCart.Pages;
 using BigCart.Services.Orders;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.Forms;
 
 namespace BigCart.ViewModels
 {
@@ -12,6 +14,7 @@ namespace BigCart.ViewModels
         private readonly IOrderService _orderService;
         private int _currentStep;
         private int _stepsCompleted;
+        private CreditCardType _cardType = CreditCardType.Mastercard;
         private string _cardHolder;
         private string _cardNumber;
         private DateTime? _cardExpiryDate;
@@ -26,6 +29,11 @@ namespace BigCart.ViewModels
         {
             get => _stepsCompleted;
             private set => SetProperty(ref _stepsCompleted, value);
+        }
+        public CreditCardType CardType
+        {
+            get => _cardType;
+            set => SetProperty(ref _cardType, value);
         }
         public string CardHolder
         {
@@ -42,12 +50,14 @@ namespace BigCart.ViewModels
             get => _cardExpiryDate;
             set => SetProperty(ref _cardExpiryDate, value);
         }
+        public ICommand SetCardTypeCommand { get; }
         public ICommand NextStepCommand { get; }
 
         public CheckoutViewModel(IOrderService orderService)
         {
             _orderService = orderService;
             UpdateTitle();
+            SetCardTypeCommand = new Command<CreditCardType>(cardType => CardType = cardType);
             NextStepCommand = new AsyncCommand(NextStepAsync, allowsMultipleExecutions: false);
         }
 
@@ -86,7 +96,7 @@ namespace BigCart.ViewModels
                 await Task.Delay(1000);
                 _modalService.ShowLoading("Making payment...");
 
-                await _orderService.PlaceOrderAsync();
+                await _orderService.PlaceOrderAsync(_cardType);
 
                 _modalService.HideLoading();
                 await _navigationService.PushAsync<OrderSuccessPage>();

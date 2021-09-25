@@ -343,13 +343,42 @@
                                     HasShadow="False"
                                     HeightRequest="110"
                                     IsClippedToBounds="True">
-                                    <ev:SfEffectsView>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState Name="Normal" />
+                                            <VisualState Name="Selected">
+                                                <VisualState.Setters>
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDarkColor}" />
+                                                    <Setter TargetName="icon" Property="Image.Source">
+                                                        <FontImageSource
+                                                            FontFamily="{StaticResource Icons}"
+                                                            Glyph="{Binding IconGlyph}"
+                                                            Color="White" />
+                                                    </Setter>
+                                                    <Setter TargetName="label" Property="Label.TextColor" Value="White" />
+                                                </VisualState.Setters>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+
+                                    <ev:SfEffectsView
+                                        x:Name="effectsView"
+                                        TouchUpCommand="{Binding SetCardTypeCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}"
+                                        TouchUpCommandParameter="{Binding Id}">
                                         <FlexLayout
                                             AlignItems="Center"
                                             Direction="Column"
                                             JustifyContent="Center">
-                                            <Image HeightRequest="25" Source="{Binding Icon}" />
+                                            <Image x:Name="icon" HeightRequest="25">
+                                                <Image.Source>
+                                                    <FontImageSource
+                                                        FontFamily="{StaticResource Icons}"
+                                                        Glyph="{Binding IconGlyph}"
+                                                        Color="{StaticResource TextSecondaryColor}" />
+                                                </Image.Source>
+                                            </Image>
                                             <Label
+                                                x:Name="label"
                                                 Margin="0,15,0,0"
                                                 FontFamily="{StaticResource MediumFontFamily}"
                                                 FontSize="12"

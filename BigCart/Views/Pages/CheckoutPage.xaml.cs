@@ -1,5 +1,11 @@
-﻿using BigCart.ViewModels;
+﻿using BigCart.Models;
+using BigCart.ViewModels;
+using Syncfusion.XForms.EffectsView;
 using Syncfusion.XForms.ProgressBar;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
 using AppIcons = BigCart.Icons.Icons;
 
@@ -35,39 +41,25 @@ namespace BigCart.Pages
                 }
             });
 
-            string iconFontFamily = (string)Application.Current.Resources["Icons"];
-            Color iconColor = (Color)Application.Current.Resources["TextSecondaryColor"];
             BindableLayout.SetItemsSource(_paymentMethodLayout, new[]
             {
                 new
                 {
+                    Id = CreditCardType.Paypal,
                     Label = "Paypal",
-                    Icon = new FontImageSource
-                    {
-                        FontFamily = iconFontFamily,
-                        Glyph = AppIcons.Paypal,
-                        Color = iconColor
-                    }
+                    IconGlyph = AppIcons.Paypal
                 },
                 new
                 {
+                    Id = CreditCardType.Mastercard,
                     Label = "Credit Card",
-                    Icon = new FontImageSource
-                    {
-                        FontFamily = iconFontFamily,
-                        Glyph = AppIcons.CreditCard,
-                        Color = iconColor
-                    }
+                    IconGlyph = AppIcons.CreditCard
                 },
                 new
                 {
+                    Id = CreditCardType.ApplePay,
                     Label = "Apple Pay",
-                    Icon = new FontImageSource
-                    {
-                        FontFamily = iconFontFamily,
-                        Glyph = AppIcons.AppleLogo,
-                        Color = iconColor
-                    }
+                    IconGlyph = AppIcons.AppleLogo
                 }
             });
         }
@@ -78,10 +70,54 @@ namespace BigCart.Pages
             _viewModel = BindingContext as CheckoutViewModel;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (Status == PageStatus.Pending)
+            {
+                var equalConverter = (EqualConverter)Application.Current.Resources["EqualConverter"];
+                var notEqualConverter = (NotEqualConverter)Application.Current.Resources["NotEqualConverter"];
+
+                foreach (View view in _paymentMethodLayout.Children)
+                {
+                    var normalVisualState = GetVisualState(view, "Normal");
+                    var selectedVisualState = GetVisualState(view, "Selected");
+
+                    StateTrigger stateTrigger = new();
+                    stateTrigger.SetBinding(StateTrigger.IsActiveProperty, new Binding
+                    {
+                        Path = nameof(CheckoutViewModel.CardType),
+                        Source = _viewModel,
+                        Converter = notEqualConverter,
+                        ConverterParameter = view.FindByName<SfEffectsView>("effectsView").TouchUpCommandParameter
+                    });
+                    normalVisualState.StateTriggers.Add(stateTrigger);
+
+                    stateTrigger = new StateTrigger();
+                    stateTrigger.SetBinding(StateTrigger.IsActiveProperty, new Binding
+                    {
+                        Path = nameof(CheckoutViewModel.CardType),
+                        Source = _viewModel,
+                        Converter = equalConverter,
+                        ConverterParameter = view.FindByName<SfEffectsView>("effectsView").TouchUpCommandParameter
+                    });
+                    selectedVisualState.StateTriggers.Add(stateTrigger);
+                }
+            }
+        }
+
         private void SfStepProgressBar_StepTapped(object sender, StepTappedEventArgs e)
         {
             if (e.Item.Status != StepStatus.NotStarted)
                 _viewModel.CurrentStep = e.Index;
+        }
+
+        private VisualState GetVisualState(VisualElement visualElement, string name)
+        {
+            IList<VisualStateGroup> visualStateGroups = VisualStateManager.GetVisualStateGroups(visualElement);
+            return visualStateGroups.SelectMany(group => group.States.Where(s => s.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+                .FirstOrDefault();
         }
     }
 }
