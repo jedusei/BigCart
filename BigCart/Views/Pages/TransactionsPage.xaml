@@ -27,7 +27,7 @@
                 <ActivityIndicator IsRunning="True" WidthRequest="50" />
             </xct:StateView>
 
-            <xct:StateView StateKey="Success">
+            <xct:StateView StateKey="Success" VerticalOptions="FillAndExpand">
                 <lv:SfListView
                     AutoFitMode="Height"
                     ItemsSource="{Binding Transactions}"
@@ -39,12 +39,12 @@
                     </lv:SfListView.HeaderTemplate>
                     <lv:SfListView.ItemTemplate>
                         <DataTemplate x:DataType="models:Transaction">
-                            <StackLayout
+                            <FlexLayout
                                 Margin="15,0,15,10"
                                 Padding="20,15"
+                                AlignItems="Center"
                                 BackgroundColor="{StaticResource BackgroundPrimaryColor}"
-                                Orientation="Horizontal"
-                                Spacing="20">
+                                Direction="Row">
                                 <VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup Name="CreditCardTypes">
                                         <VisualState Name="Mastercard">
@@ -98,8 +98,8 @@
                                     BackgroundColor="{StaticResource BackgroundTertiaryColor}"
                                     BorderWidth="0"
                                     CornerRadius="30"
+                                    FlexLayout.Shrink="0"
                                     HeightRequest="60"
-                                    VerticalOptions="Center"
                                     WidthRequest="60">
                                     <Image
                                         x:Name="icon"
@@ -109,27 +109,31 @@
                                 </border:SfBorder>
 
                                 <StackLayout
-                                    HorizontalOptions="FillAndExpand"
-                                    Spacing="{OnPlatform 0, Android=-5}"
-                                    VerticalOptions="Center">
+                                    Margin="20,0,10,0"
+                                    FlexLayout.Grow="1"
+                                    Spacing="{OnPlatform 0, Android=-5}">
                                     <Label
                                         x:Name="label"
                                         FontFamily="{StaticResource BoldFontFamily}"
                                         FontSize="18"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1"
                                         VerticalOptions="End" />
                                     <Label
                                         FontSize="12"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1"
                                         Text="{Binding DateCreated, StringFormat='{0:MMM dd yyyy &quot;at&quot; h:mm tt}'}"
                                         VerticalOptions="Start" />
                                 </StackLayout>
 
                                 <Label
+                                    FlexLayout.Shrink="0"
                                     FontFamily="{StaticResource MediumFontFamily}"
                                     FontSize="18"
                                     Text="{Binding Amount, StringFormat='{0:C2}'}"
-                                    TextColor="{StaticResource PrimaryDarkColor}"
-                                    VerticalOptions="Center" />
-                            </StackLayout>
+                                    TextColor="{StaticResource PrimaryDarkColor}" />
+                            </FlexLayout>
                         </DataTemplate>
                     </lv:SfListView.ItemTemplate>
                 </lv:SfListView>
