@@ -9,10 +9,10 @@ namespace BigCart.Models
         private DateTime? _confirmedAt, _shippedAt, _outForDeliveryAt, _deliveredAt;
         private bool _isExpanded;
 
-        public int Id { get; }
-        public int ItemCount { get; }
-        public float Cost { get; }
-        public DateTime CreatedAt { get; }
+        public int Id { get; init; }
+        public int ItemCount { get; init; }
+        public float Cost { get; init; }
+        public DateTime CreatedAt { get; init; } = DateTime.Now;
         public float Progress
         {
             get => _progress;
@@ -42,14 +42,6 @@ namespace BigCart.Models
         {
             get => _isExpanded;
             set => SetProperty(ref _isExpanded, value);
-        }
-
-        public Order(int id, int itemCount, float cost)
-        {
-            Id = id;
-            ItemCount = itemCount;
-            Cost = cost;
-            CreatedAt = DateTime.Now;
         }
 
         private void UpdateProgress()

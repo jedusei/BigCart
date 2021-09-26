@@ -2,6 +2,7 @@
 using BigCart.Models;
 using BigCart.Services.Cart;
 using BigCart.Services.Transactions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,45 @@ namespace BigCart.Services.Orders
         private static int _nextOrderId = 90897;
         private readonly ICartService _cartService;
         private readonly ITransactionService _transactionService;
-        private List<Order> _orders = new();
+        private List<Order> _orders = new()
+        {
+            new()
+            {
+                Id = _nextOrderId++,
+                ItemCount = 10,
+                Cost = 16.9f,
+                CreatedAt = DateTime.Today.AddDays(-1),
+                ConfirmedAt = DateTime.Today,
+                ShippedAt = DateTime.Today
+            },
+            new()
+            {
+                Id = _nextOrderId++,
+                ItemCount = 10,
+                Cost = 16.9f,
+                CreatedAt = DateTime.Today.AddDays(-1),
+                ConfirmedAt = DateTime.Today,
+                ShippedAt = DateTime.Today
+            },
+            new()
+            {
+                Id = _nextOrderId++,
+                ItemCount = 10,
+                Cost = 16.9f,
+                CreatedAt = DateTime.Today.AddDays(-1),
+                ConfirmedAt = DateTime.Today,
+                ShippedAt = DateTime.Today
+            },
+            new()
+            {
+                Id = _nextOrderId++,
+                ItemCount = 10,
+                Cost = 16.9f,
+                CreatedAt = DateTime.Today.AddDays(-1),
+                ConfirmedAt = DateTime.Today,
+                ShippedAt = DateTime.Today
+            }
+        };
 
         public Order LatestOrder { get; private set; }
 
@@ -21,6 +60,7 @@ namespace BigCart.Services.Orders
         {
             _cartService = cartService;
             _transactionService = transactionService;
+            _orders.Reverse();
         }
 
         public async Task<Order[]> GetOrdersAsync()
@@ -40,7 +80,12 @@ namespace BigCart.Services.Orders
             await _transactionService.CreateTransactionAsync(new(cost, input.PaymentMethod, input.CreditCardType));
             await _cartService.ClearCartAsync();
 
-            Order order = new(_nextOrderId++, quantity, cost);
+            Order order = new()
+            {
+                Id = _nextOrderId++,
+                ItemCount = quantity,
+                Cost = cost
+            };
             _orders.Insert(0, order);
             LatestOrder = order;
 
