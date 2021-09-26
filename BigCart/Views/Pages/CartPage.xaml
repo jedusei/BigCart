@@ -18,6 +18,7 @@
     Style="{StaticResource PageWithTitleBar}">
     <StackLayout
         Margin="-15,0"
+        xct:StateLayout.AnimateStateChanges="False"
         xct:StateLayout.CurrentState="{Binding LoadState}"
         BackgroundColor="{StaticResource BackgroundSecondaryColor}"
         Spacing="0">
