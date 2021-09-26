@@ -2,12 +2,17 @@
 
 namespace BigCart.Models
 {
+    public enum PaymentMethod
+    {
+        CreditCard,
+        Paypal,
+        ApplePay
+    }
+
     public enum CreditCardType
     {
         Mastercard,
-        Visa,
-        Paypal,
-        ApplePay
+        Visa
     }
 
     public record Transaction
@@ -15,7 +20,8 @@ namespace BigCart.Models
         private static int _nextId = 123456;
 
         public int Id { get; } = _nextId++;
-        public CreditCardType CreditCardType { get; init; }
+        public PaymentMethod PaymentMethod { get; init; }
+        public CreditCardType? CreditCardType { get; init; }
         public float Amount { get; init; }
         public DateTime DateCreated { get; init; } = DateTime.Now;
     }

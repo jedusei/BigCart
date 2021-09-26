@@ -45,19 +45,19 @@ namespace BigCart.Pages
             {
                 new
                 {
-                    Id = CreditCardType.Paypal,
+                    Id = PaymentMethod.Paypal,
                     Label = "Paypal",
                     IconGlyph = AppIcons.Paypal
                 },
                 new
                 {
-                    Id = CreditCardType.Mastercard,
+                    Id = PaymentMethod.CreditCard,
                     Label = "Credit Card",
                     IconGlyph = AppIcons.CreditCard
                 },
                 new
                 {
-                    Id = CreditCardType.ApplePay,
+                    Id = PaymentMethod.ApplePay,
                     Label = "Apple Pay",
                     IconGlyph = AppIcons.AppleLogo
                 }
@@ -87,7 +87,7 @@ namespace BigCart.Pages
                     StateTrigger stateTrigger = new();
                     stateTrigger.SetBinding(StateTrigger.IsActiveProperty, new Binding
                     {
-                        Path = nameof(CheckoutViewModel.CardType),
+                        Path = nameof(CheckoutViewModel.PaymentMethod),
                         Source = _viewModel,
                         Converter = notEqualConverter,
                         ConverterParameter = view.FindByName<SfEffectsView>("effectsView").TouchUpCommandParameter
@@ -97,7 +97,7 @@ namespace BigCart.Pages
                     stateTrigger = new StateTrigger();
                     stateTrigger.SetBinding(StateTrigger.IsActiveProperty, new Binding
                     {
-                        Path = nameof(CheckoutViewModel.CardType),
+                        Path = nameof(CheckoutViewModel.PaymentMethod),
                         Source = _viewModel,
                         Converter = equalConverter,
                         ConverterParameter = view.FindByName<SfEffectsView>("effectsView").TouchUpCommandParameter

@@ -14,7 +14,7 @@ namespace BigCart.ViewModels
         private readonly IOrderService _orderService;
         private int _currentStep;
         private int _stepsCompleted;
-        private CreditCardType _cardType = CreditCardType.Mastercard;
+        private PaymentMethod _paymentMethod = PaymentMethod.CreditCard;
         private string _cardHolder;
         private string _cardNumber;
         private DateTime? _cardExpiryDate;
@@ -30,10 +30,10 @@ namespace BigCart.ViewModels
             get => _stepsCompleted;
             private set => SetProperty(ref _stepsCompleted, value);
         }
-        public CreditCardType CardType
+        public PaymentMethod PaymentMethod
         {
-            get => _cardType;
-            set => SetProperty(ref _cardType, value);
+            get => _paymentMethod;
+            set => SetProperty(ref _paymentMethod, value);
         }
         public string CardHolder
         {
@@ -57,7 +57,7 @@ namespace BigCart.ViewModels
         {
             _orderService = orderService;
             UpdateTitle();
-            SetCardTypeCommand = new Command<CreditCardType>(cardType => CardType = cardType);
+            SetCardTypeCommand = new Command<PaymentMethod>(cardType => PaymentMethod = cardType);
             NextStepCommand = new AsyncCommand(NextStepAsync, allowsMultipleExecutions: false);
         }
 
@@ -96,7 +96,7 @@ namespace BigCart.ViewModels
                 await Task.Delay(1000);
                 _modalService.ShowLoading("Making payment...");
 
-                await _orderService.PlaceOrderAsync(_cardType);
+                await _orderService.CreateOrderAsync(new(_paymentMethod, CreditCardType.Visa));
 
                 _modalService.HideLoading();
                 await _navigationService.PushAsync<OrderSuccessPage>();

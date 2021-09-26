@@ -11,26 +11,29 @@ namespace BigCart.Services.Transactions
         {
             new()
             {
+                PaymentMethod = PaymentMethod.CreditCard,
                 CreditCardType = CreditCardType.Mastercard,
                 Amount = 89.99f
             },
             new()
             {
+                PaymentMethod = PaymentMethod.CreditCard,
                 CreditCardType = CreditCardType.Visa,
                 Amount = 109.99f
             },
             new()
             {
-                CreditCardType = CreditCardType.Paypal,
+                PaymentMethod = PaymentMethod.Paypal,
                 Amount = 567
             },
             new()
             {
-                CreditCardType = CreditCardType.ApplePay,
+                PaymentMethod = PaymentMethod.ApplePay,
                 Amount = 480
             },
             new()
             {
+                PaymentMethod = PaymentMethod.CreditCard,
                 CreditCardType = CreditCardType.Mastercard,
                 Amount = 50
             }

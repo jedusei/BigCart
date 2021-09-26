@@ -46,10 +46,23 @@
                                 BackgroundColor="{StaticResource BackgroundPrimaryColor}"
                                 Direction="Row">
                                 <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup Name="CreditCardTypes">
-                                        <VisualState Name="Mastercard">
+                                    <VisualStateGroup Name="PaymentMethods">
+                                        <VisualState Name="CreditCard.Mastercard">
                                             <VisualState.StateTriggers>
-                                                <StateTrigger IsActive="{Binding CreditCardType, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:CreditCardType.Mastercard}}" />
+                                                <StateTrigger>
+                                                    <StateTrigger.IsActive>
+                                                        <MultiBinding Converter="{StaticResource AllTrueConverter}">
+                                                            <Binding
+                                                                Converter="{StaticResource EqualConverter}"
+                                                                ConverterParameter="{Static models:PaymentMethod.CreditCard}"
+                                                                Path="PaymentMethod" />
+                                                            <Binding
+                                                                Converter="{StaticResource EqualConverter}"
+                                                                ConverterParameter="{Static models:CreditCardType.Mastercard}"
+                                                                Path="CreditCardType" />
+                                                        </MultiBinding>
+                                                    </StateTrigger.IsActive>
+                                                </StateTrigger>
                                             </VisualState.StateTriggers>
                                             <VisualState.Setters>
                                                 <Setter TargetName="icon" Property="Image.Source" Value="mastercard.png" />
@@ -57,9 +70,22 @@
                                             </VisualState.Setters>
                                         </VisualState>
 
-                                        <VisualState Name="Visa">
+                                        <VisualState Name="CreditCard.Visa">
                                             <VisualState.StateTriggers>
-                                                <StateTrigger IsActive="{Binding CreditCardType, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:CreditCardType.Visa}}" />
+                                                <StateTrigger>
+                                                    <StateTrigger.IsActive>
+                                                        <MultiBinding Converter="{StaticResource AllTrueConverter}">
+                                                            <Binding
+                                                                Converter="{StaticResource EqualConverter}"
+                                                                ConverterParameter="{Static models:PaymentMethod.CreditCard}"
+                                                                Path="PaymentMethod" />
+                                                            <Binding
+                                                                Converter="{StaticResource EqualConverter}"
+                                                                ConverterParameter="{Static models:CreditCardType.Visa}"
+                                                                Path="CreditCardType" />
+                                                        </MultiBinding>
+                                                    </StateTrigger.IsActive>
+                                                </StateTrigger>
                                             </VisualState.StateTriggers>
                                             <VisualState.Setters>
                                                 <Setter TargetName="icon" Property="Image.Source" Value="visa.png" />
@@ -69,7 +95,7 @@
 
                                         <VisualState Name="Paypal">
                                             <VisualState.StateTriggers>
-                                                <StateTrigger IsActive="{Binding CreditCardType, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:CreditCardType.Paypal}}" />
+                                                <StateTrigger IsActive="{Binding PaymentMethod, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:PaymentMethod.Paypal}}" />
                                             </VisualState.StateTriggers>
                                             <VisualState.Setters>
                                                 <Setter TargetName="icon" Property="Image.Source" Value="paypal.png" />
@@ -79,7 +105,7 @@
 
                                         <VisualState Name="ApplePay">
                                             <VisualState.StateTriggers>
-                                                <StateTrigger IsActive="{Binding CreditCardType, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:CreditCardType.ApplePay}}" />
+                                                <StateTrigger IsActive="{Binding PaymentMethod, Converter={StaticResource EqualConverter}, ConverterParameter={Static models:PaymentMethod.ApplePay}}" />
                                             </VisualState.StateTriggers>
                                             <VisualState.Setters>
                                                 <Setter TargetName="label" Property="Label.Text" Value="Apple Pay" />

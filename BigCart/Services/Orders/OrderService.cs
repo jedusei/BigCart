@@ -29,7 +29,7 @@ namespace BigCart.Services.Orders
             return _orders.ToArray();
         }
 
-        public async Task<Order> PlaceOrderAsync(CreditCardType creditCardType)
+        public async Task<Order> CreateOrderAsync(CreateOrderInput input)
         {
             var delayTask = Task.Delay(1000);
 
@@ -40,7 +40,8 @@ namespace BigCart.Services.Orders
             Transaction transaction = new()
             {
                 Amount = cost,
-                CreditCardType = creditCardType
+                PaymentMethod = input.PaymentMethod,
+                CreditCardType = input.CreditCardType
             };
             await _transactionService.RegisterTransactionAsync(transaction);
 

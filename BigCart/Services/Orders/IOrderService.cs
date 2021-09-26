@@ -7,7 +7,7 @@ namespace BigCart.Services.Orders
     public interface IOrderService : IDependency
     {
         Order LatestOrder { get; }
-        Task<Order> PlaceOrderAsync(CreditCardType creditCardType);
+        Task<Order> CreateOrderAsync(CreateOrderInput input);
         Task<Order[]> GetOrdersAsync();
     }
 }
