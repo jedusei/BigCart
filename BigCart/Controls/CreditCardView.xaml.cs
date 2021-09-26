@@ -1,18 +1,23 @@
-﻿using System;
+﻿using BigCart.Models;
+using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace BigCart.Controls
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreditCardView : ContentView
     {
+        public static readonly BindableProperty CardTypeProperty = BindableProperty.Create(nameof(CardType), typeof(CreditCardType), typeof(CreditCardView), CreditCardType.Mastercard, BindingMode.OneWay);
         public static readonly BindableProperty CardNumberProperty = BindableProperty.Create(nameof(CardNumber), typeof(string), typeof(CreditCardView), CARD_NUMBER_PREFIX + "XXXX", propertyChanged: OnCardNumberChanged);
         public static readonly BindableProperty CardHolderProperty = BindableProperty.Create(nameof(CardHolder), typeof(string), typeof(CreditCardView), propertyChanged: OnCardHolderChanged);
         public static readonly BindableProperty ExpiryDateProperty = BindableProperty.Create(nameof(ExpiryDate), typeof(DateTime?), typeof(CreditCardView), propertyChanged: OnExpiryDateChanged);
         private const string CARD_NUMBER_PREFIX = "XXXX XXXX XXXX ";
         private Label _txtCardNumber, _txtCardHolder, _txtExpiryDate;
 
+        public CreditCardType CardType
+        {
+            get => (CreditCardType)GetValue(CardTypeProperty);
+            set => SetValue(CardTypeProperty, value);
+        }
         public string CardNumber
         {
             get => (string)GetValue(CardNumberProperty);

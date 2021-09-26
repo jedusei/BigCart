@@ -2,7 +2,8 @@
 <ContentView
     x:Class="BigCart.Controls.CreditCardView"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:BigCart.Models">
     <ContentView.ControlTemplate>
         <ControlTemplate>
             <Frame
@@ -24,18 +25,21 @@
                             </Style>
                         </StackLayout.Resources>
 
-                        <StackLayout Orientation="Horizontal" Spacing="-10">
-                            <Ellipse
-                                Fill="#F14336"
-                                HeightRequest="40"
-                                StrokeThickness="0"
-                                WidthRequest="40" />
-                            <Ellipse
-                                Fill="#FFC107"
-                                HeightRequest="40"
-                                StrokeThickness="0"
-                                WidthRequest="40" />
-                        </StackLayout>
+                        <Image
+                            HeightRequest="40"
+                            HorizontalOptions="Start"
+                            Source="mastercard.png">
+                            <Image.Triggers>
+                                <DataTrigger
+                                    Binding="{TemplateBinding CardType}"
+                                    TargetType="Image"
+                                    Value="{Static models:CreditCardType.Visa}">
+                                    <Setter Property="Source" Value="visa.png" />
+                                    <Setter Property="HeightRequest" Value="20" />
+                                    <Setter Property="Margin" Value="0,0,0,20" />
+                                </DataTrigger>
+                            </Image.Triggers>
+                        </Image>
 
                         <Label x:Name="txtCardNumber" FontSize="20" />
 
