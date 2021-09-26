@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="BigCart.Resources.Strings"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <x:String x:Key="FontFamily">Poppins</x:String>
+    <x:String x:Key="MediumFontFamily">Poppins-Medium</x:String>
+    <x:String x:Key="BoldFontFamily">Poppins-Bold</x:String>
+    <x:String x:Key="Icons">Icons</x:String>
+    <x:String x:Key="LoremIpsum">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy.</x:String>
+    <x:String x:Key="LoremIpsumLong">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</x:String>
+</ResourceDictionary>

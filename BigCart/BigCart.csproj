@@ -42,6 +42,15 @@
     <Compile Update="Controls\AutoSizeCarouselView.xaml.cs">
       <DependentUpon>AutoSizeCarouselView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Resources\Converters.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Strings.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Styles.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
     <Compile Update="Views\Modals\AddReviewModal.xaml.cs">
       <DependentUpon>AddReviewModal.xaml</DependentUpon>
     </Compile>
@@ -112,6 +121,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Controls\ProductView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Colors.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Pages\MainPage\HomeTab.xaml">

@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    x:Class="BigCart.Resources.Styles"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:effects="clr-namespace:BigCart.Effects"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:num="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+    xmlns:resources="clr-namespace:BigCart.Resources"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels">
+
+    <ResourceDictionary.MergedDictionaries>
+        <resources:Colors />
+        <resources:Strings />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style ApplyToDerivedTypes="True" TargetType="pages:Page">
+        <Setter Property="BackgroundColor" Value="{StaticResource BackgroundSecondaryColor}" />
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily}" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
+    </Style>
+
+    <Style TargetType="Entry">
+        <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondaryColor}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
+    </Style>
+
+    <Style TargetType="Editor">
+        <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondaryColor}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
+    </Style>
+
+    <Style TargetType="num:SfNumericTextBox">
+        <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+        <Setter Property="WatermarkColor" Value="{StaticResource TextSecondaryColor}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="controls:DatePickerEx">
+        <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+        <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource TextSecondaryColor}" />
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="TranslationY" Value="{OnPlatform Android=1}" />
+    </Style>
+
+    <Style TargetType="txt:SfTextInputLayout">
+        <Setter Property="ContainerBackgroundColor" Value="{StaticResource BackgroundPrimaryColor}" />
+        <Setter Property="ContainerType" Value="Filled" />
+        <Setter Property="LeadingViewPosition" Value="Inside" />
+        <Setter Property="TrailingViewPosition" Value="Inside" />
+        <Setter Property="EnableFloating" Value="False" />
+        <Setter Property="ReserveSpaceForAssistiveLabels" Value="False" />
+        <Setter Property="FocusedStrokeWidth" Value="0" />
+        <Setter Property="UnfocusedStrokeWidth" Value="0" />
+        <Setter Property="InputViewPadding" Value="0,20" />
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="TextTransform" Value="None" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Padding" Value="{OnPlatform 18, Android='18,19,18,17'}" />
+        <Setter Property="Background">
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource PrimaryColor}" />
+                <GradientStop Offset="1" Color="{StaticResource PrimaryDarkColor}" />
+            </LinearGradientBrush>
+        </Setter>
+        <Setter Property="ios:VisualElement.IsShadowEnabled" Value="True" />
+        <Setter Property="ios:VisualElement.ShadowColor" Value="{StaticResource PrimaryColor}" />
+        <Setter Property="ios:VisualElement.ShadowOffset" Value="0,10" />
+        <Setter Property="ios:VisualElement.ShadowRadius" Value="5" />
+    </Style>
+
+    <Style x:Key="Switch" TargetType="buttons:SfSwitch">
+        <Setter Property="Margin" Value="0,0,10,0" />
+        <Setter Property="VisualType" Value="Custom" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="On">
+                        <VisualState.Setters>
+                            <Setter Property="SwitchSettings">
+                                <Setter.Value>
+                                    <buttons:DefaultSwitchSettings
+                                        x:TypeArguments="buttons:OnState"
+                                        HasThumbShadow="False"
+                                        ThumbBorderColor="{StaticResource PrimaryDarkColor}"
+                                        ThumbBorderWidth="1.5"
+                                        ThumbColor="{StaticResource BackgroundPrimaryColor}"
+                                        ThumbHeightRequest="16"
+                                        ThumbWidthRequest="16"
+                                        TrackBorderWidth="0"
+                                        TrackColor="{StaticResource PrimaryDarkColor}"
+                                        TrackCornerRadius="20"
+                                        TrackHeightRequest="16"
+                                        TrackWidthRequest="30" />
+                                </Setter.Value>
+                            </Setter>
+                        </VisualState.Setters>
+                    </VisualState>
+
+                    <VisualState x:Name="Off">
+                        <VisualState.Setters>
+                            <Setter Property="SwitchSettings">
+                                <Setter.Value>
+                                    <buttons:DefaultSwitchSettings
+                                        x:TypeArguments="buttons:OffState"
+                                        HasThumbShadow="False"
+                                        ThumbBorderColor="{StaticResource TextSecondaryColor}"
+                                        ThumbBorderWidth="1.5"
+                                        ThumbColor="{StaticResource BackgroundPrimaryColor}"
+                                        ThumbHeightRequest="16"
+                                        ThumbWidthRequest="16"
+                                        TrackBorderColor="{StaticResource TextSecondaryColor}"
+                                        TrackBorderWidth="1.5"
+                                        TrackColor="Transparent"
+                                        TrackCornerRadius="20"
+                                        TrackHeightRequest="16"
+                                        TrackWidthRequest="30" />
+                                </Setter.Value>
+                            </Setter>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="Color" Value="{StaticResource ActivityIndicatorColor}" />
+    </Style>
+    <Style TargetType="RefreshView">
+        <Setter Property="RefreshColor" Value="{StaticResource ActivityIndicatorColor}" />
+    </Style>
+
+    <Style x:Key="Rating" TargetType="rating:SfRating">
+        <Setter Property="ItemCount" Value="5" />
+        <Setter Property="ItemSize" Value="18" />
+        <Setter Property="Precision" Value="Half" />
+        <Setter Property="RatingSettings">
+            <rating:SfRatingSettings
+                RatedFill="#FFC107"
+                RatedStroke="#FFC107"
+                RatedStrokeWidth="{OnPlatform 3, iOS=1}"
+                UnRatedStroke="#FFC107"
+                UnRatedStrokeWidth="{OnPlatform 3, iOS=1}" />
+        </Setter>
+    </Style>
+
+    <Style x:Key="PageWithTitleBar" TargetType="pages:Page">
+        <Setter Property="ControlTemplate">
+            <ControlTemplate>
+                <StackLayout effects:SafeAreaEffect.SafeArea="Bottom" Spacing="0">
+                    <ContentView BackgroundColor="{DynamicResource TitleBarBackgroundColor}">
+                        <AbsoluteLayout Padding="0,0,0,10" effects:SafeAreaEffect.SafeArea="Top">
+                            <ev:SfEffectsView
+                                AbsoluteLayout.LayoutBounds="5,0.5,50,50"
+                                AbsoluteLayout.LayoutFlags="YProportional"
+                                CornerRadius="25"
+                                TouchUpCommand="{Binding GoBackCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}">
+                                <Image
+                                    HeightRequest="16"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="{StaticResource Icons}"
+                                            Glyph="{Static icons:Icons.Back}"
+                                            Color="Black" />
+                                    </Image.Source>
+                                </Image>
+                            </ev:SfEffectsView>
+                            <Label
+                                AbsoluteLayout.LayoutBounds="0.5,0.5"
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                Style="{StaticResource PageTitle}"
+                                Text="{TemplateBinding Title}"
+                                TextColor="Black"
+                                TranslationY="1" />
+                            <StackLayout
+                                Padding="0,0,5,0"
+                                AbsoluteLayout.LayoutBounds="1,0.5,AutoSize,50"
+                                AbsoluteLayout.LayoutFlags="XProportional"
+                                BindableLayout.ItemsSource="{TemplateBinding ToolbarItems}"
+                                Orientation="Horizontal"
+                                Spacing="-10">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate x:DataType="ToolbarItem">
+                                        <ev:SfEffectsView
+                                            CornerRadius="25"
+                                            HeightRequest="50"
+                                            TouchUpCommand="{Binding Command}"
+                                            TouchUpCommandParameter="{Binding CommandParameter}"
+                                            WidthRequest="50">
+                                            <Image
+                                                HorizontalOptions="Center"
+                                                Source="{Binding IconImageSource}"
+                                                VerticalOptions="Center" />
+                                        </ev:SfEffectsView>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </AbsoluteLayout>
+                    </ContentView>
+
+                    <ContentPresenter
+                        Padding="15,0"
+                        BackgroundColor="{TemplateBinding BackgroundColor}"
+                        Content="{TemplateBinding Content}"
+                        VerticalOptions="FillAndExpand" />
+                </StackLayout>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style
+        x:Key="TextSecondary"
+        Class="TextSecondary"
+        TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
+    </Style>
+
+    <Style x:Key="TitleBold" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource BoldFontFamily}" />
+        <Setter Property="FontSize" Value="30" />
+    </Style>
+
+    <Style x:Key="PageTitle" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource MediumFontFamily}" />
+        <Setter Property="FontSize" Value="18" />
+    </Style>
+
+    <Style
+        ApplyToDerivedTypes="True"
+        Class="FillAbsoluteLayout"
+        TargetType="View">
+        <Setter Property="AbsoluteLayout.LayoutBounds" Value="0,0,1,1" />
+        <Setter Property="AbsoluteLayout.LayoutFlags" Value="SizeProportional" />
+    </Style>
+
+    <Style x:Key="ScaleEffectsView" TargetType="ev:SfEffectsView">
+        <Setter Property="ScaleFactor" Value="0.7" />
+        <Setter Property="TouchDownEffects" Value="Scale" />
+        <Setter Property="AutoResetEffect" Value="Scale" />
+        <Setter Property="ScaleAnimationDuration" Value="150" />
+    </Style>
+</ResourceDictionary>
