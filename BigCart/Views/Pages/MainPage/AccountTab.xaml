@@ -47,8 +47,8 @@
                             VerticalOptions="Center">
                             <Image.Source>
                                 <FontImageSource
-                                    FontFamily="{StaticResource Icons}"
-                                    Glyph="{Static icons:Icons.Camera}"
+                                    FontFamily="{StaticResource AppIcons}"
+                                    Glyph="{Static icons:AppIcons.Camera}"
                                     Color="White" />
                             </Image.Source>
                         </Image>
@@ -87,8 +87,8 @@
                                     <Image HeightRequest="20" IsVisible="{Binding ShowArrow}">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
-                                                Glyph="{Static icons:Icons.ChevronRight}"
+                                                FontFamily="{StaticResource AppIcons}"
+                                                Glyph="{Static icons:AppIcons.ChevronRight}"
                                                 Color="{StaticResource TextSecondaryColor}" />
                                         </Image.Source>
                                     </Image>

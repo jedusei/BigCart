@@ -88,8 +88,8 @@
                         <Trigger TargetType="progressBar:StepView" Property="Status" Value="Completed">
                             <Setter Property="ImageSource">
                                 <FontImageSource
-                                    FontFamily="{StaticResource Icons}"
-                                    Glyph="{Static icons:Icons.Tick}"
+                                    FontFamily="{StaticResource AppIcons}"
+                                    Glyph="{Static icons:AppIcons.Tick}"
                                     Color="White" />
                             </Setter>
                         </Trigger>
@@ -109,8 +109,8 @@
                         <Trigger TargetType="progressBar:StepView" Property="Status" Value="Completed">
                             <Setter Property="ImageSource">
                                 <FontImageSource
-                                    FontFamily="{StaticResource Icons}"
-                                    Glyph="{Static icons:Icons.Tick}"
+                                    FontFamily="{StaticResource AppIcons}"
+                                    Glyph="{Static icons:AppIcons.Tick}"
                                     Color="White" />
                             </Setter>
                         </Trigger>
@@ -144,8 +144,8 @@
                         <Trigger TargetType="progressBar:StepView" Property="Status" Value="Completed">
                             <Setter Property="ImageSource">
                                 <FontImageSource
-                                    FontFamily="{StaticResource Icons}"
-                                    Glyph="{Static icons:Icons.Tick}"
+                                    FontFamily="{StaticResource AppIcons}"
+                                    Glyph="{Static icons:AppIcons.Tick}"
                                     Color="White" />
                             </Setter>
                         </Trigger>
@@ -209,8 +209,8 @@
                                 <Image Style="{StaticResource Icon}">
                                     <Image.Source>
                                         <FontImageSource
-                                            FontFamily="{StaticResource Icons}"
-                                            Glyph="{Static icons:Icons.User}"
+                                            FontFamily="{StaticResource AppIcons}"
+                                            Glyph="{Static icons:AppIcons.User}"
                                             Color="{StaticResource TextSecondaryColor}" />
                                     </Image.Source>
                                 </Image>
@@ -224,8 +224,8 @@
                                 <Image Style="{StaticResource Icon}">
                                     <Image.Source>
                                         <FontImageSource
-                                            FontFamily="{StaticResource Icons}"
-                                            Glyph="{Static icons:Icons.Mail}"
+                                            FontFamily="{StaticResource AppIcons}"
+                                            Glyph="{Static icons:AppIcons.Mail}"
                                             Color="{StaticResource TextSecondaryColor}" />
                                     </Image.Source>
                                 </Image>
@@ -243,8 +243,8 @@
                                 <Image Style="{StaticResource Icon}">
                                     <Image.Source>
                                         <FontImageSource
-                                            FontFamily="{StaticResource Icons}"
-                                            Glyph="{Static icons:Icons.Phone}"
+                                            FontFamily="{StaticResource AppIcons}"
+                                            Glyph="{Static icons:AppIcons.Phone}"
                                             Color="{StaticResource TextSecondaryColor}" />
                                     </Image.Source>
                                 </Image>
@@ -262,8 +262,8 @@
                                 <Image Style="{StaticResource Icon}">
                                     <Image.Source>
                                         <FontImageSource
-                                            FontFamily="{StaticResource Icons}"
-                                            Glyph="{Static icons:Icons.MapMarker}"
+                                            FontFamily="{StaticResource AppIcons}"
+                                            Glyph="{Static icons:AppIcons.MapMarker}"
                                             Color="{StaticResource TextSecondaryColor}" />
                                     </Image.Source>
                                 </Image>
@@ -280,8 +280,8 @@
                                 <Image Style="{StaticResource Icon}">
                                     <Image.Source>
                                         <FontImageSource
-                                            FontFamily="{StaticResource Icons}"
-                                            Glyph="{Static icons:Icons.ZipCode}"
+                                            FontFamily="{StaticResource AppIcons}"
+                                            Glyph="{Static icons:AppIcons.ZipCode}"
                                             Color="{StaticResource TextSecondaryColor}" />
                                     </Image.Source>
                                 </Image>
@@ -300,8 +300,8 @@
                                 <Image Style="{StaticResource Icon}">
                                     <Image.Source>
                                         <FontImageSource
-                                            FontFamily="{StaticResource Icons}"
-                                            Glyph="{Static icons:Icons.City}"
+                                            FontFamily="{StaticResource AppIcons}"
+                                            Glyph="{Static icons:AppIcons.City}"
                                             Color="{StaticResource TextSecondaryColor}" />
                                     </Image.Source>
                                 </Image>
@@ -351,7 +351,7 @@
                                                     <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDarkColor}" />
                                                     <Setter TargetName="icon" Property="Image.Source">
                                                         <FontImageSource
-                                                            FontFamily="{StaticResource Icons}"
+                                                            FontFamily="{StaticResource AppIcons}"
                                                             Glyph="{Binding IconGlyph}"
                                                             Color="White" />
                                                     </Setter>
@@ -372,7 +372,7 @@
                                             <Image x:Name="icon" HeightRequest="25">
                                                 <Image.Source>
                                                     <FontImageSource
-                                                        FontFamily="{StaticResource Icons}"
+                                                        FontFamily="{StaticResource AppIcons}"
                                                         Glyph="{Binding IconGlyph}"
                                                         Color="{StaticResource TextSecondaryColor}" />
                                                 </Image.Source>
@@ -406,8 +406,8 @@
                                 <Image Style="{StaticResource Icon}">
                                     <Image.Source>
                                         <FontImageSource
-                                            FontFamily="{StaticResource Icons}"
-                                            Glyph="{Static icons:Icons.User}"
+                                            FontFamily="{StaticResource AppIcons}"
+                                            Glyph="{Static icons:AppIcons.User}"
                                             Color="{StaticResource TextSecondaryColor}" />
                                     </Image.Source>
                                 </Image>
@@ -425,8 +425,8 @@
                                 <Image Style="{StaticResource Icon}">
                                     <Image.Source>
                                         <FontImageSource
-                                            FontFamily="{StaticResource Icons}"
-                                            Glyph="{Static icons:Icons.CreditCard}"
+                                            FontFamily="{StaticResource AppIcons}"
+                                            Glyph="{Static icons:AppIcons.CreditCard}"
                                             Color="{StaticResource TextSecondaryColor}" />
                                     </Image.Source>
                                 </Image>
@@ -447,8 +447,8 @@
                                     <Image Style="{StaticResource Icon}">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
-                                                Glyph="{Static icons:Icons.Calendar}"
+                                                FontFamily="{StaticResource AppIcons}"
+                                                Glyph="{Static icons:AppIcons.Calendar}"
                                                 Color="{StaticResource TextSecondaryColor}" />
                                         </Image.Source>
                                     </Image>
@@ -467,8 +467,8 @@
                                     <Image Style="{StaticResource Icon}">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
-                                                Glyph="{Static icons:Icons.Lock}"
+                                                FontFamily="{StaticResource AppIcons}"
+                                                Glyph="{Static icons:AppIcons.Lock}"
                                                 Color="{StaticResource TextSecondaryColor}" />
                                         </Image.Source>
                                     </Image>

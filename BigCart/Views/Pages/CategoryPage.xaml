@@ -18,8 +18,8 @@
         <ToolbarItem Command="{Binding FilterCommand}" Text="Filters">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="{StaticResource Icons}"
-                    Glyph="{Static icons:Icons.Filter}"
+                    FontFamily="{StaticResource AppIcons}"
+                    Glyph="{Static icons:AppIcons.Filter}"
                     Size="16"
                     Color="Black" />
             </ToolbarItem.IconImageSource>

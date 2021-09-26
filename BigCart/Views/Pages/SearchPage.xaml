@@ -36,8 +36,8 @@
                         VerticalOptions="Center">
                         <Image.Source>
                             <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.Back}"
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.Back}"
                                 Color="Black" />
                         </Image.Source>
                     </Image>
@@ -57,8 +57,8 @@
                             VerticalOptions="Center">
                             <Image.Source>
                                 <FontImageSource
-                                    FontFamily="{StaticResource Icons}"
-                                    Glyph="{Static icons:Icons.Search}"
+                                    FontFamily="{StaticResource AppIcons}"
+                                    Glyph="{Static icons:AppIcons.Search}"
                                     Color="{StaticResource TextSecondaryColor}" />
                             </Image.Source>
                         </Image>
@@ -88,8 +88,8 @@
                                 VerticalOptions="Center">
                                 <Image.Source>
                                     <FontImageSource
-                                        FontFamily="{StaticResource Icons}"
-                                        Glyph="{Static icons:Icons.Filter}"
+                                        FontFamily="{StaticResource AppIcons}"
+                                        Glyph="{Static icons:AppIcons.Filter}"
                                         Color="{StaticResource TextSecondaryColor}" />
                                 </Image.Source>
                             </Image>

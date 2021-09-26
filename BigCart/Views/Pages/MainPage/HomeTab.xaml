@@ -27,8 +27,8 @@
             <Setter Property="HeightRequest" Value="18" />
             <Setter Property="Source">
                 <FontImageSource
-                    FontFamily="{StaticResource Icons}"
-                    Glyph="{Static icons:Icons.ChevronRight}"
+                    FontFamily="{StaticResource AppIcons}"
+                    Glyph="{Static icons:AppIcons.ChevronRight}"
                     Color="{StaticResource TextSecondaryColor}" />
             </Setter>
         </Style>
@@ -48,8 +48,8 @@
                     VerticalOptions="Center">
                     <Image.Source>
                         <FontImageSource
-                            FontFamily="{StaticResource Icons}"
-                            Glyph="{Static icons:Icons.Search}"
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Search}"
                             Color="{StaticResource TextSecondaryColor}" />
                     </Image.Source>
                 </Image>
@@ -62,8 +62,8 @@
                 <Image HeightRequest="17" VerticalOptions="Center">
                     <Image.Source>
                         <FontImageSource
-                            FontFamily="{StaticResource Icons}"
-                            Glyph="{Static icons:Icons.Filter}"
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Filter}"
                             Color="{StaticResource TextSecondaryColor}" />
                     </Image.Source>
                 </Image>
@@ -164,7 +164,7 @@
                                                 <Image HorizontalOptions="Center" VerticalOptions="Center">
                                                     <Image.Source>
                                                         <FontImageSource
-                                                            FontFamily="{StaticResource Icons}"
+                                                            FontFamily="{StaticResource AppIcons}"
                                                             Glyph="{Binding IconGlyph}"
                                                             Size="40"
                                                             Color="{Binding ForegroundColor}" />

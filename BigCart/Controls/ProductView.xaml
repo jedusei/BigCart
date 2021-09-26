@@ -101,8 +101,8 @@
                 <Image HeightRequest="20" WidthRequest="23">
                     <Image.Source>
                         <FontImageSource
-                            FontFamily="{StaticResource Icons}"
-                            Glyph="{Static icons:Icons.Heart}"
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Heart}"
                             Color="{StaticResource TextSecondaryColor}" />
                     </Image.Source>
                     <Image.Triggers>
@@ -112,8 +112,8 @@
                             Value="True">
                             <Setter Property="Source">
                                 <FontImageSource
-                                    FontFamily="{StaticResource Icons}"
-                                    Glyph="{Static icons:Icons.HeartFilled}"
+                                    FontFamily="{StaticResource AppIcons}"
+                                    Glyph="{Static icons:AppIcons.HeartFilled}"
                                     Color="#FE585A" />
                             </Setter>
                         </DataTrigger>
@@ -133,8 +133,8 @@
                 <Image Margin="0,0,10,0" HeightRequest="20">
                     <Image.Source>
                         <FontImageSource
-                            FontFamily="{StaticResource Icons}"
-                            Glyph="{Static icons:Icons.Shop}"
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Shop}"
                             Color="{StaticResource PrimaryDarkColor}" />
                     </Image.Source>
                 </Image>

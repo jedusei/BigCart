@@ -1,5 +1,5 @@
-﻿using Xamarin.Forms;
-using AppIcons = BigCart.Icons.Icons;
+﻿using BigCart.Icons;
+using Xamarin.Forms;
 
 namespace BigCart.Models
 {

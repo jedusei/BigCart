@@ -61,8 +61,8 @@
                                             <Image HeightRequest="30" VerticalOptions="Center">
                                                 <Image.Source>
                                                     <FontImageSource
-                                                        FontFamily="{StaticResource Icons}"
-                                                        Glyph="{Static icons:Icons.BoxOpen}"
+                                                        FontFamily="{StaticResource AppIcons}"
+                                                        Glyph="{Static icons:AppIcons.BoxOpen}"
                                                         Color="#28B446" />
                                                 </Image.Source>
                                             </Image>
@@ -113,8 +113,8 @@
                                             Grid.RowSpan="3"
                                             Grid.Column="3"
                                             HeightRequest="20"
-                                            Source="{FontImage Glyph={Static icons:Icons.DropdownCircle},
-                                                               FontFamily={StaticResource Icons},
+                                            Source="{FontImage Glyph={Static icons:AppIcons.DropdownCircle},
+                                                               FontFamily={StaticResource AppIcons},
                                                                Color=#28B446}"
                                             VerticalOptions="Center" />
                                     </Grid>

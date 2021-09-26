@@ -53,8 +53,8 @@
                 <Image VerticalOptions="Start">
                     <Image.Source>
                         <FontImageSource
-                            FontFamily="{StaticResource Icons}"
-                            Glyph="{Static icons:Icons.Pencil}"
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Pencil}"
                             Size="22"
                             Color="{StaticResource TextSecondaryColor}" />
                     </Image.Source>

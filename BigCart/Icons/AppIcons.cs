@@ -1,6 +1,6 @@
 ﻿namespace BigCart.Icons
 {
-    public static class Icons
+    public static class AppIcons
     {
         public const string Back = "\ue900";
         public const string Mail = "\ue901";

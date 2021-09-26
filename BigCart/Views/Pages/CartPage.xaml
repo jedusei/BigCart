@@ -113,8 +113,8 @@
                                                         VerticalOptions="Center">
                                                         <Image.Source>
                                                             <FontImageSource
-                                                                FontFamily="{StaticResource Icons}"
-                                                                Glyph="{Static icons:Icons.Trash}"
+                                                                FontFamily="{StaticResource AppIcons}"
+                                                                Glyph="{Static icons:AppIcons.Trash}"
                                                                 Color="White" />
                                                         </Image.Source>
                                                     </Image>

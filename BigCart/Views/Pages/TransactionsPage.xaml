@@ -112,8 +112,8 @@
                                                 <Setter TargetName="icon" Property="Image.TranslationY" Value="-2" />
                                                 <Setter TargetName="icon" Property="Image.Source">
                                                     <FontImageSource
-                                                        FontFamily="{StaticResource Icons}"
-                                                        Glyph="{Static icons:Icons.AppleLogo}"
+                                                        FontFamily="{StaticResource AppIcons}"
+                                                        Glyph="{Static icons:AppIcons.AppleLogo}"
                                                         Color="{StaticResource TextSecondaryColor}" />
                                                 </Setter>
                                             </VisualState.Setters>

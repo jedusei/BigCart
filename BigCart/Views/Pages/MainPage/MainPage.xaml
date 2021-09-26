@@ -74,8 +74,8 @@
                     <Image HeightRequest="20" Style="{StaticResource TabIcon}">
                         <Image.Source>
                             <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.Home}"
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.Home}"
                                 Color="Black" />
                         </Image.Source>
                     </Image>
@@ -84,8 +84,8 @@
                     <Image HeightRequest="20" Style="{StaticResource TabIcon}">
                         <Image.Source>
                             <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.User}"
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.User}"
                                 Color="{StaticResource TextSecondaryColor}" />
                         </Image.Source>
                     </Image>
@@ -94,8 +94,8 @@
                     <Image HeightRequest="20" Style="{StaticResource TabIcon}">
                         <Image.Source>
                             <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.Heart}"
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.Heart}"
                                 Color="{StaticResource TextSecondaryColor}" />
                         </Image.Source>
                     </Image>
@@ -112,8 +112,8 @@
                         <Image HeightRequest="25" Style="{StaticResource TabIcon}">
                             <Image.Source>
                                 <FontImageSource
-                                    FontFamily="{StaticResource Icons}"
-                                    Glyph="{Static icons:Icons.Shop}"
+                                    FontFamily="{StaticResource AppIcons}"
+                                    Glyph="{Static icons:AppIcons.Shop}"
                                     Color="White" />
                             </Image.Source>
                         </Image>

@@ -14,8 +14,8 @@
         <Image HeightRequest="120" VerticalOptions="EndAndExpand">
             <Image.Source>
                 <FontImageSource
-                    FontFamily="{StaticResource Icons}"
-                    Glyph="{Static icons:Icons.Shop}"
+                    FontFamily="{StaticResource AppIcons}"
+                    Glyph="{Static icons:AppIcons.Shop}"
                     Size="100"
                     Color="{StaticResource PrimaryDarkColor}" />
             </Image.Source>

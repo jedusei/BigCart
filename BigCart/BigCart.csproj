@@ -11,14 +11,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Fonts\icons.ttf" />
+    <None Remove="Assets\Fonts\AppIcons.ttf" />
     <None Remove="Assets\Fonts\Poppins-Bold.ttf" />
     <None Remove="Assets\Fonts\Poppins-Medium.ttf" />
     <None Remove="Assets\Fonts\Poppins-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Fonts\icons.ttf" />
+    <EmbeddedResource Include="Assets\Fonts\AppIcons.ttf" />
     <EmbeddedResource Include="Assets\Fonts\Poppins-Bold.ttf" />
     <EmbeddedResource Include="Assets\Fonts\Poppins-Medium.ttf" />
     <EmbeddedResource Include="Assets\Fonts\Poppins-Regular.ttf" />

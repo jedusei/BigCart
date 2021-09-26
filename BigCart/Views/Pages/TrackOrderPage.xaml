@@ -37,8 +37,8 @@
                     <Image HeightRequest="40" VerticalOptions="Center">
                         <Image.Source>
                             <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.Box}"
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.Box}"
                                 Color="{StaticResource ActiveIconColor}" />
                         </Image.Source>
                     </Image>
@@ -119,7 +119,7 @@
                                         VerticalOptions="Center">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
+                                                FontFamily="{StaticResource AppIcons}"
                                                 Glyph="{Binding IconGlyph}"
                                                 Size="{Binding IconHeight}"
                                                 Color="{StaticResource InactiveIconColor}" />
@@ -131,7 +131,7 @@
                                                 Value="{StaticResource ActiveBackgroundColor}">
                                                 <Setter Property="Source">
                                                     <FontImageSource
-                                                        FontFamily="{StaticResource Icons}"
+                                                        FontFamily="{StaticResource AppIcons}"
                                                         Glyph="{Binding IconGlyph}"
                                                         Size="{Binding IconHeight}"
                                                         Color="{StaticResource ActiveIconColor}" />

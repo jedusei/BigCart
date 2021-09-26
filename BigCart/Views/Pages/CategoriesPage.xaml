@@ -40,7 +40,7 @@
                                     <Image HorizontalOptions="Center" VerticalOptions="Center">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
+                                                FontFamily="{StaticResource AppIcons}"
                                                 Glyph="{Binding IconGlyph}"
                                                 Size="40"
                                                 Color="{Binding ForegroundColor}" />

@@ -19,8 +19,8 @@
         <ToolbarItem Command="{Binding AddReviewCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="{StaticResource Icons}"
-                    Glyph="{Static icons:Icons.PlusCircle}"
+                    FontFamily="{StaticResource AppIcons}"
+                    Glyph="{Static icons:AppIcons.PlusCircle}"
                     Size="20"
                     Color="Black" />
             </ToolbarItem.IconImageSource>

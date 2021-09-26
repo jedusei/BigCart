@@ -1,5 +1,5 @@
-﻿using Xamarin.Forms;
-using AppIcons = BigCart.Icons.Icons;
+﻿using BigCart.Icons;
+using Xamarin.Forms;
 
 namespace BigCart.Pages
 {
@@ -22,7 +22,7 @@ namespace BigCart.Pages
 
         private void InitializeMenu()
         {
-            var iconFontFamily = Application.Current.Resources["Icons"] as string;
+            var iconFontFamily = (string)Application.Current.Resources["AppIcons"];
             var iconColor = (Color)Resources["MenuIconColor"];
             var menuItems = new[]
             {

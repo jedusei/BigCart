@@ -36,8 +36,8 @@
         <ToolbarItem Command="{Binding ResetCommand}" Text="Reset">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
-                    FontFamily="{StaticResource Icons}"
-                    Glyph="{Static icons:Icons.Reload}"
+                    FontFamily="{StaticResource AppIcons}"
+                    Glyph="{Static icons:AppIcons.Reload}"
                     Size="20"
                     Color="Black" />
             </ToolbarItem.IconImageSource>
@@ -144,8 +144,8 @@
                     <Style x:Key="CheckmarkIcon" TargetType="Image">
                         <Setter Property="Source">
                             <FontImageSource
-                                FontFamily="{StaticResource Icons}"
-                                Glyph="{Static icons:Icons.Checkmark}"
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.Checkmark}"
                                 Color="{StaticResource TextSecondaryColor}" />
                         </Setter>
                     </Style>
@@ -154,8 +154,8 @@
                 <Image HeightRequest="20" Style="{StaticResource Icon}">
                     <Image.Source>
                         <FontImageSource
-                            FontFamily="{StaticResource Icons}"
-                            Glyph="{Static icons:Icons.Discount}"
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Discount}"
                             Color="{StaticResource TextSecondaryColor}" />
                     </Image.Source>
                 </Image>
@@ -177,8 +177,8 @@
                                 Value="True">
                                 <Setter Property="Source">
                                     <FontImageSource
-                                        FontFamily="{StaticResource Icons}"
-                                        Glyph="{Static icons:Icons.Checkmark}"
+                                        FontFamily="{StaticResource AppIcons}"
+                                        Glyph="{Static icons:AppIcons.Checkmark}"
                                         Color="{StaticResource PrimaryDarkColor}" />
                                 </Setter>
                             </DataTrigger>
@@ -197,8 +197,8 @@
                     WidthRequest="25">
                     <Image.Source>
                         <FontImageSource
-                            FontFamily="{StaticResource Icons}"
-                            Glyph="{Static icons:Icons.Shipping}"
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Shipping}"
                             Color="{StaticResource TextSecondaryColor}" />
                     </Image.Source>
                 </Image>
@@ -224,8 +224,8 @@
                                 Value="True">
                                 <Setter Property="Source">
                                     <FontImageSource
-                                        FontFamily="{StaticResource Icons}"
-                                        Glyph="{Static icons:Icons.Checkmark}"
+                                        FontFamily="{StaticResource AppIcons}"
+                                        Glyph="{Static icons:AppIcons.Checkmark}"
                                         Color="{StaticResource PrimaryDarkColor}" />
                                 </Setter>
                             </DataTrigger>
@@ -244,8 +244,8 @@
                     WidthRequest="25">
                     <Image.Source>
                         <FontImageSource
-                            FontFamily="{StaticResource Icons}"
-                            Glyph="{Static icons:Icons.Delivery}"
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Delivery}"
                             Color="{StaticResource TextSecondaryColor}" />
                     </Image.Source>
                 </Image>
@@ -268,8 +268,8 @@
                                 Value="True">
                                 <Setter Property="Source">
                                     <FontImageSource
-                                        FontFamily="{StaticResource Icons}"
-                                        Glyph="{Static icons:Icons.Checkmark}"
+                                        FontFamily="{StaticResource AppIcons}"
+                                        Glyph="{Static icons:AppIcons.Checkmark}"
                                         Color="{StaticResource PrimaryDarkColor}" />
                                 </Setter>
                             </DataTrigger>

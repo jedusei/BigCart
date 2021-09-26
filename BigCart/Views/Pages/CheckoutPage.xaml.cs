@@ -1,4 +1,5 @@
-﻿using BigCart.Models;
+﻿using BigCart.Icons;
+using BigCart.Models;
 using BigCart.ViewModels;
 using Syncfusion.XForms.EffectsView;
 using Syncfusion.XForms.ProgressBar;
@@ -7,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
-using AppIcons = BigCart.Icons.Icons;
 
 namespace BigCart.Pages
 {
