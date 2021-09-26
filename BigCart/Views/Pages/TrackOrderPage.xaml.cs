@@ -121,33 +121,13 @@ namespace BigCart.Pages
             var firstIcon = (View)_orderStepsLayout.Children[0].FindByName("icon");
             var lastIcon = (View)_orderStepsLayout.Children[^1].FindByName("icon");
 
-            Point startPosition = GetAbsolutePosition(firstIcon, layoutRoot);
-            Point endPosition = GetAbsolutePosition(lastIcon, layoutRoot);
+            Point startPosition = firstIcon.GetRelativePosition(layoutRoot);
+            Point endPosition = lastIcon.GetRelativePosition(layoutRoot);
 
             _progressBar.TranslationX = startPosition.X + (_progressBar.Height * 0.5f);
             _progressBar.TranslationY = startPosition.Y;
 
             _progressBar.WidthRequest = endPosition.Y - startPosition.Y;
-        }
-
-        private Point GetAbsolutePosition(View view, Layout root)
-        {
-            double x = view.Width * 0.5f;
-            double y = view.Height * 0.5f;
-
-            View parent = view;
-            do
-            {
-                x += parent.X;
-                y += parent.Y;
-
-                parent = parent.Parent as View;
-                if (parent != null && parent == root)
-                    break;
-
-            } while (parent != null);
-
-            return new Point(x, y);
         }
 
         private class OrderStep

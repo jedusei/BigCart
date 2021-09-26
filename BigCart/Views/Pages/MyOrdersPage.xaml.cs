@@ -139,33 +139,13 @@ namespace BigCart.Pages
                 var firstEllipse = _stepsLayout.Children[0].FindByName<View>("ellipse");
                 var lastEllipse = _stepsLayout.Children[^1].FindByName<View>("ellipse");
 
-                Point startPosition = GetAbsolutePosition(firstEllipse, layoutRoot);
-                Point endPosition = GetAbsolutePosition(lastEllipse, layoutRoot);
+                Point startPosition = firstEllipse.GetRelativePosition(layoutRoot);
+                Point endPosition = lastEllipse.GetRelativePosition(layoutRoot);
 
                 _progressBar.TranslationX = startPosition.X + (_progressBar.Height * 0.5f);
                 _progressBar.TranslationY = startPosition.Y;
 
                 _progressBar.WidthRequest = endPosition.Y - startPosition.Y;
-            }
-
-            private Point GetAbsolutePosition(View view, Layout root)
-            {
-                double x = view.Width * 0.5f;
-                double y = view.Height * 0.5f;
-
-                View parent = view;
-                do
-                {
-                    x += parent.X;
-                    y += parent.Y;
-
-                    parent = parent.Parent as View;
-                    if (parent != null && parent == root)
-                        break;
-
-                } while (parent != null);
-
-                return new Point(x, y);
             }
         }
     }
