@@ -7,6 +7,7 @@ namespace BigCart.Services.Transactions
 {
     public class TransactionService : ITransactionService, ISingletonDependency
     {
+        private static int _nextTransactionId = 123456;
         private readonly List<Transaction> _transactions = new()
         {
             new()
@@ -45,11 +46,20 @@ namespace BigCart.Services.Transactions
             return _transactions.ToArray();
         }
 
-        public async Task RegisterTransactionAsync(Transaction transaction)
+        public async Task<Transaction> CreateTransactionAsync(CreateTransactionInput input)
         {
             await Task.Delay(1000);
-            if (_transactions.Find(t => t.Id == transaction.Id) == null)
-                _transactions.Insert(0, transaction);
+
+            Transaction transaction = new()
+            {
+                Id = _nextTransactionId++,
+                Amount = input.Amount,
+                PaymentMethod = input.PaymentMethod,
+                CreditCardType = input.CreditCardType
+            };
+            _transactions.Insert(0, transaction);
+
+            return transaction;
         }
     }
 }

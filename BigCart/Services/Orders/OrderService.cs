@@ -37,14 +37,7 @@ namespace BigCart.Services.Orders
             int quantity = items.Sum(i => i.Quantity);
             float cost = items.Sum(i => i.Quantity * i.Price) + (quantity * AppConsts.UNIT_SHIPPING_COST);
 
-            Transaction transaction = new()
-            {
-                Amount = cost,
-                PaymentMethod = input.PaymentMethod,
-                CreditCardType = input.CreditCardType
-            };
-            await _transactionService.RegisterTransactionAsync(transaction);
-
+            await _transactionService.CreateTransactionAsync(new(cost, input.PaymentMethod, input.CreditCardType));
             await _cartService.ClearCartAsync();
 
             Order order = new(_nextOrderId++, quantity, cost);
