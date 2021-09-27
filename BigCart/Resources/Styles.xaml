@@ -268,4 +268,13 @@
         <Setter Property="AutoResetEffect" Value="Scale" />
         <Setter Property="ScaleAnimationDuration" Value="150" />
     </Style>
+
+    <Style x:Key="CvvNumericTextBox" TargetType="num:SfNumericTextBox">
+        <Setter Property="Minimum" Value="0" />
+        <Setter Property="Maximum" Value="999" />
+        <Setter Property="FormatString" Value="000" />
+        <Setter Property="MaximumNumberDecimalDigits" Value="0" />
+        <Setter Property="AllowNull" Value="True" />
+        <Setter Property="Watermark" Value="CVV" />
+    </Style>
 </ResourceDictionary>

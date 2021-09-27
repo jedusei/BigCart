@@ -8,6 +8,7 @@
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:models="clr-namespace:BigCart.Models"
+    xmlns:num="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
@@ -25,6 +26,10 @@
             <Setter Property="ReserveSpaceForAssistiveLabels" Value="False" />
         </Style>
         <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
+            <Setter Property="TranslationY" Value="{OnPlatform Android=2}" />
+        </Style>
+        <Style TargetType="num:SfNumericTextBox">
             <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
             <Setter Property="TranslationY" Value="{OnPlatform Android=2}" />
         </Style>
@@ -176,7 +181,7 @@
                                                         <Span
                                                             FontFamily="{StaticResource MediumFontFamily}"
                                                             FontSize="12"
-                                                            Text="{Binding Cvv}" />
+                                                            Text="{Binding Cvv, StringFormat='{0:D3}'}" />
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
@@ -269,11 +274,7 @@
                                                         </Image>
                                                     </ContentView>
                                                 </txt:SfTextInputLayout.LeadingView>
-                                                <Entry
-                                                    IsPassword="True"
-                                                    Keyboard="Numeric"
-                                                    MaxLength="3"
-                                                    Placeholder="CVV" />
+                                                <num:SfNumericTextBox Style="{StaticResource CvvNumericTextBox}" Value="{Binding Cvv}" />
                                             </txt:SfTextInputLayout>
 
                                             <FlexLayout

@@ -8,7 +8,7 @@ namespace BigCart.Models
         private CreditCardType _type = CreditCardType.Mastercard;
         private string _owner;
         private string _number;
-        private int _cvv;
+        private int? _cvv;
         private DateTime? _expiryDate;
         private bool _isDefault;
         private bool _isExpanded;
@@ -28,7 +28,7 @@ namespace BigCart.Models
             get => _number;
             set => SetProperty(ref _number, value?.Trim(), onChanged: () => Type = GetType(_number));
         }
-        public int Cvv
+        public int? Cvv
         {
             get => _cvv;
             set => SetProperty(ref _cvv, value);

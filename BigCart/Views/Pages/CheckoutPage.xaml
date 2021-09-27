@@ -8,6 +8,7 @@
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:num="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -471,13 +472,11 @@
                                     </Image>
                                 </ContentView>
                             </txt:SfTextInputLayout.LeadingView>
-                            <Entry
-                                IsPassword="True"
-                                Keyboard="Numeric"
-                                MaxLength="3"
-                                Placeholder="CVV"
+                            <num:SfNumericTextBox
                                 ReturnType="Done"
-                                TabIndex="8" />
+                                Style="{StaticResource CvvNumericTextBox}"
+                                TabIndex="8"
+                                Value="{Binding Card.Cvv}" />
                         </txt:SfTextInputLayout>
                     </Grid>
 
