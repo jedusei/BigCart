@@ -55,6 +55,12 @@ namespace BigCart.Services.CreditCards
                 _creditCards.Add(card);
         }
 
+        public async Task<CreditCard> GetDefaultCardAsync()
+        {
+            await Task.Delay(1000);
+            return _creditCards.FirstOrDefault(c => c.IsDefault);
+        }
+
         public void SetDefaultCard(string cardNumber)
         {
             cardNumber = cardNumber?.Trim();
@@ -65,6 +71,5 @@ namespace BigCart.Services.CreditCards
                     c.IsDefault = c == card;
             }
         }
-
     }
 }

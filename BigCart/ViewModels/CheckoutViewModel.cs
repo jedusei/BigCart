@@ -1,5 +1,6 @@
 ﻿using BigCart.Models;
 using BigCart.Pages;
+using BigCart.Services.CreditCards;
 using BigCart.Services.Orders;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -10,11 +11,12 @@ namespace BigCart.ViewModels
 {
     public class CheckoutViewModel : ViewModel
     {
+        private readonly ICreditCardService _creditCardService;
         private readonly IOrderService _orderService;
         private int _currentStep;
         private int _stepsCompleted;
         private PaymentMethod _paymentMethod = PaymentMethod.CreditCard;
-        private CreditCard _card = new();
+        private CreditCard _card;
 
         public string Title { get; private set; }
         public int CurrentStep
@@ -40,14 +42,17 @@ namespace BigCart.ViewModels
         public ICommand SetCardTypeCommand { get; }
         public ICommand NextStepCommand { get; }
 
-        public CheckoutViewModel(IOrderService orderService)
+        public CheckoutViewModel(ICreditCardService creditCardService, IOrderService orderService)
         {
+            _creditCardService = creditCardService;
             _orderService = orderService;
+
             UpdateTitle();
+
             SetCardTypeCommand = new Command<PaymentMethod>(cardType => PaymentMethod = cardType);
             NextStepCommand = new AsyncCommand(NextStepAsync, allowsMultipleExecutions: false);
         }
-
+         
         public override bool OnBackButtonPressed()
         {
             if (_currentStep == 0)
@@ -69,6 +74,13 @@ namespace BigCart.ViewModels
             OnPropertyChanged(nameof(Title));
         }
 
+        private async Task GetCreditCardAsync()
+        {
+            _modalService.ShowLoading("Fetching credit card details...");
+            Card = await _creditCardService.GetDefaultCardAsync() ?? new CreditCard();
+            _modalService.HideLoading();
+        }
+
         private async Task NextStepAsync()
         {
             if (_currentStep < 2)
@@ -76,6 +88,12 @@ namespace BigCart.ViewModels
                 CurrentStep++;
                 if (_stepsCompleted < _currentStep)
                     StepsCompleted++;
+
+                if (_currentStep == 2 && _card == null)
+                {
+                    await Task.Delay(400);
+                    await GetCreditCardAsync();
+                }
             }
             else
             {
