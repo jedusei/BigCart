@@ -26,10 +26,7 @@
         <StackLayout Padding="0,30,0,15" Spacing="15">
             <controls:CreditCardView
                 Margin="0,0,0,5"
-                CardHolder="{Binding Card.Owner}"
-                CardNumber="{Binding Card.Number}"
-                CardType="{Binding Card.Type}"
-                ExpiryDate="{Binding ExpiryDate}"
+                Card="{Binding Card}"
                 HorizontalOptions="Center" />
 
             <txt:SfTextInputLayout>
@@ -92,7 +89,7 @@
                     <controls:DatePickerEx
                         Format="MM/yy"
                         MinimumDate="{Static sys:DateTime.Today}"
-                        NullableDate="{Binding ExpiryDate}"
+                        NullableDate="{Binding Card.ExpiryDate}"
                         Placeholder="Month / Year" />
                 </txt:SfTextInputLayout>
 

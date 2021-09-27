@@ -1,7 +1,6 @@
 ﻿using BigCart.Models;
 using BigCart.Pages;
 using BigCart.Services.Orders;
-using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -15,10 +14,7 @@ namespace BigCart.ViewModels
         private int _currentStep;
         private int _stepsCompleted;
         private PaymentMethod _paymentMethod = PaymentMethod.CreditCard;
-        private CreditCardType _cardType = CreditCardType.Mastercard;
-        private string _cardNumber;
-        private string _cardHolder;
-        private DateTime? _cardExpiryDate;
+        private CreditCard _card = new();
 
         public string Title { get; private set; }
         public int CurrentStep
@@ -36,25 +32,10 @@ namespace BigCart.ViewModels
             get => _paymentMethod;
             set => SetProperty(ref _paymentMethod, value);
         }
-        public CreditCardType CardType
+        public CreditCard Card
         {
-            get => _cardType;
-            private set => SetProperty(ref _cardType, value);
-        }
-        public string CardNumber
-        {
-            get => _cardNumber;
-            set => SetProperty(ref _cardNumber, value?.Trim(), onChanged: UpdateCardType);
-        }
-        public string CardHolder
-        {
-            get => _cardHolder;
-            set => SetProperty(ref _cardHolder, value?.Trim());
-        }
-        public DateTime? CardExpiryDate
-        {
-            get => _cardExpiryDate;
-            set => SetProperty(ref _cardExpiryDate, value);
+            get => _card;
+            private set => SetProperty(ref _card, value);
         }
         public ICommand SetCardTypeCommand { get; }
         public ICommand NextStepCommand { get; }
@@ -88,23 +69,6 @@ namespace BigCart.ViewModels
             OnPropertyChanged(nameof(Title));
         }
 
-        private void UpdateCardType()
-        {
-            if (_cardNumber?.Length > 0)
-            {
-                switch (_cardNumber[0])
-                {
-                    case '4':
-                        CardType = CreditCardType.Visa;
-                        break;
-
-                    default:
-                        CardType = CreditCardType.Mastercard;
-                        break;
-                }
-            }
-        }
-
         private async Task NextStepAsync()
         {
             if (_currentStep < 2)
@@ -119,7 +83,7 @@ namespace BigCart.ViewModels
                 await Task.Delay(1000);
                 _modalService.ShowLoading("Making payment...");
 
-                await _orderService.CreateOrderAsync(new(_paymentMethod, _cardType));
+                await _orderService.CreateOrderAsync(new(_paymentMethod, _card.Type));
 
                 _modalService.HideLoading();
                 await _navigationService.PushAsync<OrderSuccessPage>();

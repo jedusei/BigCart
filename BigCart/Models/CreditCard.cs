@@ -9,10 +9,9 @@ namespace BigCart.Models
         private string _owner;
         private string _number;
         private int _cvv;
-        private DateTime _expiryDate;
+        private DateTime? _expiryDate;
         private bool _isDefault;
         private bool _isExpanded;
-
 
         public CreditCardType Type
         {
@@ -34,7 +33,7 @@ namespace BigCart.Models
             get => _cvv;
             set => SetProperty(ref _cvv, value);
         }
-        public DateTime ExpiryDate
+        public DateTime? ExpiryDate
         {
             get => _expiryDate;
             set => SetProperty(ref _expiryDate, value);

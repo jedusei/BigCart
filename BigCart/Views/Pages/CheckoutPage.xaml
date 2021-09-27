@@ -394,10 +394,7 @@
 
                     <controls:CreditCardView
                         Margin="0,0,0,5"
-                        CardHolder="{Binding CardHolder}"
-                        CardNumber="{Binding CardNumber}"
-                        CardType="{Binding CardType}"
-                        ExpiryDate="{Binding CardExpiryDate}"
+                        Card="{Binding Card}"
                         HorizontalOptions="Center" />
 
                     <txt:SfTextInputLayout>
@@ -417,7 +414,7 @@
                             Placeholder="Name on the card"
                             ReturnType="Next"
                             TabIndex="6"
-                            Text="{Binding CardHolder}" />
+                            Text="{Binding Card.Owner}" />
                     </txt:SfTextInputLayout>
                     <txt:SfTextInputLayout>
                         <txt:SfTextInputLayout.LeadingView>
@@ -437,7 +434,7 @@
                             Placeholder="Card number"
                             ReturnType="Next"
                             TabIndex="7"
-                            Text="{Binding CardNumber}" />
+                            Text="{Binding Card.Number}" />
                     </txt:SfTextInputLayout>
 
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="6">
@@ -457,7 +454,7 @@
                             <controls:DatePickerEx
                                 Format="MM/yy"
                                 MinimumDate="{Static sys:DateTime.Today}"
-                                NullableDate="{Binding CardExpiryDate}"
+                                NullableDate="{Binding Card.ExpiryDate}"
                                 Placeholder="Month / Year" />
                         </txt:SfTextInputLayout>
 

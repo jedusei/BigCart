@@ -31,7 +31,7 @@
                             Source="mastercard.png">
                             <Image.Triggers>
                                 <DataTrigger
-                                    Binding="{TemplateBinding CardType}"
+                                    Binding="{TemplateBinding Card.Type}"
                                     TargetType="Image"
                                     Value="{Static models:CreditCardType.Visa}">
                                     <Setter Property="Source" Value="visa.png" />
@@ -41,7 +41,7 @@
                             </Image.Triggers>
                         </Image>
 
-                        <Label FontSize="20" Text="{TemplateBinding CardNumber, Converter={StaticResource CreditCardNumberMaskConverter}}" />
+                        <Label FontSize="20" Text="{TemplateBinding Card.Number, Converter={StaticResource CreditCardNumberMaskConverter}}" />
 
                         <Grid
                             ColumnDefinitions="*,Auto"
@@ -54,11 +54,11 @@
                                 Text="Card Holder"
                                 TextTransform="Uppercase" />
                             <Label
-                                x:Name="txtCardHolder"
                                 Grid.Row="1"
                                 FontSize="16"
                                 LineBreakMode="TailTruncation"
                                 MaxLines="1"
+                                Text="{TemplateBinding Card.Owner}"
                                 TextTransform="Uppercase" />
                             <Label
                                 Grid.Column="1"
