@@ -83,7 +83,7 @@ namespace BigCart.ViewModels
                 await Task.Delay(1000);
                 _modalService.ShowLoading("Making payment...");
 
-                await _orderService.CreateOrderAsync(new(_paymentMethod, _card.Type));
+                await _orderService.CreateOrderAsync(new(_paymentMethod, (_paymentMethod == PaymentMethod.CreditCard) ? _card : null));
 
                 _modalService.HideLoading();
                 await _navigationService.PushAsync<OrderSuccessPage>();

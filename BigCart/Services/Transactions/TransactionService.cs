@@ -55,7 +55,7 @@ namespace BigCart.Services.Transactions
                 Id = _nextTransactionId++,
                 Amount = input.Amount,
                 PaymentMethod = input.PaymentMethod,
-                CreditCardType = input.CreditCardType
+                CreditCardType = input.CreditCard.Type
             };
             _transactions.Insert(0, transaction);
 

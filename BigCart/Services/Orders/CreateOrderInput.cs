@@ -6,17 +6,16 @@ namespace BigCart.Services.Orders
     public record CreateOrderInput
     {
         public PaymentMethod PaymentMethod { get; }
-        public CreditCardType? CreditCardType { get; }
+        public CreditCard CreditCard { get; }
 
-        public CreateOrderInput(PaymentMethod paymentMethod, CreditCardType? creditCardType = null)
+        public CreateOrderInput(PaymentMethod paymentMethod, CreditCard creditCard = null)
         {
             PaymentMethod = paymentMethod;
             if (paymentMethod == PaymentMethod.CreditCard)
             {
-                if (creditCardType != null)
-                    CreditCardType = creditCardType;
-                else
-                    throw new ArgumentNullException(nameof(creditCardType), $"Value cannot be null when {nameof(paymentMethod)} is {nameof(PaymentMethod)}.{nameof(PaymentMethod.CreditCard)}.");
+                CreditCard = (creditCard != null)
+                    ? creditCard
+                    : throw new ArgumentNullException(nameof(creditCard), $"Value cannot be null when {nameof(paymentMethod)} is {nameof(PaymentMethod)}.{nameof(PaymentMethod.CreditCard)}.");
             }
         }
     }
