@@ -7,6 +7,7 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
     <!--#region Custom Converters-->
     <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
+    <converters:CreditCardNumberMaskConverter x:Key="CreditCardNumberMaskConverter" />
     <converters:DateToTimeAgoConverter x:Key="DateToTimeAgoConverter" />
     <converters:PluralConverter x:Key="PluralConverter" />
     <!--#endregion-->

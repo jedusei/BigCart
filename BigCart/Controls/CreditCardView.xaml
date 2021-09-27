@@ -41,7 +41,7 @@
                             </Image.Triggers>
                         </Image>
 
-                        <Label x:Name="txtCardNumber" FontSize="20" />
+                        <Label FontSize="20" Text="{TemplateBinding CardNumber, Converter={StaticResource CreditCardNumberMaskConverter}}" />
 
                         <Grid
                             ColumnDefinitions="*,Auto"

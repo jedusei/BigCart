@@ -142,12 +142,12 @@
                                                 Grid.Row="1"
                                                 Grid.Column="1"
                                                 Grid.ColumnSpan="2"
-                                                Padding="0,-3"
+                                                Padding="0,-5,0,-3"
                                                 FontFamily="{StaticResource MediumFontFamily}"
                                                 FontSize="16"
                                                 LineBreakMode="TailTruncation"
                                                 MaxLines="1"
-                                                Text="{Binding Number}"
+                                                Text="{Binding Number, Converter={StaticResource CreditCardNumberMaskConverter}}"
                                                 TextColor="{StaticResource TextSecondaryColor}" />
 
                                             <Label
