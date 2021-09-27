@@ -61,8 +61,9 @@ namespace BigCart.Services.CreditCards
             return _creditCards.FirstOrDefault(c => c.IsDefault);
         }
 
-        public void SetDefaultCard(string cardNumber)
+        public async Task SetDefaultCardAsync(string cardNumber)
         {
+            await Task.Delay(1000);
             cardNumber = cardNumber?.Trim();
             CreditCard card = _creditCards.FirstOrDefault(c => c.Number == cardNumber);
             if (card != null)

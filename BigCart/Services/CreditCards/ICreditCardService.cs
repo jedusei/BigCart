@@ -10,6 +10,6 @@ namespace BigCart.Services.CreditCards
         Task<ReadOnlyObservableCollection<CreditCard>> GetCardsAsync();
         Task AddCardAsync(CreditCard card);
         Task<CreditCard> GetDefaultCardAsync();
-        void SetDefaultCard(string cardNumber);
+        Task SetDefaultCardAsync(string cardNumber);
     }
 }

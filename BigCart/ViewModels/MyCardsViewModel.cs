@@ -22,17 +22,13 @@ namespace BigCart.ViewModels
         }
         public ReadOnlyObservableCollection<CreditCard> CreditCards { get; private set; }
         public IAsyncCommand AddCardCommand { get; }
-        public ICommand SetDefaultCardCommand { get; }
+        public IAsyncCommand<CreditCard> SetDefaultCardCommand { get; }
 
         public MyCardsViewModel(ICreditCardService creditCardService)
         {
             _creditCardService = creditCardService;
             AddCardCommand = new AsyncCommand(AddCardAsync);
-            SetDefaultCardCommand = new Command<CreditCard>(card =>
-            {
-                if (!card.IsDefault)
-                    _creditCardService.SetDefaultCard(card.Number);
-            });
+            SetDefaultCardCommand = new AsyncCommand<CreditCard>(SetDefaultCardAsync);
         }
 
         public override void OnStart()
@@ -60,6 +56,16 @@ namespace BigCart.ViewModels
                 await _creditCardService.AddCardAsync(newCard);
                 _modalService.HideLoading();
             }
+        }
+
+        private async Task SetDefaultCardAsync(CreditCard card)
+        {
+            if (card.IsDefault)
+                return;
+
+            _modalService.ShowLoading("Setting default...");
+            await _creditCardService.SetDefaultCardAsync(card.Number);
+            _modalService.HideLoading();
         }
     }
 }
