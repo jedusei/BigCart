@@ -1,4 +1,5 @@
-﻿using BigCart.Models;
+﻿using BigCart.Modals;
+using BigCart.Models;
 using BigCart.Services.CreditCards;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ namespace BigCart.ViewModels
         public MyCardsViewModel(ICreditCardService creditCardService)
         {
             _creditCardService = creditCardService;
+            AddCardCommand = new AsyncCommand(AddCardAsync);
             SetDefaultCardCommand = new Command<CreditCard>(card =>
             {
                 if (!card.IsDefault)
@@ -47,6 +49,17 @@ namespace BigCart.ViewModels
             OnPropertyChanged(nameof(CreditCards));
 
             LoadState = (CreditCards.Count > 0) ? LayoutState.Success : LayoutState.Empty;
+        }
+
+        private async Task AddCardAsync()
+        {
+            CreditCard newCard = await _modalService.PushAsync<AddCardModal, CreditCard>();
+            if (newCard != null)
+            {
+                _modalService.ShowLoading("Adding...");
+                await _creditCardService.AddCardAsync(newCard);
+                _modalService.HideLoading();
+            }
         }
     }
 }

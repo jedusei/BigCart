@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:ModalPage
+    x:Class="BigCart.Modals.AddCardModal"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="Add Credit Card"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:AddCardViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <ContentPage.Resources>
+        <Style x:Key="Icon" TargetType="Image">
+            <Setter Property="HeightRequest" Value="20" />
+            <Setter Property="WidthRequest" Value="20" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Padding="0,30,0,15" Spacing="15">
+            <controls:CreditCardView
+                Margin="0,0,0,5"
+                CardHolder="{Binding Card.Owner}"
+                CardNumber="{Binding Card.Number}"
+                CardType="{Binding Card.Type}"
+                ExpiryDate="{Binding ExpiryDate}"
+                HorizontalOptions="Center" />
+
+            <txt:SfTextInputLayout>
+                <txt:SfTextInputLayout.LeadingView>
+                    <ContentView>
+                        <Image Style="{StaticResource Icon}">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="{StaticResource AppIcons}"
+                                    Glyph="{Static icons:AppIcons.User}"
+                                    Color="{StaticResource TextSecondaryColor}" />
+                            </Image.Source>
+                        </Image>
+                    </ContentView>
+                </txt:SfTextInputLayout.LeadingView>
+                <Entry
+                    Placeholder="Name on the card"
+                    ReturnType="Next"
+                    TabIndex="6"
+                    Text="{Binding Card.Owner}" />
+            </txt:SfTextInputLayout>
+            <txt:SfTextInputLayout>
+                <txt:SfTextInputLayout.LeadingView>
+                    <ContentView>
+                        <Image Style="{StaticResource Icon}">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="{StaticResource AppIcons}"
+                                    Glyph="{Static icons:AppIcons.CreditCard}"
+                                    Color="{StaticResource TextSecondaryColor}" />
+                            </Image.Source>
+                        </Image>
+                    </ContentView>
+                </txt:SfTextInputLayout.LeadingView>
+                <Entry
+                    Keyboard="Numeric"
+                    Placeholder="Card number"
+                    ReturnType="Next"
+                    TabIndex="7"
+                    Text="{Binding Card.Number}" />
+            </txt:SfTextInputLayout>
+
+            <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="6"
+                RowSpacing="0">
+                <txt:SfTextInputLayout>
+                    <txt:SfTextInputLayout.LeadingView>
+                        <ContentView>
+                            <Image Style="{StaticResource Icon}">
+                                <Image.Source>
+                                    <FontImageSource
+                                        FontFamily="{StaticResource AppIcons}"
+                                        Glyph="{Static icons:AppIcons.Calendar}"
+                                        Color="{StaticResource TextSecondaryColor}" />
+                                </Image.Source>
+                            </Image>
+                        </ContentView>
+                    </txt:SfTextInputLayout.LeadingView>
+                    <controls:DatePickerEx
+                        Format="MM/yy"
+                        MinimumDate="{Static sys:DateTime.Today}"
+                        NullableDate="{Binding ExpiryDate}"
+                        Placeholder="Month / Year" />
+                </txt:SfTextInputLayout>
+
+                <txt:SfTextInputLayout Grid.Column="1">
+                    <txt:SfTextInputLayout.LeadingView>
+                        <ContentView>
+                            <Image Style="{StaticResource Icon}">
+                                <Image.Source>
+                                    <FontImageSource
+                                        FontFamily="{StaticResource AppIcons}"
+                                        Glyph="{Static icons:AppIcons.Lock}"
+                                        Color="{StaticResource TextSecondaryColor}" />
+                                </Image.Source>
+                            </Image>
+                        </ContentView>
+                    </txt:SfTextInputLayout.LeadingView>
+                    <Entry
+                        IsPassword="True"
+                        Keyboard="Numeric"
+                        MaxLength="3"
+                        Placeholder="CVV"
+                        ReturnType="Done"
+                        TabIndex="8" />
+                </txt:SfTextInputLayout>
+            </Grid>
+
+            <Button
+                Command="{Binding AddCommand}"
+                Text="Add credit card"
+                VerticalOptions="EndAndExpand" />
+        </StackLayout>
+    </ScrollView>
+</pages:ModalPage>

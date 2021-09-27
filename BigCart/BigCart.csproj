@@ -51,6 +51,9 @@
     <Compile Update="Resources\Styles.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
+    <Compile Update="Views\Modals\AddCardModal.xaml.cs">
+      <DependentUpon>AddCardModal.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Modals\AddReviewModal.xaml.cs">
       <DependentUpon>AddReviewModal.xaml</DependentUpon>
     </Compile>
