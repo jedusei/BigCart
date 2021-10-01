@@ -16,7 +16,10 @@ namespace BigCart.ViewModels
         private int _currentStep;
         private int _stepsCompleted;
         private PaymentMethod _paymentMethod = PaymentMethod.CreditCard;
-        private CreditCard _card;
+        private CreditCard _card = new();
+        private CreditCard _defaultCard;
+        private bool _hasLoadedCard;
+        private bool _saveCard = true;
 
         public string Title { get; private set; }
         public int CurrentStep
@@ -39,6 +42,11 @@ namespace BigCart.ViewModels
             get => _card;
             private set => SetProperty(ref _card, value);
         }
+        public bool SaveCard
+        {
+            get => _saveCard;
+            set => SetProperty(ref _saveCard, value);
+        }
         public ICommand SetCardTypeCommand { get; }
         public ICommand NextStepCommand { get; }
 
@@ -52,7 +60,7 @@ namespace BigCart.ViewModels
             SetCardTypeCommand = new Command<PaymentMethod>(cardType => PaymentMethod = cardType);
             NextStepCommand = new AsyncCommand(NextStepAsync, allowsMultipleExecutions: false);
         }
-         
+
         public override bool OnBackButtonPressed()
         {
             if (_currentStep == 0)
@@ -74,13 +82,6 @@ namespace BigCart.ViewModels
             OnPropertyChanged(nameof(Title));
         }
 
-        private async Task GetCreditCardAsync()
-        {
-            _modalService.ShowLoading("Fetching credit card details...");
-            Card = await _creditCardService.GetDefaultCardAsync() ?? new CreditCard();
-            _modalService.HideLoading();
-        }
-
         private async Task NextStepAsync()
         {
             if (_currentStep < 2)
@@ -89,23 +90,50 @@ namespace BigCart.ViewModels
                 if (_stepsCompleted < _currentStep)
                     StepsCompleted++;
 
-                if (_currentStep == 2 && _card == null)
+                if (_currentStep == 2 && !_hasLoadedCard)
                 {
                     await Task.Delay(400);
                     await GetCreditCardAsync();
+                    _hasLoadedCard = true;
                 }
             }
             else
             {
                 StepsCompleted = 3;
-                await Task.Delay(1000);
-                _modalService.ShowLoading("Making payment...");
-
-                await _orderService.CreateOrderAsync(new(_paymentMethod, (_paymentMethod == PaymentMethod.CreditCard) ? _card : null));
-
-                _modalService.HideLoading();
-                await _navigationService.PushAsync<OrderSuccessPage>();
+                await MakePaymentAsync();
             }
+        }
+
+        private async Task GetCreditCardAsync()
+        {
+            _modalService.ShowLoading("Fetching credit card details...");
+
+            _defaultCard = await _creditCardService.GetDefaultCardAsync();
+            if (_defaultCard != null)
+            {
+                Card = _defaultCard.Clone();
+                _card.IsDefault = _card.IsExpanded = false;
+            }
+
+            _modalService.HideLoading();
+        }
+
+        private async Task MakePaymentAsync()
+        {
+            _modalService.ShowLoading("Making payment...");
+
+            await _orderService.CreateOrderAsync(new(_paymentMethod, (_paymentMethod == PaymentMethod.CreditCard) ? _card : null));
+
+            if (_saveCard)
+            {
+                if (_defaultCard == null || _card.Number != _defaultCard.Number)
+                    await _creditCardService.AddCardAsync(_card);
+                else
+                    await _creditCardService.UpdateCardAsync(_card);
+            }
+
+            _modalService.HideLoading();
+            await _navigationService.PushAsync<OrderSuccessPage>();
         }
     }
 }

@@ -58,5 +58,18 @@ namespace BigCart.Models
 
             return result;
         }
+
+        public CreditCard Clone()
+        {
+            return (CreditCard)MemberwiseClone();
+        }
+
+        public void CopyFrom(CreditCard other)
+        {
+            Number = other.Number;
+            Owner = other.Owner;
+            Cvv = other.Cvv;
+            ExpiryDate = other.ExpiryDate;
+        }
     }
 }

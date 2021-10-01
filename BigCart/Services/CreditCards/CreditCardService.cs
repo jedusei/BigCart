@@ -55,6 +55,13 @@ namespace BigCart.Services.CreditCards
                 _creditCards.Add(card);
         }
 
+        public async Task UpdateCardAsync(CreditCard updatedCard)
+        {
+            await Task.Delay(1000);
+            CreditCard card = _creditCards.FirstOrDefault(c => c.Number == updatedCard.Number);
+            card?.CopyFrom(updatedCard);
+        }
+
         public async Task<CreditCard> GetDefaultCardAsync()
         {
             await Task.Delay(1000);
