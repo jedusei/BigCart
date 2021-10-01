@@ -29,10 +29,6 @@
             <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
             <Setter Property="TranslationY" Value="{OnPlatform Android=2}" />
         </Style>
-        <Style TargetType="num:SfNumericTextBox">
-            <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
-            <Setter Property="TranslationY" Value="{OnPlatform Android=2}" />
-        </Style>
         <Style TargetType="controls:DatePickerEx">
             <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
             <Setter Property="TranslationY" Value="{OnPlatform Android=2}" />
@@ -274,7 +270,10 @@
                                                         </Image>
                                                     </ContentView>
                                                 </txt:SfTextInputLayout.LeadingView>
-                                                <num:SfNumericTextBox Style="{StaticResource CvvNumericTextBox}" Value="{Binding Cvv}" />
+                                                <num:SfNumericTextBox
+                                                    Style="{StaticResource CvvNumericTextBox}"
+                                                    TextColor="{StaticResource TextSecondaryColor}"
+                                                    Value="{Binding Cvv}" />
                                             </txt:SfTextInputLayout>
 
                                             <FlexLayout
