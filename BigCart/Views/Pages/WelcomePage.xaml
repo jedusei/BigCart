@@ -84,8 +84,8 @@
                     VerticalOptions="Center">
                     <Image.Source>
                         <FontImageSource
-                            FontFamily="{StaticResource Icons}"
-                            Glyph="{Static icons:Icons.Back}"
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Back}"
                             Color="White" />
                     </Image.Source>
                 </Image>
@@ -177,8 +177,8 @@
                                     <Image HeightRequest="17">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
-                                                Glyph="{Static icons:Icons.Mail}"
+                                                FontFamily="{StaticResource AppIcons}"
+                                                Glyph="{Static icons:AppIcons.Mail}"
                                                 Color="{StaticResource TextSecondaryColor}" />
                                         </Image.Source>
                                     </Image>
@@ -193,8 +193,8 @@
                                     <Image HeightRequest="20">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
-                                                Glyph="{Static icons:Icons.Lock}"
+                                                FontFamily="{StaticResource AppIcons}"
+                                                Glyph="{Static icons:AppIcons.Lock}"
                                                 Color="{StaticResource TextSecondaryColor}" />
                                         </Image.Source>
                                     </Image>
@@ -260,8 +260,8 @@
                                     <Image HeightRequest="17">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
-                                                Glyph="{Static icons:Icons.Mail}"
+                                                FontFamily="{StaticResource AppIcons}"
+                                                Glyph="{Static icons:AppIcons.Mail}"
                                                 Color="{StaticResource TextSecondaryColor}" />
                                         </Image.Source>
                                     </Image>
@@ -276,8 +276,8 @@
                                     <Image HeightRequest="20">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
-                                                Glyph="{Static icons:Icons.Phone}"
+                                                FontFamily="{StaticResource AppIcons}"
+                                                Glyph="{Static icons:AppIcons.Phone}"
                                                 Color="{StaticResource TextSecondaryColor}" />
                                         </Image.Source>
                                     </Image>
@@ -292,8 +292,8 @@
                                     <Image HeightRequest="20">
                                         <Image.Source>
                                             <FontImageSource
-                                                FontFamily="{StaticResource Icons}"
-                                                Glyph="{Static icons:Icons.Lock}"
+                                                FontFamily="{StaticResource AppIcons}"
+                                                Glyph="{Static icons:AppIcons.Lock}"
                                                 Color="{StaticResource TextSecondaryColor}" />
                                         </Image.Source>
                                     </Image>
