@@ -7,13 +7,7 @@ namespace BigCart.Controls
     {
         public SwitchEx()
         {
-            var style = App.Current.Resources["Switch"] as Style;
-            foreach (Setter setter in style.Setters)
-                SetValue(setter.Property, setter.Value);
-
-            // Apply changes
-            IsOn = true;
-            IsOn = false;
+            Style = (Style)App.Current.Resources["Switch"];
         }
     }
 }
