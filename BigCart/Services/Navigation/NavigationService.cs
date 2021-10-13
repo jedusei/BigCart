@@ -29,7 +29,14 @@ namespace BigCart.Services.Navigation
         {
             T page = _pageService.CreatePage<T>(options?.Data);
             INavigation navigation = _pageService.MainPage.Navigation;
+
+            // Disable input on current page
+            var currentPage = (ContentPage)navigation.NavigationStack[^1];
+            currentPage.InputTransparent = true;
+
             await navigation.PushAsync(page);
+
+            currentPage.InputTransparent = false;
 
             if (options != null)
             {
