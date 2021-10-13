@@ -16,6 +16,9 @@ using Page = BigCart.Pages.Page;
 [assembly: ExportRenderer(typeof(Page), typeof(BigCart.Droid.Renderers.PageRenderer))]
 namespace BigCart.Droid.Renderers
 {
+    /// <summary>
+    /// See NavigationPageRenderer.cs for explanation.
+    /// </summary>
     public class PageRenderer : Xamarin.Forms.Platform.Android.PageRenderer, ILifecycleObserver
     {
         private static bool _isFirstPage = true;
