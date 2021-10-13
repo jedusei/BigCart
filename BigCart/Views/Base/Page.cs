@@ -111,7 +111,7 @@ namespace BigCart.Pages
 
         private async Task OnAppearingAsync()
         {
-            await NextTickAsync();
+            await Task.Yield();
 
             if (Status == PageStatus.Paused)
                 OnResume();
@@ -129,7 +129,7 @@ namespace BigCart.Pages
         {
             OnPause();
 
-            await NextTickAsync();
+            await Task.Yield();
 
             if (App.Current.Status == AppStatus.Stopped)
                 OnStop();
@@ -173,19 +173,6 @@ namespace BigCart.Pages
         {
             Status = PageStatus.Stopped;
             _viewModel?.OnStop();
-        }
-
-        private static Task NextTickAsync()
-        {
-            var tcs = new TaskCompletionSource<bool>();
-
-            Device.StartTimer(TimeSpan.FromSeconds(0), () =>
-            {
-                Device.BeginInvokeOnMainThread(() => tcs.SetResult(true));
-                return false;
-            });
-
-            return tcs.Task;
         }
     }
 }
