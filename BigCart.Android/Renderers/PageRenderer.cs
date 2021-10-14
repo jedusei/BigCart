@@ -53,6 +53,7 @@ namespace BigCart.Droid.Renderers
             _fragmentViewGroup.ViewTreeObserver.PreDraw -= OnPreDrawFragment;
             _fragment.StartPostponedEnterTransition();
             _navigationPageRenderer.NotifyEnterTransitionStarted();
+            UpdateStatusBarStyle();
 
             if (_isFirstPage)
             {
@@ -86,13 +87,6 @@ namespace BigCart.Droid.Renderers
         {
             base.OnElementPropertyChanged(sender, e);
             if (e.PropertyName == Page.StatusBarStyleProperty.PropertyName)
-                UpdateStatusBarStyle();
-        }
-
-        protected override void OnVisibilityChanged(Android.Views.View changedView, [GeneratedEnum] ViewStates visibility)
-        {
-            base.OnVisibilityChanged(changedView, visibility);
-            if (visibility == ViewStates.Visible)
                 UpdateStatusBarStyle();
         }
 
