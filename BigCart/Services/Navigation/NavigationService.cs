@@ -2,7 +2,6 @@
 using BigCart.Pages;
 using BigCart.Services.Pages;
 using BigCart.Services.Platform;
-using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Page = BigCart.Pages.Page;
@@ -30,13 +29,7 @@ namespace BigCart.Services.Navigation
             T page = _pageService.CreatePage<T>(options?.Data);
             INavigation navigation = _pageService.MainPage.Navigation;
 
-            // Disable input on current page
-            var currentPage = (ContentPage)navigation.NavigationStack[^1];
-            currentPage.InputTransparent = true;
-
             await navigation.PushAsync(page);
-
-            currentPage.InputTransparent = false;
 
             if (options != null)
             {
@@ -47,9 +40,6 @@ namespace BigCart.Services.Navigation
                     {
                         Xamarin.Forms.Page p = navigation.NavigationStack[i];
                         navigation.RemovePage(p);
-
-                        if (i < startIndex && p is Page)
-                            (p as Page).Stop();
                     }
                 }
                 else if (options.Replace)
@@ -72,19 +62,7 @@ namespace BigCart.Services.Navigation
         {
             INavigation navigation = _pageService.MainPage.Navigation;
             if (navigation.NavigationStack.Count > 1)
-            {
-                var pagesInBetween = navigation.NavigationStack.Skip(1)
-                    .Take(navigation.NavigationStack.Count - 2)
-                    .ToArray();
-
                 await navigation.PopToRootAsync();
-
-                foreach (Xamarin.Forms.Page page in pagesInBetween)
-                {
-                    if (page is Page p)
-                        p.Stop();
-                }
-            }
         }
     }
 }

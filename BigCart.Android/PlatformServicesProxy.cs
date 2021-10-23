@@ -16,7 +16,7 @@ namespace BigCart.Droid
         public OSAppTheme RequestedTheme => _originalPlatformServices.RequestedTheme;
         public string RuntimePlatform => _originalPlatformServices.RuntimePlatform;
         public TimeSpan AddTransitionTimerInterval { get; } = TimeSpan.FromMilliseconds(323);
-        public Task EnterTransitionTask { get; set; }
+        public Task TransitionTask { get; set; }
 
         public PlatformServicesProxy()
         {
@@ -26,9 +26,9 @@ namespace BigCart.Droid
 
         public async void StartTimer(TimeSpan interval, Func<bool> callback)
         {
-            if (EnterTransitionTask != null && interval == AddTransitionTimerInterval)
+            if (TransitionTask != null && interval == AddTransitionTimerInterval)
             {
-                await EnterTransitionTask;
+                await TransitionTask;
                 callback.Invoke();
                 return;
             }

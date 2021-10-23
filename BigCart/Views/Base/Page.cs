@@ -1,9 +1,4 @@
-﻿using BigCart.Messaging;
-using BigCart.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BigCart.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
@@ -29,11 +24,9 @@ namespace BigCart.Pages
     {
         public static readonly BindableProperty StatusBarStyleProperty = BindableProperty.Create(nameof(StatusBarStyle), typeof(StatusBarStyle), typeof(Page), StatusBarStyle.DarkContent);
         public static readonly BindableProperty SoftInputModeProperty = BindableProperty.Create(nameof(WindowSoftInputModeAdjust), typeof(WindowSoftInputModeAdjust), typeof(Page), WindowSoftInputModeAdjust.Pan);
-        private static bool _subscribedToAppEvents;
-        private const int TRANSITION_DURATION = 250;
-        private ViewModel _viewModel;
 
-        public PageStatus Status { get; private set; } = PageStatus.Pending;
+        public ViewModel ViewModel { get; private set; }
+        public PageStatus Status { get; protected set; } = PageStatus.Pending;
         public StatusBarStyle StatusBarStyle
         {
             get => (StatusBarStyle)GetValue(StatusBarStyleProperty);
@@ -49,130 +42,93 @@ namespace BigCart.Pages
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             On<iOS>().SetUseSafeArea(false);
-            SubscribeToAppEvents();
+        }
+
+        public void Start()
+        {
+            if (Status == PageStatus.Pending)
+            {
+                Status = PageStatus.Active;
+                OnStart();
+            }
+        }
+
+        public void Pause()
+        {
+            if (Status == PageStatus.Active)
+            {
+                Status = PageStatus.Paused;
+                OnPause();
+            }
+        }
+
+        public void Resume()
+        {
+            if (Status == PageStatus.Paused)
+            {
+                Status = PageStatus.Active;
+                OnResume();
+            }
         }
 
         public void Stop()
         {
             if (Status == PageStatus.Paused)
-                OnStop();
-        }
-
-        private void SubscribeToAppEvents()
-        {
-            if (_subscribedToAppEvents)
-                return;
-
-            _subscribedToAppEvents = true;
-
-            if (Device.RuntimePlatform != Device.Android)
             {
-                MessagingCenter.Subscribe<Xamarin.Forms.Application>(typeof(Page), MessageKeys.Pause, app =>
-                {
-                    var navigationStack = GetNavigationStack();
-                    if (navigationStack.Count > 0)
-                    {
-                        var page = navigationStack[^1] as Page;
-                        page?.OnPause();
-                    }
-                });
-
-                MessagingCenter.Subscribe<Xamarin.Forms.Application>(typeof(Page), MessageKeys.Resume, app =>
-                {
-                    var navigationStack = GetNavigationStack();
-                    if (navigationStack.Count > 0)
-                    {
-                        var page = navigationStack[^1] as Page;
-                        page?.OnResume();
-                    }
-                });
+                Status = PageStatus.Stopped;
+                OnStop();
             }
-        }
-
-        protected virtual IReadOnlyList<Xamarin.Forms.Page> GetNavigationStack()
-        {
-            return Navigation.NavigationStack;
         }
 
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
-            _viewModel = BindingContext as ViewModel;
+            ViewModel = BindingContext as ViewModel;
+        }
+
+        protected override void OnParentSet()
+        {
+            base.OnParentSet();
+            if (Parent == null && Device.RuntimePlatform == Device.iOS)
+                Stop();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            _ = OnAppearingAsync();
 
             Xamarin.Forms.Application.Current.On<Xamarin.Forms.PlatformConfiguration.Android>()
                 .UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust);
         }
 
-        private async Task OnAppearingAsync()
-        {
-            await Task.Yield();
-
-            if (Status == PageStatus.Paused)
-                OnResume();
-            else
-                OnStart();
-        }
-
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-            _ = OnDisappearingAsync();
-        }
-
-        private async Task OnDisappearingAsync()
-        {
-            OnPause();
-
-            await Task.Yield();
-
-            if (App.Current.Status == AppStatus.Stopped)
-                OnStop();
-            else
-            {
-                await Task.Delay(TRANSITION_DURATION);
-                bool isNotInStack = GetNavigationStack().All(p => p != this);
-                if (isNotInStack)
-                    OnStop();
-            }
-        }
-
         protected virtual void OnStart()
         {
-            Status = PageStatus.Active;
-
             foreach (ToolbarItem item in ToolbarItems)
                 item.BindingContext = BindingContext;
 
-            _viewModel?.OnStart();
+            ViewModel?.OnStart();
         }
 
         protected virtual void OnResume()
         {
-            Status = PageStatus.Active;
-            _viewModel?.OnResume();
+            InputTransparent = false;
+            ViewModel?.OnResume();
         }
 
         protected override bool OnBackButtonPressed()
         {
-            return _viewModel?.OnBackButtonPressed() ?? base.OnBackButtonPressed();
+            return ViewModel?.OnBackButtonPressed() ?? base.OnBackButtonPressed();
         }
 
         protected virtual void OnPause()
         {
-            Status = PageStatus.Paused;
-            _viewModel?.OnPause();
+            InputTransparent = true;
+            ViewModel?.OnPause();
         }
 
         protected virtual void OnStop()
         {
-            Status = PageStatus.Stopped;
-            _viewModel?.OnStop();
+            ViewModel?.OnStop();
         }
     }
 }

@@ -4,6 +4,7 @@ using AndroidX.Fragment.App;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using PageEx = BigCart.Pages.Page;
 
 [assembly: ExportRenderer(typeof(NavigationPage), typeof(BigCart.Droid.Renderers.NavigationPageRenderer))]
 namespace BigCart.Droid.Renderers
@@ -31,18 +32,14 @@ namespace BigCart.Droid.Renderers
     {
         private readonly PlatformServicesProxy _platformServicesProxy;
         private readonly FragmentManager _fragmentManager;
-        private readonly int _enterTransitionDuration, _exitTransitionDuration;
-        private TaskCompletionSource<bool> _enterTransitionStartTcs;
+        private TaskCompletionSource<bool> _transitionTcs;
+        private int _exitTransitionDuration;
 
         public NavigationPageRenderer(Context context) : base(context)
         {
             _platformServicesProxy = new PlatformServicesProxy();
             _fragmentManager = context.GetFragmentManager();
-
-            // Get transition durations
-            using Animator enterAnimator = AnimatorInflater.LoadAnimator(context, Resource.Animator.fragment_open_enter);
             using Animator exitAnimator = AnimatorInflater.LoadAnimator(context, Resource.Animator.fragment_open_exit);
-            _enterTransitionDuration = (int?)enterAnimator?.TotalDuration ?? TransitionDuration;
             _exitTransitionDuration = (int?)exitAnimator?.TotalDuration ?? TransitionDuration;
         }
 
@@ -52,9 +49,9 @@ namespace BigCart.Droid.Renderers
         }
 
         // Called by the page renderer when the postponed transition is started
-        public void NotifyEnterTransitionStarted()
+        public void NotifyTransitionCompleted()
         {
-            _enterTransitionStartTcs?.TrySetResult(true);
+            _transitionTcs?.TrySetResult(true);
         }
 
         // This is called in base.OnPushAsync(...)
@@ -62,41 +59,67 @@ namespace BigCart.Droid.Renderers
         {
             base.SetupPageTransition(transaction, isPush);
             transaction.SetReorderingAllowed(isPush);
-
-            // This will eventually be passed as an argument to the AddTransitionTimer method 
-            TransitionDuration = isPush ? _platformServicesProxy.AddTransitionTimerInterval.Milliseconds : _exitTransitionDuration;
         }
 
         protected override async Task<bool> OnPushAsync(Page view, bool animated)
         {
+            bool result;
+
+            var navigationStack = view.Navigation.NavigationStack;
+            if (navigationStack.Count > 1)
+            {
+                if (view.Navigation.NavigationStack[^2] is PageEx previousPage)
+                    previousPage?.Pause();
+            }
+
             if (!animated)
-                return await base.OnPushAsync(view, animated);
+                result = await base.OnPushAsync(view, false);
+            else
+            {
+                int prevTransitionDuration = TransitionDuration;
 
-            _platformServicesProxy.EnterTransitionTask = WaitForEnterTransitionToCompleteAsync();
+                // This will eventually be passed as an argument to the AddTransitionTimer method 
+                TransitionDuration = _platformServicesProxy.AddTransitionTimerInterval.Milliseconds;
 
-            // Push page
-            bool result = await base.OnPushAsync(view, animated);
+                _transitionTcs = new TaskCompletionSource<bool>();
+                _platformServicesProxy.TransitionTask = _transitionTcs.Task;
 
-            // Wait for transition to complete
-            await _platformServicesProxy.EnterTransitionTask;
+                // Push page
+                result = await base.OnPushAsync(view, true);
 
-            TransitionDuration = _enterTransitionDuration;
-            _platformServicesProxy.EnterTransitionTask = null;
+                TransitionDuration = prevTransitionDuration;
+                _platformServicesProxy.TransitionTask = null;
+            }
 
             return result;
         }
 
-        private async Task WaitForEnterTransitionToCompleteAsync()
+        protected override async Task<bool> OnPopViewAsync(Page page, bool animated)
         {
-            _enterTransitionStartTcs = new TaskCompletionSource<bool>();
+            var previousPage = page.Navigation.NavigationStack[^2] as PageEx;
 
-            // Wait for enter transition to start
-            await _enterTransitionStartTcs.Task;
+            bool result = await base.OnPopViewAsync(page, animated);
 
-            // Wait for enter transition to complete
-            await Task.Delay(_enterTransitionDuration);
+            if (animated)
+                await Task.Delay(_exitTransitionDuration);
 
-            _enterTransitionStartTcs = null;
+            previousPage?.Resume();
+
+            return result;
+        }
+
+        protected override async Task<bool> OnPopToRootAsync(Page page, bool animated)
+        {
+            var rootPage = page.Navigation.NavigationStack[0] as PageEx;
+
+            bool result = await base.OnPopToRootAsync(page, animated);
+
+            if (animated)
+                await Task.Delay(_exitTransitionDuration);
+
+            rootPage?.Resume();
+
+            return result;
         }
     }
 }
