@@ -84,7 +84,8 @@ namespace BigCart.Services.Orders
             {
                 Id = _nextOrderId++,
                 ItemCount = quantity,
-                Cost = cost
+                Cost = cost,
+                DeliveryMethod = input.DeliveryMethod
             };
             _orders.Insert(0, order);
             LatestOrder = order;

@@ -2,19 +2,6 @@
 
 namespace BigCart.Models
 {
-    public enum PaymentMethod
-    {
-        CreditCard,
-        Paypal,
-        ApplePay
-    }
-
-    public enum CreditCardType
-    {
-        Mastercard,
-        Visa
-    }
-
     public record Transaction
     {
         public int Id { get; init; }

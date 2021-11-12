@@ -15,7 +15,8 @@ namespace BigCart.ViewModels
         private readonly IOrderService _orderService;
         private int _currentStep;
         private int _stepsCompleted;
-        private PaymentMethod _paymentMethod = PaymentMethod.CreditCard;
+        private DeliveryMethod _deliveryMethod;
+        private PaymentMethod _paymentMethod;
         private CreditCard _card = new();
         private CreditCard _defaultCard;
         private bool _hasLoadedCard;
@@ -37,6 +38,11 @@ namespace BigCart.ViewModels
             get => _paymentMethod;
             set => SetProperty(ref _paymentMethod, value);
         }
+        public DeliveryMethod DeliveryMethod
+        {
+            get => _deliveryMethod;
+            set => SetProperty(ref _deliveryMethod, value);
+        }
         public CreditCard Card
         {
             get => _card;
@@ -47,7 +53,8 @@ namespace BigCart.ViewModels
             get => _saveCard;
             set => SetProperty(ref _saveCard, value);
         }
-        public ICommand SetCardTypeCommand { get; }
+        public ICommand SetDeliveryMethodCommand { get; }
+        public ICommand SetPaymentMethodCommand { get; }
         public ICommand NextStepCommand { get; }
 
         public CheckoutViewModel(ICreditCardService creditCardService, IOrderService orderService)
@@ -57,7 +64,8 @@ namespace BigCart.ViewModels
 
             UpdateTitle();
 
-            SetCardTypeCommand = new Command<PaymentMethod>(cardType => PaymentMethod = cardType);
+            SetDeliveryMethodCommand = new Command<DeliveryMethod>(value => DeliveryMethod = value);
+            SetPaymentMethodCommand = new Command<PaymentMethod>(value => PaymentMethod = value);
             NextStepCommand = new AsyncCommand(NextStepAsync, allowsMultipleExecutions: false);
         }
 
@@ -122,7 +130,7 @@ namespace BigCart.ViewModels
         {
             _modalService.ShowLoading("Making payment...");
 
-            await _orderService.CreateOrderAsync(new(_paymentMethod, (_paymentMethod == PaymentMethod.CreditCard) ? _card : null));
+            await _orderService.CreateOrderAsync(new(_paymentMethod, (_paymentMethod == PaymentMethod.CreditCard) ? _card : null, _deliveryMethod));
 
             if (_saveCard)
             {

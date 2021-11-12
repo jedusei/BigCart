@@ -181,16 +181,42 @@
                     Spacing="10">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="{x:Null}">
-                            <ev:SfEffectsView Padding="20" BackgroundColor="{StaticResource BackgroundPrimaryColor}">
+                            <ev:SfEffectsView
+                                Padding="20"
+                                BackgroundColor="{StaticResource BackgroundPrimaryColor}"
+                                TouchUpCommand="{Binding SetDeliveryMethodCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}"
+                                TouchUpCommandParameter="{Binding Id}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState Name="Normal" />
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDarkColor}" />
+                                                <Setter TargetName="title" Property="Label.TextColor" Value="White" />
+                                                <Setter TargetName="description" Property="Label.TextColor" Value="White" />
+                                                <Setter TargetName="price" Property="Label.TextColor" Value="White" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <View.Effects>
+                                    <xct:LifecycleEffect Loaded="DeliveryMethodView_Loaded" />
+                                </View.Effects>
+
                                 <Grid ColumnDefinitions="*,Auto" ColumnSpacing="20">
                                     <StackLayout HorizontalOptions="FillAndExpand">
                                         <Label
+                                            x:Name="title"
                                             FontFamily="{StaticResource MediumFontFamily}"
                                             FontSize="17"
                                             Text="{Binding Title}" />
-                                        <Label Text="{Binding Description}" TextColor="{StaticResource TextSecondaryColor}" />
+                                        <Label
+                                            x:Name="description"
+                                            Text="{Binding Description}"
+                                            TextColor="{StaticResource TextSecondaryColor}" />
                                     </StackLayout>
                                     <Label
+                                        x:Name="price"
                                         Grid.Column="1"
                                         FontFamily="{StaticResource MediumFontFamily}"
                                         FontSize="17"
@@ -361,10 +387,13 @@
                                             </VisualState>
                                         </VisualStateGroup>
                                     </VisualStateManager.VisualStateGroups>
+                                    <View.Effects>
+                                        <xct:LifecycleEffect Loaded="PaymentMethodView_Loaded" />
+                                    </View.Effects>
 
                                     <ev:SfEffectsView
                                         x:Name="effectsView"
-                                        TouchUpCommand="{Binding SetCardTypeCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}"
+                                        TouchUpCommand="{Binding SetPaymentMethodCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}"
                                         TouchUpCommandParameter="{Binding Id}">
                                         <FlexLayout
                                             AlignItems="Center"

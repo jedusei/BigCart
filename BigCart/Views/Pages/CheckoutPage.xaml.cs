@@ -13,7 +13,8 @@ namespace BigCart.Pages
 {
     public partial class CheckoutPage : Page
     {
-        CheckoutViewModel _viewModel;
+        private CheckoutViewModel _viewModel;
+        private IValueConverter _equalConverter = (IValueConverter)Application.Current.Resources["EqualConverter"];
 
         public CheckoutPage()
         {
@@ -23,18 +24,21 @@ namespace BigCart.Pages
             {
                 new
                 {
+                    Id = DeliveryMethod.Standard,
                     Title = "Standard Delivery",
                     Description = "Order will be delivered between 3 - 4 business days straight to your doorstep.",
                     Price = 3
                 },
                 new
                 {
+                    Id = DeliveryMethod.NextDay,
                     Title = "Next Day Delivery",
                     Description = "Order will be delivered between 1 - 2 business days straight to your doorstep.",
                     Price = 5
                 },
                 new
                 {
+                    Id = DeliveryMethod.Nominated,
                     Title = "Nominated Delivery",
                     Description = "Order will be delivered on your chosen date.",
                     Price = 3
@@ -70,41 +74,58 @@ namespace BigCart.Pages
             _viewModel = BindingContext as CheckoutViewModel;
         }
 
-        protected override void OnAppearing()
+        private void DeliveryMethodView_Loaded(object sender, EventArgs e)
         {
-            base.OnAppearing();
+            var view = (SfEffectsView)sender;
 
-            if (Status == PageStatus.Pending)
+            StateTrigger selectedStateTrigger = new();
+            selectedStateTrigger.SetBinding(StateTrigger.IsActiveProperty, new Binding()
             {
-                var equalConverter = (EqualConverter)Application.Current.Resources["EqualConverter"];
-                var notEqualConverter = (NotEqualConverter)Application.Current.Resources["NotEqualConverter"];
+                Path = nameof(CheckoutViewModel.DeliveryMethod),
+                Source = _viewModel,
+                Converter = _equalConverter,
+                ConverterParameter = view.TouchUpCommandParameter
+            });
 
-                foreach (View view in _paymentMethodLayout.Children)
-                {
-                    var normalVisualState = GetVisualState(view, "Normal");
-                    var selectedVisualState = GetVisualState(view, "Selected");
+            VisualState selectedVisualState = GetVisualState(view, "Selected");
+            selectedVisualState.StateTriggers.Add(selectedStateTrigger);
 
-                    StateTrigger stateTrigger = new();
-                    stateTrigger.SetBinding(StateTrigger.IsActiveProperty, new Binding
-                    {
-                        Path = nameof(CheckoutViewModel.PaymentMethod),
-                        Source = _viewModel,
-                        Converter = notEqualConverter,
-                        ConverterParameter = view.FindByName<SfEffectsView>("effectsView").TouchUpCommandParameter
-                    });
-                    normalVisualState.StateTriggers.Add(stateTrigger);
+            CompareStateTrigger normalStateTrigger = new() { Value = false };
+            normalStateTrigger.SetBinding(CompareStateTrigger.PropertyProperty, new Binding()
+            {
+                Path = StateTrigger.IsActiveProperty.PropertyName,
+                Source = selectedStateTrigger
+            });
 
-                    stateTrigger = new StateTrigger();
-                    stateTrigger.SetBinding(StateTrigger.IsActiveProperty, new Binding
-                    {
-                        Path = nameof(CheckoutViewModel.PaymentMethod),
-                        Source = _viewModel,
-                        Converter = equalConverter,
-                        ConverterParameter = view.FindByName<SfEffectsView>("effectsView").TouchUpCommandParameter
-                    });
-                    selectedVisualState.StateTriggers.Add(stateTrigger);
-                }
-            }
+            VisualState normalVisualState = GetVisualState(view, "Normal");
+            normalVisualState.StateTriggers.Add(normalStateTrigger);
+        }
+
+        private void PaymentMethodView_Loaded(object sender, EventArgs e)
+        {
+            var view = (View)sender;
+
+            StateTrigger selectedStateTrigger = new();
+            selectedStateTrigger.SetBinding(StateTrigger.IsActiveProperty, new Binding()
+            {
+                Path = nameof(CheckoutViewModel.PaymentMethod),
+                Source = _viewModel,
+                Converter = _equalConverter,
+                ConverterParameter = view.FindByName<SfEffectsView>("effectsView").TouchUpCommandParameter
+            });
+
+            VisualState selectedVisualState = GetVisualState(view, "Selected");
+            selectedVisualState.StateTriggers.Add(selectedStateTrigger);
+
+            CompareStateTrigger normalStateTrigger = new() { Value = false };
+            normalStateTrigger.SetBinding(CompareStateTrigger.PropertyProperty, new Binding()
+            {
+                Path = StateTrigger.IsActiveProperty.PropertyName,
+                Source = selectedStateTrigger
+            });
+
+            VisualState normalVisualState = GetVisualState(view, "Normal");
+            normalVisualState.StateTriggers.Add(normalStateTrigger);
         }
 
         private void SfStepProgressBar_StepTapped(object sender, StepTappedEventArgs e)

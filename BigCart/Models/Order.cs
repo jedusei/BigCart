@@ -12,6 +12,7 @@ namespace BigCart.Models
         public int Id { get; init; }
         public int ItemCount { get; init; }
         public float Cost { get; init; }
+        public DeliveryMethod DeliveryMethod { get; init; }
         public DateTime CreatedAt { get; init; } = DateTime.Now;
         public float Progress
         {
