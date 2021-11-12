@@ -54,8 +54,6 @@ namespace BigCart.Services.Orders
             }
         };
 
-        public Order LatestOrder { get; private set; }
-
         public OrderService(ICartService cartService, ITransactionService transactionService)
         {
             _cartService = cartService;
@@ -71,8 +69,6 @@ namespace BigCart.Services.Orders
 
         public async Task<Order> CreateOrderAsync(CreateOrderInput input)
         {
-            var delayTask = Task.Delay(1000);
-
             var items = await _cartService.GetItemsAsync();
             int quantity = items.Sum(i => i.Quantity);
             float cost = items.Sum(i => i.Quantity * i.Price) + (quantity * AppConsts.UNIT_SHIPPING_COST);
@@ -88,9 +84,6 @@ namespace BigCart.Services.Orders
                 DeliveryMethod = input.DeliveryMethod
             };
             _orders.Insert(0, order);
-            LatestOrder = order;
-
-            await delayTask;
 
             return order;
         }

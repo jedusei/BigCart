@@ -130,7 +130,7 @@ namespace BigCart.ViewModels
         {
             _modalService.ShowLoading("Making payment...");
 
-            await _orderService.CreateOrderAsync(new(_paymentMethod, (_paymentMethod == PaymentMethod.CreditCard) ? _card : null, _deliveryMethod));
+            Order order = await _orderService.CreateOrderAsync(new(_paymentMethod, (_paymentMethod == PaymentMethod.CreditCard) ? _card : null, _deliveryMethod));
 
             if (_saveCard)
             {
@@ -141,7 +141,7 @@ namespace BigCart.ViewModels
             }
 
             _modalService.HideLoading();
-            await _navigationService.PushAsync<OrderSuccessPage>();
+            await _navigationService.PushAsync<OrderSuccessPage>(new() { Data = order });
         }
     }
 }
