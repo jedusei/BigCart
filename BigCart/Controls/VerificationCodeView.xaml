@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="BigCart.Controls.VerificationCodeView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    x:Name="control"
+    HeightRequest="60">
+    <AbsoluteLayout BindingContext="{Reference control}">
+        <Entry
+            x:Name="_entry"
+            AbsoluteLayout.LayoutBounds="0.5,0"
+            AbsoluteLayout.LayoutFlags="XProportional"
+            IsVisible="False"
+            Keyboard="Numeric"
+            MaxLength="{Binding Length}"
+            Text="{Binding Code}" />
+        <FlexLayout
+            x:Name="_codeViewLayout"
+            Direction="Row"
+            JustifyContent="SpaceBetween">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Frame
+                        Padding="0"
+                        BackgroundColor="White"
+                        CornerRadius="5"
+                        HasShadow="False"
+                        WidthRequest="55">
+                        <Frame.Effects>
+                            <xct:LifecycleEffect Loaded="CharacterView_Loaded" />
+                        </Frame.Effects>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding}" Tapped="CharacterView_Tapped" />
+                        </Frame.GestureRecognizers>
+                        <Label
+                            FontSize="25"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+                            <Label.Triggers>
+                                <Trigger TargetType="Label" Property="Text" Value="•">
+                                    <Setter Property="FontSize" Value="40" />
+                                </Trigger>
+                            </Label.Triggers>
+                        </Label>
+                    </Frame>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+    </AbsoluteLayout>
+</ContentView>
