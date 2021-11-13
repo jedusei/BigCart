@@ -47,5 +47,6 @@
         public const string DropdownCircle = "\ue92a";
         public const string PlusCircle = "\ue92b";
         public const string Pencil = "\ue92c";
+        public const string Dropdown = "\ue92d";
     }
 }

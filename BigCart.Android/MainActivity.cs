@@ -30,6 +30,8 @@ namespace BigCart.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
+            Syncfusion.XForms.Android.PopupLayout.SfPopupLayoutRenderer.Init();
+
             MessagingCenter.Subscribe<FormsApplication>(this, MessageKeys.Start, OnAppStart);
             LoadApplication(new App());
         }

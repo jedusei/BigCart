@@ -29,6 +29,7 @@ namespace BigCart.iOS
             Syncfusion.XForms.iOS.Buttons.SfSwitchRenderer.Init();
             Syncfusion.ListView.XForms.iOS.SfListViewRenderer.Init();
             _ = new Syncfusion.SfNumericTextBox.XForms.iOS.SfNumericTextBoxRenderer();
+            Syncfusion.XForms.iOS.PopupLayout.SfPopupLayoutRenderer.Init();
 
             LoadApplication(new App());
 

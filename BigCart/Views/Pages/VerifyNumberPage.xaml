@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.VerifyNumberPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:bigcart="clr-namespace:BigCart"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:effects="clr-namespace:BigCart.Effects"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    Title="Verify Number"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:VerifyNumberViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <ContentPage.Resources>
+        <Color x:Key="TitleBarBackgroundColor">Transparent</Color>
+        <DataTemplate x:Key="Popup">
+            <ContentView>
+                <ContentView.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="BackgroundColor" Value="Transparent" />
+                        <Setter Property="TextColor" Value="Black" />
+                        <Setter Property="TextTransform" Value="Default" />
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </ContentView.Resources>
+                <Frame
+                    Padding="0"
+                    effects:SafeAreaEffect.Margin="20"
+                    effects:SafeAreaEffect.SafeArea="Bottom"
+                    CornerRadius="10"
+                    HorizontalOptions="Center">
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,50">
+                        <lv:SfListView
+                            Grid.ColumnSpan="2"
+                            ItemSize="50"
+                            Loaded="CountryListView_Loaded">
+                            <lv:SfListView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Country">
+                                    <ev:SfEffectsView TouchUp="CountryListView_ItemClicked">
+                                        <FlexLayout
+                                            Padding="10,0"
+                                            AlignItems="Center"
+                                            Direction="Row">
+                                            <Image
+                                                Margin="0,0,10,0"
+                                                FlexLayout.Shrink="0"
+                                                Source="{Binding FlagUrl}"
+                                                WidthRequest="30" />
+
+                                            <Label
+                                                x:Name="name"
+                                                FlexLayout.Grow="1"
+                                                FontFamily="{StaticResource MediumFontFamily}"
+                                                FontSize="18"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                Text="{Binding Name}" />
+                                        </FlexLayout>
+                                    </ev:SfEffectsView>
+                                </DataTemplate>
+                            </lv:SfListView.ItemTemplate>
+                        </lv:SfListView>
+
+                        <ev:SfEffectsView
+                            Grid.Row="1"
+                            HeightRequest="50"
+                            HorizontalOptions="End"
+                            TouchUp="CancelButton_Clicked"
+                            WidthRequest="100">
+                            <Label
+                                FontFamily="{StaticResource MediumFontFamily}"
+                                FontSize="16"
+                                HorizontalOptions="Center"
+                                Text="Cancel"
+                                TextTransform="{OnPlatform Default, Android=Uppercase}"
+                                VerticalOptions="Center" />
+                        </ev:SfEffectsView>
+
+                        <ev:SfEffectsView
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HeightRequest="50"
+                            TouchUp="OkButton_Clicked"
+                            WidthRequest="100">
+                            <Label
+                                FontFamily="{StaticResource MediumFontFamily}"
+                                FontSize="16"
+                                HorizontalOptions="Center"
+                                Text="Ok"
+                                TextTransform="{OnPlatform Default, Android=Uppercase}"
+                                VerticalOptions="Center" />
+                        </ev:SfEffectsView>
+                    </Grid>
+                </Frame>
+            </ContentView>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <StackLayout Padding="-15,30,-15,0" Spacing="5">
+        <Label
+            FontFamily="{StaticResource BoldFontFamily}"
+            FontSize="25"
+            HorizontalOptions="Center"
+            Text="Verify your number" />
+
+        <xct:TabView
+            x:Name="_tabView"
+            IsSwipeEnabled="False"
+            IsTabStripVisible="False"
+            PropertyChanged="TabView_PropertyChanged"
+            SelectedIndex="{Binding CurrentStep}">
+            <xct:TabViewItem>
+                <StackLayout Padding="15,0">
+                    <Label
+                        FontFamily="{StaticResource MediumFontFamily}"
+                        HeightRequest="80"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource TextSecondary}"
+                        Text="Enter your phone number below." />
+
+                    <border:SfBorder
+                        BackgroundColor="White"
+                        BorderWidth="0"
+                        CornerRadius="10"
+                        HeightRequest="60">
+                        <StackLayout Orientation="Horizontal" Spacing="0">
+                            <ev:SfEffectsView TouchUp="CountryButton_Clicked">
+                                <FlexLayout Padding="15,0" AlignItems="Center">
+                                    <Image x:Name="_flagImage" WidthRequest="30" />
+
+                                    <Label
+                                        x:Name="_countryCodeLabel"
+                                        Margin="5,0"
+                                        FontFamily="{StaticResource MediumFontFamily}"
+                                        FontSize="18" />
+
+                                    <Image WidthRequest="10">
+                                        <Image.Source>
+                                            <FontImageSource
+                                                FontFamily="{StaticResource AppIcons}"
+                                                Glyph="{Static icons:AppIcons.Dropdown}"
+                                                Color="#C4C4C4" />
+                                        </Image.Source>
+                                    </Image>
+                                </FlexLayout>
+                            </ev:SfEffectsView>
+
+                            <BoxView
+                                Margin="0,0,10,0"
+                                WidthRequest="1"
+                                Color="#C4C4C4" />
+
+                            <txt:SfTextInputLayout HorizontalOptions="StartAndExpand">
+                                <Entry
+                                    x:Name="_phoneNumberEntry"
+                                    FontSize="18"
+                                    Keyboard="Numeric"
+                                    MaxLength="12"
+                                    Placeholder="XXXXXXXXXXXX"
+                                    TextChanged="PhoneNumberEntry_TextChanged"
+                                    TranslationY="-3"
+                                    VerticalOptions="CenterAndExpand" />
+                            </txt:SfTextInputLayout>
+                        </StackLayout>
+                    </border:SfBorder>
+
+                    <Button
+                        Margin="0,10,0,20"
+                        Command="{Binding SendCodeCommand}"
+                        Text="Next" />
+                </StackLayout>
+            </xct:TabViewItem>
+
+            <xct:TabViewItem>
+                <StackLayout Padding="15,0">
+                    <Label
+                        FontFamily="{StaticResource MediumFontFamily}"
+                        HeightRequest="80"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource TextSecondary}"
+                        Text="Enter your verification code below." />
+
+                    <controls:VerificationCodeView x:Name="_codeView" Code="{Binding Code}" />
+
+                    <Button
+                        Margin="0,10"
+                        Command="{Binding VerifyCodeCommand}"
+                        Text="Next" />
+
+                    <Label HorizontalOptions="Center" Text="Didn't receive the code?" />
+                    <Label
+                        FontFamily="{StaticResource MediumFontFamily}"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsVisible, Source={Reference waitTimer}, Converter={StaticResource InvertedBoolConverter}}"
+                        Text="Resend a new code">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ResendCodeCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Label
+                        x:Name="waitTimer"
+                        FontFamily="{StaticResource MediumFontFamily}"
+                        HorizontalOptions="Center"
+                        Opacity="0.5"
+                        Text="{Binding WaitTime, StringFormat='Resend a new code ({0:mm\\:ss})'}">
+                        <Label.Triggers>
+                            <DataTrigger
+                                Binding="{Binding WaitTime.TotalSeconds}"
+                                TargetType="Label"
+                                Value="0">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </StackLayout>
+            </xct:TabViewItem>
+        </xct:TabView>
+    </StackLayout>
+</pages:Page>

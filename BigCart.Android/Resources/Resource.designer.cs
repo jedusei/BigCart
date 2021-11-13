@@ -2775,6 +2775,16 @@ namespace BigCart.Droid
 			global::Com.Syncfusion.Numerictextbox.Resource.Styleable.SfNumericTextBox_valueChangeMode = global::BigCart.Droid.Resource.Styleable.SfNumericTextBox_valueChangeMode;
 			global::Com.Syncfusion.Numerictextbox.Resource.Styleable.SfNumericTextBox_watermark = global::BigCart.Droid.Resource.Styleable.SfNumericTextBox_watermark;
 			global::Com.Syncfusion.Numerictextbox.Resource.Styleable.SfNumericTextBox_watermarkColor = global::BigCart.Droid.Resource.Styleable.SfNumericTextBox_watermarkColor;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Drawable.popup_forms_android_close_icon = global::BigCart.Droid.Resource.Drawable.popup_forms_android_close_icon;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Drawable.popup_forms_android_shadow = global::BigCart.Droid.Resource.Drawable.popup_forms_android_shadow;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Drawable.popup_forms_dark_theme_close_icon = global::BigCart.Droid.Resource.Drawable.popup_forms_dark_theme_close_icon;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Drawable.popup_forms_light_theme_close_icon = global::BigCart.Droid.Resource.Drawable.popup_forms_light_theme_close_icon;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Id.BorderView = global::BigCart.Droid.Resource.Id.BorderView;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.accept = global::BigCart.Droid.Resource.String.accept;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.decline = global::BigCart.Droid.Resource.String.decline;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.library_name = global::BigCart.Droid.Resource.String.library_name;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.popup_message = global::BigCart.Droid.Resource.String.popup_message;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.title = global::BigCart.Droid.Resource.String.title;
 			global::Syncfusion.XForms.Android.ProgressBar.Resource.Drawable.sfprogressbar_determinate_linear = global::BigCart.Droid.Resource.Drawable.sfprogressbar_determinate_linear;
 			global::Syncfusion.XForms.Android.ProgressBar.Resource.Drawable.sfprogressbar_indeterminate_circular = global::BigCart.Droid.Resource.Drawable.sfprogressbar_indeterminate_circular;
 			global::Syncfusion.XForms.Android.ProgressBar.Resource.Drawable.sfprogressbar_indeterminate_linear = global::BigCart.Droid.Resource.Drawable.sfprogressbar_indeterminate_linear;

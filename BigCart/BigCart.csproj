@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\countries.json" />
     <None Remove="Assets\Fonts\AppIcons.ttf" />
     <None Remove="Assets\Fonts\Poppins-Bold.ttf" />
     <None Remove="Assets\Fonts\Poppins-Medium.ttf" />
@@ -18,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Assets\countries.json" />
     <EmbeddedResource Include="Assets\Fonts\AppIcons.ttf" />
     <EmbeddedResource Include="Assets\Fonts\Poppins-Bold.ttf" />
     <EmbeddedResource Include="Assets\Fonts\Poppins-Medium.ttf" />
@@ -26,11 +28,13 @@
 
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs" Version="7.1.0.514" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SimpleInjector" Version="5.3.2" />
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfNumericTextBox" Version="19.2.0.59" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="19.2.0.59" />
     <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="19.2.0.59" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.0" />
@@ -104,6 +108,9 @@
     </Compile>
     <Compile Update="Views\Pages\MyCardsPage.xaml.cs">
       <DependentUpon>MyCardsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Pages\VerifyNumberPage.xaml.cs">
+      <DependentUpon>VerifyNumberPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Pages\TransactionsPage.xaml.cs">
       <DependentUpon>TransactionsPage.xaml</DependentUpon>
