@@ -78,7 +78,7 @@ namespace BigCart.Pages
 
         private void UpdatePhoneNumber()
         {
-            _viewModel.PhoneNumber = _countryCodeLabel.Text + _phoneNumberEntry.Text;
+            _viewModel.PhoneNumber = _countryCodeLabel.Text + _phoneNumberEntry.Text?.TrimStart(' ', '0').TrimEnd();
         }
 
         private void OkButton_Clicked(object sender, EventArgs e)
