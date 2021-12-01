@@ -32,6 +32,10 @@ namespace BigCart.ViewModels
                     MessagingCenter.Send((object)this, MessageKeys.GoToTab, MainPage.TAB_FAVORITES);
                     break;
 
+                case AccountTab.MENU_ITEM_ADDRESS:
+                    await _navigationService.PushAsync<MyAddressPage>();
+                    break;
+
                 case AccountTab.MENU_ITEM_CARDS:
                     await _navigationService.PushAsync<MyCardsPage>();
                     break;

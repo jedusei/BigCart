@@ -32,8 +32,7 @@ namespace BigCart.Services.Address
                     Value = "2811 Crescent Day LA Port",
                     City = "California",
                     ZipCode = "77571",
-                    Country = "United States",
-                    IsDefault = true
+                    Country = "United States"
                 }
             };
 

@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:Page
+    x:Class="BigCart.Pages.MyAddressPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
+    xmlns:num="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="My Address"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:MyAddressViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <ContentPage.Resources>
+        <Style TargetType="txt:SfTextInputLayout">
+            <Setter Property="InputViewPadding" Value="0,10" />
+            <Setter Property="ContainerType" Value="Filled" />
+            <Setter Property="ContainerBackgroundColor" Value="{StaticResource BackgroundSecondaryColor}" />
+            <Setter Property="ReserveSpaceForAssistiveLabels" Value="False" />
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="{StaticResource TextSecondaryColor}" />
+            <Setter Property="TranslationY" Value="{OnPlatform Android=2}" />
+        </Style>
+        <Style x:Key="Icon" TargetType="Image">
+            <Setter Property="HeightRequest" Value="20" />
+            <Setter Property="WidthRequest" Value="20" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding Addresses}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="{StaticResource AppIcons}"
+                    Glyph="{Static icons:AppIcons.PlusCircle}"
+                    Size="20"
+                    Color="Black" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout
+        Margin="-15,0"
+        xct:StateLayout.AnimateStateChanges="False"
+        xct:StateLayout.CurrentState="{Binding LoadState}"
+        BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+        Spacing="0">
+        <xct:StateLayout.StateViews>
+            <xct:StateView
+                HorizontalOptions="Center"
+                StateKey="Loading"
+                VerticalOptions="CenterAndExpand">
+                <ActivityIndicator IsRunning="True" WidthRequest="50" />
+            </xct:StateView>
+
+            <xct:StateView StateKey="Success">
+                <lv:SfListView
+                    AutoFitMode="DynamicHeight"
+                    ItemsSource="{Binding Addresses}"
+                    SelectionMode="None">
+                    <lv:SfListView.HeaderTemplate>
+                        <DataTemplate>
+                            <BoxView HeightRequest="15" />
+                        </DataTemplate>
+                    </lv:SfListView.HeaderTemplate>
+                    <lv:SfListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Address">
+                            <xct:Expander
+                                Padding="15,0,15,15"
+                                IsExpanded="{Binding IsExpanded}"
+                                Tapped="Expander_Tapped">
+                                <xct:Expander.Header>
+                                    <StackLayout BackgroundColor="{StaticResource BackgroundPrimaryColor}">
+                                        <Label
+                                            Padding="{OnPlatform '7,2', Android='7,2,7,0'}"
+                                            BackgroundColor="#EBFFD7"
+                                            FontSize="13"
+                                            HorizontalOptions="Start"
+                                            IsVisible="{Binding IsDefault}"
+                                            Text="Default"
+                                            TextColor="#28B446"
+                                            TextTransform="Uppercase" />
+                                        <Grid
+                                            Padding="15"
+                                            ColumnDefinitions="85,*,20"
+                                            ColumnSpacing="15"
+                                            RowDefinitions="25,20,20,20"
+                                            RowSpacing="0">
+                                            <border:SfBorder
+                                                Grid.RowSpan="4"
+                                                BackgroundColor="{StaticResource BackgroundTertiaryColor}"
+                                                BorderWidth="0"
+                                                CornerRadius="50">
+                                                <Image
+                                                    Margin="15"
+                                                    HorizontalOptions="Center"
+                                                    Source="{FontImage Glyph={Static icons:AppIcons.MapMarker},
+                                                                       FontFamily={StaticResource AppIcons},
+                                                                       Color=#6CC51D}"
+                                                    VerticalOptions="Center" />
+                                            </border:SfBorder>
+
+                                            <Label
+                                                Grid.Column="1"
+                                                FontFamily="{StaticResource MediumFontFamily}"
+                                                FontSize="18"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                Text="{Binding Name}" />
+
+                                            <Label
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                Text="{Binding Value}"
+                                                TextColor="{StaticResource TextSecondaryColor}" />
+
+                                            <Label
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                TextColor="{StaticResource TextSecondaryColor}">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="{}{0}, {1} {2}">
+                                                        <Binding Path="City" />
+                                                        <Binding Path="Country" />
+                                                        <Binding Path="ZipCode" />
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+
+                                            <Label
+                                                Grid.Row="3"
+                                                Grid.Column="1"
+                                                FontFamily="{StaticResource MediumFontFamily}"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                Text="{Binding PhoneNumber}" />
+
+                                            <Image
+                                                x:Name="dropdownIcon"
+                                                Grid.RowSpan="4"
+                                                Grid.Column="2"
+                                                HeightRequest="20"
+                                                Source="{FontImage Glyph={Static icons:AppIcons.DropdownCircle},
+                                                                   FontFamily={StaticResource AppIcons},
+                                                                   Color=#28B446}"
+                                                VerticalOptions="Center" />
+                                        </Grid>
+                                    </StackLayout>
+                                </xct:Expander.Header>
+                                <xct:Expander.Content>
+                                    <StackLayout BackgroundColor="{StaticResource BackgroundPrimaryColor}">
+                                        <BoxView HeightRequest="1" Color="{StaticResource BorderColor}" />
+                                        <Grid
+                                            Padding="20"
+                                            ColumnDefinitions="*,*"
+                                            ColumnSpacing="6"
+                                            RowDefinitions="50,50,50,50,50,50"
+                                            RowSpacing="{OnPlatform 0, Android=3}">
+                                            <txt:SfTextInputLayout Grid.ColumnSpan="2">
+                                                <txt:SfTextInputLayout.LeadingView>
+                                                    <ContentView>
+                                                        <Image Style="{StaticResource Icon}">
+                                                            <Image.Source>
+                                                                <FontImageSource
+                                                                    FontFamily="{StaticResource AppIcons}"
+                                                                    Glyph="{Static icons:AppIcons.User}"
+                                                                    Color="{StaticResource TextSecondaryColor}" />
+                                                            </Image.Source>
+                                                        </Image>
+                                                    </ContentView>
+                                                </txt:SfTextInputLayout.LeadingView>
+                                                <Entry Placeholder="Name" Text="{Binding Name}" />
+                                            </txt:SfTextInputLayout>
+
+                                            <txt:SfTextInputLayout Grid.Row="1" Grid.ColumnSpan="2">
+                                                <txt:SfTextInputLayout.LeadingView>
+                                                    <ContentView>
+                                                        <Image Style="{StaticResource Icon}">
+                                                            <Image.Source>
+                                                                <FontImageSource
+                                                                    FontFamily="{StaticResource AppIcons}"
+                                                                    Glyph="{Static icons:AppIcons.MapMarker}"
+                                                                    Color="{StaticResource TextSecondaryColor}" />
+                                                            </Image.Source>
+                                                        </Image>
+                                                    </ContentView>
+                                                </txt:SfTextInputLayout.LeadingView>
+                                                <Entry Placeholder="Address" Text="{Binding Value}" />
+                                            </txt:SfTextInputLayout>
+
+                                            <txt:SfTextInputLayout Grid.Row="2">
+                                                <txt:SfTextInputLayout.LeadingView>
+                                                    <ContentView>
+                                                        <Image Style="{StaticResource Icon}">
+                                                            <Image.Source>
+                                                                <FontImageSource
+                                                                    FontFamily="{StaticResource AppIcons}"
+                                                                    Glyph="{Static icons:AppIcons.City}"
+                                                                    Color="{StaticResource TextSecondaryColor}" />
+                                                            </Image.Source>
+                                                        </Image>
+                                                    </ContentView>
+                                                </txt:SfTextInputLayout.LeadingView>
+                                                <Entry Placeholder="City" Text="{Binding City}" />
+                                            </txt:SfTextInputLayout>
+
+                                            <txt:SfTextInputLayout Grid.Row="2" Grid.Column="1">
+                                                <txt:SfTextInputLayout.LeadingView>
+                                                    <ContentView>
+                                                        <Image Style="{StaticResource Icon}">
+                                                            <Image.Source>
+                                                                <FontImageSource
+                                                                    FontFamily="{StaticResource AppIcons}"
+                                                                    Glyph="{Static icons:AppIcons.ZipCode}"
+                                                                    Color="{StaticResource TextSecondaryColor}" />
+                                                            </Image.Source>
+                                                        </Image>
+                                                    </ContentView>
+                                                </txt:SfTextInputLayout.LeadingView>
+                                                <Entry
+                                                    Keyboard="Numeric"
+                                                    Placeholder="Zip Code"
+                                                    Text="{Binding ZipCode}" />
+                                            </txt:SfTextInputLayout>
+
+                                            <ev:SfEffectsView
+                                                Grid.Row="3"
+                                                Grid.ColumnSpan="2"
+                                                Margin="0,0,0,3"
+                                                BackgroundColor="{StaticResource BackgroundSecondaryColor}"
+                                                CornerRadius="5"
+                                                IsVisible="True">
+                                                <FlexLayout
+                                                    Padding="15,0"
+                                                    AlignItems="Center"
+                                                    Direction="Row"
+                                                    FlexLayout.Shrink="0">
+                                                    <Image Style="{StaticResource Icon}">
+                                                        <Image.Source>
+                                                            <FontImageSource
+                                                                FontFamily="{StaticResource AppIcons}"
+                                                                Glyph="{Static icons:AppIcons.Globe}"
+                                                                Color="{StaticResource TextSecondaryColor}" />
+                                                        </Image.Source>
+                                                    </Image>
+
+                                                    <Label
+                                                        Margin="15,0"
+                                                        FlexLayout.Grow="1"
+                                                        FontFamily="{StaticResource MediumFontFamily}"
+                                                        FontSize="16"
+                                                        Text="{Binding Country, TargetNullValue=Country}"
+                                                        TextColor="{StaticResource TextSecondaryColor}" />
+
+                                                    <Image FlexLayout.Shrink="0">
+                                                        <Image.Source>
+                                                            <FontImageSource
+                                                                FontFamily="{StaticResource AppIcons}"
+                                                                Glyph="{Static icons:AppIcons.Dropdown}"
+                                                                Size="10"
+                                                                Color="#DDDFE7" />
+                                                        </Image.Source>
+                                                    </Image>
+                                                </FlexLayout>
+                                            </ev:SfEffectsView>
+
+                                            <txt:SfTextInputLayout Grid.Row="4" Grid.ColumnSpan="2">
+                                                <txt:SfTextInputLayout.LeadingView>
+                                                    <ContentView>
+                                                        <Image Style="{StaticResource Icon}">
+                                                            <Image.Source>
+                                                                <FontImageSource
+                                                                    FontFamily="{StaticResource AppIcons}"
+                                                                    Glyph="{Static icons:AppIcons.Phone}"
+                                                                    Color="{StaticResource TextSecondaryColor}" />
+                                                            </Image.Source>
+                                                        </Image>
+                                                    </ContentView>
+                                                </txt:SfTextInputLayout.LeadingView>
+
+                                                <Entry
+                                                    Keyboard="Telephone"
+                                                    Placeholder="Phone number"
+                                                    Text="{Binding PhoneNumber}" />
+                                            </txt:SfTextInputLayout>
+
+                                            <FlexLayout
+                                                Grid.Row="5"
+                                                AlignItems="Center"
+                                                Direction="Row"
+                                                HeightRequest="30"
+                                                HorizontalOptions="Start"
+                                                VerticalOptions="Center">
+                                                <FlexLayout.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding SetDefaultAddressCommand, Source={RelativeSource AncestorType={Type vm:ViewModel}}}" CommandParameter="{Binding}" />
+                                                </FlexLayout.GestureRecognizers>
+
+                                                <controls:SwitchEx InputTransparent="True" IsOn="{Binding IsDefault, Mode=OneWay}" />
+                                                <Label FontFamily="{StaticResource MediumFontFamily}" Text="Make default" />
+                                            </FlexLayout>
+                                        </Grid>
+                                    </StackLayout>
+                                </xct:Expander.Content>
+                            </xct:Expander>
+                        </DataTemplate>
+                    </lv:SfListView.ItemTemplate>
+                </lv:SfListView>
+            </xct:StateView>
+
+            <xct:StateView
+                HorizontalOptions="Center"
+                StateKey="Empty"
+                VerticalOptions="CenterAndExpand">
+                <Label
+                    FontSize="25"
+                    Text="No cards"
+                    TextColor="{StaticResource TextSecondaryColor}" />
+            </xct:StateView>
+        </xct:StateLayout.StateViews>
+    </StackLayout>
+</pages:Page>

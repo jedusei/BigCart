@@ -48,5 +48,6 @@
         public const string PlusCircle = "\ue92b";
         public const string Pencil = "\ue92c";
         public const string Dropdown = "\ue92d";
+        public const string Globe = "\ue92e";
     }
 }
