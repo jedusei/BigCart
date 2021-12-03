@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:ModalPage
+    x:Class="BigCart.Modals.AddAddressModal"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:pages="clr-namespace:BigCart.Pages"
+    xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+    xmlns:vm="clr-namespace:BigCart.ViewModels"
+    Title="Add Address"
+    vm:ViewModelLocator.AutoWireViewModel="True"
+    x:DataType="vm:AddAddressViewModel"
+    Style="{StaticResource PageWithTitleBar}">
+    <ContentPage.Resources>
+        <Style TargetType="txt:SfTextInputLayout">
+            <Setter Property="InputViewPadding" Value="0,10" />
+            <Setter Property="ContainerType" Value="Filled" />
+            <Setter Property="ContainerBackgroundColor" Value="White" />
+            <Setter Property="ReserveSpaceForAssistiveLabels" Value="False" />
+        </Style>
+
+        <Style TargetType="Entry">
+            <Setter Property="HeightRequest" Value="50" />
+            <Setter Property="TranslationY" Value="{OnPlatform Android=2}" />
+        </Style>
+
+        <Style x:Key="Icon" TargetType="Image">
+            <Setter Property="HeightRequest" Value="20" />
+            <Setter Property="WidthRequest" Value="20" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout Padding="0,15">
+        <txt:SfTextInputLayout>
+            <txt:SfTextInputLayout.LeadingView>
+                <ContentView>
+                    <Image Style="{StaticResource Icon}">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.User}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </ContentView>
+            </txt:SfTextInputLayout.LeadingView>
+            <Entry
+                Placeholder="Name"
+                ReturnType="Next"
+                Text="{Binding Address.Name}" />
+        </txt:SfTextInputLayout>
+
+        <txt:SfTextInputLayout>
+            <txt:SfTextInputLayout.LeadingView>
+                <ContentView>
+                    <Image Style="{StaticResource Icon}">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.MapMarker}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </ContentView>
+            </txt:SfTextInputLayout.LeadingView>
+            <Entry
+                Placeholder="Address"
+                ReturnType="Next"
+                Text="{Binding Address.Value}" />
+        </txt:SfTextInputLayout>
+
+        <txt:SfTextInputLayout>
+            <txt:SfTextInputLayout.LeadingView>
+                <ContentView>
+                    <Image Style="{StaticResource Icon}">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.City}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </ContentView>
+            </txt:SfTextInputLayout.LeadingView>
+            <Entry
+                Placeholder="City"
+                ReturnType="Next"
+                Text="{Binding Address.City}" />
+        </txt:SfTextInputLayout>
+
+        <txt:SfTextInputLayout>
+            <txt:SfTextInputLayout.LeadingView>
+                <ContentView>
+                    <Image Style="{StaticResource Icon}">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.ZipCode}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </ContentView>
+            </txt:SfTextInputLayout.LeadingView>
+            <Entry
+                Keyboard="Numeric"
+                MaxLength="5"
+                Placeholder="Zip Code"
+                ReturnType="Next"
+                Text="{Binding Address.ZipCode}" />
+        </txt:SfTextInputLayout>
+
+        <txt:SfTextInputLayout>
+            <txt:SfTextInputLayout.LeadingView>
+                <ContentView>
+                    <Image Style="{StaticResource Icon}">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="{StaticResource AppIcons}"
+                                Glyph="{Static icons:AppIcons.Phone}"
+                                Color="{StaticResource TextSecondaryColor}" />
+                        </Image.Source>
+                    </Image>
+                </ContentView>
+            </txt:SfTextInputLayout.LeadingView>
+
+            <Entry
+                Keyboard="Telephone"
+                Placeholder="Phone number"
+                Text="{Binding Address.PhoneNumber}" />
+        </txt:SfTextInputLayout>
+
+        <ev:SfEffectsView
+            BackgroundColor="White"
+            CornerRadius="5"
+            IsVisible="True">
+            <FlexLayout
+                Padding="15"
+                AlignItems="Center"
+                Direction="Row"
+                FlexLayout.Shrink="0">
+                <Image Style="{StaticResource Icon}">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Globe}"
+                            Color="{StaticResource TextSecondaryColor}" />
+                    </Image.Source>
+                </Image>
+
+                <Label
+                    Margin="15,0"
+                    FlexLayout.Grow="1"
+                    FontFamily="{StaticResource MediumFontFamily}"
+                    FontSize="16"
+                    Text="{Binding Address.Country, TargetNullValue=Country}"
+                    TextColor="{StaticResource TextSecondaryColor}" />
+
+                <Image FlexLayout.Shrink="0">
+                    <Image.Source>
+                        <FontImageSource
+                            FontFamily="{StaticResource AppIcons}"
+                            Glyph="{Static icons:AppIcons.Dropdown}"
+                            Size="10"
+                            Color="#DDDFE7" />
+                    </Image.Source>
+                </Image>
+            </FlexLayout>
+        </ev:SfEffectsView>
+
+        <Button
+            Command="{Binding SaveCommand}"
+            Text="Save"
+            VerticalOptions="EndAndExpand" />
+    </StackLayout>
+</pages:ModalPage>

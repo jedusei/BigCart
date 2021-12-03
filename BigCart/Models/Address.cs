@@ -69,23 +69,5 @@ namespace BigCart.Models
             _zipCode = other._zipCode;
             _country = other._country;
         }
-
-        public override bool Equals(object obj)
-        {
-            if (obj is not Address other)
-                return false;
-
-            return _name == other._name &&
-                _phoneNumber == other._phoneNumber &&
-                _value == other._value &&
-                _city == other._city &&
-                _zipCode == other._zipCode &&
-                _country == other._country;
-        }
-
-        public override int GetHashCode()
-        {
-            return string.Concat(_name, _phoneNumber, _value, _city, _zipCode, _country).GetHashCode();
-        }
     }
 }

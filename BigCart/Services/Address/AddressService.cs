@@ -10,6 +10,7 @@ namespace BigCart.Services.Address
     {
         private readonly ObservableCollection<AddressModel> _addresses;
         private readonly ReadOnlyObservableCollection<AddressModel> _addressesReadOnly;
+        private static int _nextAddressId = 1;
 
         public AddressService()
         {
@@ -17,6 +18,7 @@ namespace BigCart.Services.Address
             {
                 new AddressModel
                 {
+                    Id = _nextAddressId++,
                     Name = "Russell Austin",
                     PhoneNumber = "+1 202 555 0142",
                     Value = "2811 Crescent Day LA Port",
@@ -27,6 +29,7 @@ namespace BigCart.Services.Address
                 },
                 new AddressModel
                 {
+                    Id = _nextAddressId++,
                     Name = "Jessica Simpson",
                     PhoneNumber = "+1 202 555 0142",
                     Value = "2811 Crescent Day LA Port",
@@ -39,11 +42,23 @@ namespace BigCart.Services.Address
             _addressesReadOnly = new(_addresses);
         }
 
-        public async Task AddAddressAsync(AddressModel address)
+        public async Task<AddressModel> AddAddressAsync(AddAddressInput input)
         {
             await Task.Delay(1000);
-            if (!_addresses.Contains(address))
-                _addresses.Add(address);
+
+            AddressModel address = new()
+            {
+                Id = _nextAddressId++,
+                PhoneNumber = input.PhoneNumber,
+                Name = input.Name,
+                Value = input.Value,
+                City = input.City,
+                ZipCode = input.ZipCode,
+                Country = input.Country
+            };
+
+            _addresses.Add(address);
+            return address;
         }
 
         public async Task<ReadOnlyObservableCollection<AddressModel>> GetAddressesAsync()

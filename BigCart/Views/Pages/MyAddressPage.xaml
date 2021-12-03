@@ -10,9 +10,7 @@
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:models="clr-namespace:BigCart.Models"
-    xmlns:num="clr-namespace:Syncfusion.SfNumericTextBox.XForms;assembly=Syncfusion.SfNumericTextBox.XForms"
     xmlns:pages="clr-namespace:BigCart.Pages"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
     Title="My Address"
@@ -39,7 +37,7 @@
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding Addresses}">
+        <ToolbarItem Command="{Binding AddAddressCommand}">
             <ToolbarItem.IconImageSource>
                 <FontImageSource
                     FontFamily="{StaticResource AppIcons}"
@@ -234,6 +232,7 @@
                                                 </txt:SfTextInputLayout.LeadingView>
                                                 <Entry
                                                     Keyboard="Numeric"
+                                                    MaxLength="5"
                                                     Placeholder="Zip Code"
                                                     Text="{Binding ZipCode}" />
                                             </txt:SfTextInputLayout>
