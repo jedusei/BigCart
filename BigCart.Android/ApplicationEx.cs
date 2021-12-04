@@ -19,12 +19,13 @@ namespace BigCart.Droid
             AndroidModule.Instance.Initialize();
 
 #if DEBUG
-            // Clear cache directory so that fonts will be updated.
+            // Delete cached icon fonts
             if (System.Diagnostics.Debugger.IsAttached)
             {
+                string[] iconFontFilenames = new[] { "AppIcons.ttf" };
                 string cacheDirectory = CacheDir.AbsolutePath;
-                System.IO.Directory.Delete(cacheDirectory, true);
-                System.IO.Directory.CreateDirectory(cacheDirectory);
+                foreach (string filename in iconFontFilenames)
+                    System.IO.File.Delete(System.IO.Path.Combine(cacheDirectory, filename));
             }
 #endif
         }
