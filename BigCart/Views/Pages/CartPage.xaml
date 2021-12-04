@@ -7,6 +7,7 @@
     xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:models="clr-namespace:BigCart.Models"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
@@ -44,10 +45,14 @@
 
             <xct:StateView StateKey="Success">
                 <StackLayout Spacing="0">
-                    <CollectionView ItemsSource="{Binding Items}">
-                        <CollectionView.ItemTemplate>
+                    <lv:SfListView
+                        ItemSize="130"
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="None">
+                        <lv:SfListView.ItemTemplate>
                             <DataTemplate x:DataType="models:Product">
                                 <controls:SwipeViewEx
+                                    x:Name="swipeView"
                                     Padding="10,10,10,0"
                                     BackgroundColor="Transparent"
                                     Threshold="80">
@@ -136,11 +141,14 @@
                                     </SwipeView.RightItems>
                                 </controls:SwipeViewEx>
                             </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                        <CollectionView.Footer>
-                            <BoxView HeightRequest="35" />
-                        </CollectionView.Footer>
-                    </CollectionView>
+                        </lv:SfListView.ItemTemplate>
+
+                        <lv:SfListView.FooterTemplate>
+                            <DataTemplate>
+                                <BoxView HeightRequest="35" />
+                            </DataTemplate>
+                        </lv:SfListView.FooterTemplate>
+                    </lv:SfListView>
 
                     <Grid
                         Padding="15"
