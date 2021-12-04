@@ -6,7 +6,6 @@
     xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
     xmlns:controls="clr-namespace:BigCart.Controls"
-    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
     xmlns:models="clr-namespace:BigCart.Models"
@@ -134,7 +133,7 @@
                                                 <Label.Text>
                                                     <MultiBinding StringFormat="{}{0}, {1} {2}">
                                                         <Binding Path="City" />
-                                                        <Binding Path="Country" />
+                                                        <Binding Path="Country.Name" />
                                                         <Binding Path="ZipCode" />
                                                     </MultiBinding>
                                                 </Label.Text>
@@ -237,46 +236,13 @@
                                                     Text="{Binding ZipCode}" />
                                             </txt:SfTextInputLayout>
 
-                                            <ev:SfEffectsView
+                                            <controls:CountryPicker
                                                 Grid.Row="3"
                                                 Grid.ColumnSpan="2"
                                                 Margin="0,0,0,3"
                                                 BackgroundColor="{StaticResource BackgroundSecondaryColor}"
-                                                CornerRadius="5"
-                                                IsVisible="True">
-                                                <FlexLayout
-                                                    Padding="15,0"
-                                                    AlignItems="Center"
-                                                    Direction="Row"
-                                                    FlexLayout.Shrink="0">
-                                                    <Image Style="{StaticResource Icon}">
-                                                        <Image.Source>
-                                                            <FontImageSource
-                                                                FontFamily="{StaticResource AppIcons}"
-                                                                Glyph="{Static icons:AppIcons.Globe}"
-                                                                Color="{StaticResource TextSecondaryColor}" />
-                                                        </Image.Source>
-                                                    </Image>
-
-                                                    <Label
-                                                        Margin="15,0"
-                                                        FlexLayout.Grow="1"
-                                                        FontFamily="{StaticResource MediumFontFamily}"
-                                                        FontSize="16"
-                                                        Text="{Binding Country, TargetNullValue=Country}"
-                                                        TextColor="{StaticResource TextSecondaryColor}" />
-
-                                                    <Image FlexLayout.Shrink="0">
-                                                        <Image.Source>
-                                                            <FontImageSource
-                                                                FontFamily="{StaticResource AppIcons}"
-                                                                Glyph="{Static icons:AppIcons.Dropdown}"
-                                                                Size="10"
-                                                                Color="#DDDFE7" />
-                                                        </Image.Source>
-                                                    </Image>
-                                                </FlexLayout>
-                                            </ev:SfEffectsView>
+                                                Country="{Binding Country}"
+                                                TextColor="{StaticResource TextSecondaryColor}" />
 
                                             <txt:SfTextInputLayout Grid.Row="4" Grid.ColumnSpan="2">
                                                 <txt:SfTextInputLayout.LeadingView>

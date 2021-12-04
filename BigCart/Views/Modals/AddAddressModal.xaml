@@ -3,7 +3,7 @@
     x:Class="BigCart.Modals.AddAddressModal"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
@@ -132,43 +132,7 @@
                 Text="{Binding Address.PhoneNumber}" />
         </txt:SfTextInputLayout>
 
-        <ev:SfEffectsView
-            BackgroundColor="White"
-            CornerRadius="5"
-            IsVisible="True">
-            <FlexLayout
-                Padding="15"
-                AlignItems="Center"
-                Direction="Row"
-                FlexLayout.Shrink="0">
-                <Image Style="{StaticResource Icon}">
-                    <Image.Source>
-                        <FontImageSource
-                            FontFamily="{StaticResource AppIcons}"
-                            Glyph="{Static icons:AppIcons.Globe}"
-                            Color="{StaticResource TextSecondaryColor}" />
-                    </Image.Source>
-                </Image>
-
-                <Label
-                    Margin="15,0"
-                    FlexLayout.Grow="1"
-                    FontFamily="{StaticResource MediumFontFamily}"
-                    FontSize="16"
-                    Text="{Binding Address.Country, TargetNullValue=Country}"
-                    TextColor="{StaticResource TextSecondaryColor}" />
-
-                <Image FlexLayout.Shrink="0">
-                    <Image.Source>
-                        <FontImageSource
-                            FontFamily="{StaticResource AppIcons}"
-                            Glyph="{Static icons:AppIcons.Dropdown}"
-                            Size="10"
-                            Color="#DDDFE7" />
-                    </Image.Source>
-                </Image>
-            </FlexLayout>
-        </ev:SfEffectsView>
+        <controls:CountryPicker Country="{Binding Address.Country}" HeightRequest="55" />
 
         <Button
             Command="{Binding SaveCommand}"

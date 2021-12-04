@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<border:SfBorder
+    x:Class="BigCart.Controls.CountryPicker"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+    xmlns:controls="clr-namespace:BigCart.Controls"
+    xmlns:effects="clr-namespace:BigCart.Effects"
+    xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
+    xmlns:icons="clr-namespace:BigCart.Icons"
+    xmlns:lv="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+    xmlns:models="clr-namespace:BigCart.Models"
+    x:Name="control"
+    x:DataType="controls:CountryPicker"
+    BackgroundColor="White"
+    BorderWidth="0"
+    CornerRadius="5">
+    <ContentView.Resources>
+        <DataTemplate x:Key="Popup">
+            <ContentView>
+                <ContentView.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="BackgroundColor" Value="Transparent" />
+                        <Setter Property="TextColor" Value="Black" />
+                        <Setter Property="TextTransform" Value="Default" />
+                        <Setter Property="Padding" Value="0" />
+                    </Style>
+                </ContentView.Resources>
+                <Frame
+                    Padding="0"
+                    effects:SafeAreaEffect.Margin="20"
+                    effects:SafeAreaEffect.SafeArea="Bottom"
+                    CornerRadius="10"
+                    HorizontalOptions="Center">
+                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,50">
+                        <lv:SfListView
+                            Grid.ColumnSpan="2"
+                            ItemSize="50"
+                            Loaded="CountryListView_Loaded">
+                            <lv:SfListView.ItemTemplate>
+                                <DataTemplate x:DataType="models:Country">
+                                    <ev:SfEffectsView TouchUp="CountryListView_ItemClicked">
+                                        <FlexLayout
+                                            Padding="10,0"
+                                            AlignItems="Center"
+                                            Direction="Row">
+                                            <Image
+                                                Margin="0,0,10,0"
+                                                FlexLayout.Shrink="0"
+                                                Source="{Binding FlagUrl}"
+                                                WidthRequest="30" />
+
+                                            <Label
+                                                x:Name="name"
+                                                FlexLayout.Grow="1"
+                                                FontFamily="{StaticResource MediumFontFamily}"
+                                                FontSize="18"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="1"
+                                                Text="{Binding Name}" />
+                                        </FlexLayout>
+                                    </ev:SfEffectsView>
+                                </DataTemplate>
+                            </lv:SfListView.ItemTemplate>
+                        </lv:SfListView>
+
+                        <ev:SfEffectsView
+                            Grid.Row="1"
+                            HeightRequest="50"
+                            HorizontalOptions="End"
+                            TouchUp="CancelButton_Clicked"
+                            WidthRequest="100">
+                            <Label
+                                FontFamily="{StaticResource MediumFontFamily}"
+                                FontSize="16"
+                                HorizontalOptions="Center"
+                                Text="Cancel"
+                                TextTransform="{OnPlatform Default, Android=Uppercase}"
+                                VerticalOptions="Center" />
+                        </ev:SfEffectsView>
+
+                        <ev:SfEffectsView
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HeightRequest="50"
+                            TouchUp="OkButton_Clicked"
+                            WidthRequest="100">
+                            <Label
+                                FontFamily="{StaticResource MediumFontFamily}"
+                                FontSize="16"
+                                HorizontalOptions="Center"
+                                Text="Ok"
+                                TextTransform="{OnPlatform Default, Android=Uppercase}"
+                                VerticalOptions="Center" />
+                        </ev:SfEffectsView>
+                    </Grid>
+                </Frame>
+            </ContentView>
+        </DataTemplate>
+    </ContentView.Resources>
+
+    <ev:SfEffectsView BindingContext="{Reference control}" TouchUp="SfEffectsView_TouchUp">
+        <FlexLayout
+            Padding="15,10"
+            AlignItems="Center"
+            Direction="Row"
+            FlexLayout.Shrink="0">
+            <Image
+                HeightRequest="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                WidthRequest="20">
+                <Image.Source>
+                    <FontImageSource
+                        FontFamily="{StaticResource AppIcons}"
+                        Glyph="{Static icons:AppIcons.Globe}"
+                        Color="{StaticResource TextSecondaryColor}" />
+                </Image.Source>
+            </Image>
+
+            <Label
+                x:Name="_label"
+                Margin="15,0"
+                FlexLayout.Grow="1"
+                FontFamily="{StaticResource MediumFontFamily}"
+                FontSize="16"
+                Text="{Binding Country.Name, FallbackValue=Country}"
+                TextColor="{Binding PlaceholderColor}" />
+
+            <Image FlexLayout.Shrink="0">
+                <Image.Source>
+                    <FontImageSource
+                        FontFamily="{StaticResource AppIcons}"
+                        Glyph="{Static icons:AppIcons.Dropdown}"
+                        Size="10"
+                        Color="#DDDFE7" />
+                </Image.Source>
+            </Image>
+        </FlexLayout>
+    </ev:SfEffectsView>
+</border:SfBorder>

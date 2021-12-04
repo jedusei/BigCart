@@ -3,8 +3,8 @@
     x:Class="BigCart.Resources.Converters"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:BigCart.Converters"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:converters="clr-namespace:BigCart.Converters">
     <!--#region Custom Converters-->
     <converters:ColorToBrushConverter x:Key="ColorToBrushConverter" />
     <converters:CreditCardNumberMaskConverter x:Key="CreditCardNumberMaskConverter" />
@@ -15,6 +15,7 @@
     <!--#region XCT Converters-->
     <xct:EqualConverter x:Key="EqualConverter" />
     <xct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    <xct:IsNullOrEmptyConverter x:Key="IsNullOrEmptyConverter" />
     <xct:NotEqualConverter x:Key="NotEqualConverter" />
     <xct:VariableMultiValueConverter x:Key="AllTrueConverter" ConditionType="All" />
     <!--#endregion-->

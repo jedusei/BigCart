@@ -1,4 +1,5 @@
 ﻿using BigCart.DependencyInjection;
+using BigCart.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace BigCart.Services.Address
 
         public AddressService()
         {
+            Country country = Country.All.FirstOrDefault(c => c.NameCode == "USA");
             _addresses = new()
             {
                 new AddressModel
@@ -24,7 +26,7 @@ namespace BigCart.Services.Address
                     Value = "2811 Crescent Day LA Port",
                     City = "California",
                     ZipCode = "77571",
-                    Country = "United States",
+                    Country = country,
                     IsDefault = true
                 },
                 new AddressModel
@@ -35,7 +37,7 @@ namespace BigCart.Services.Address
                     Value = "2811 Crescent Day LA Port",
                     City = "California",
                     ZipCode = "77571",
-                    Country = "United States"
+                    Country = country
                 }
             };
 

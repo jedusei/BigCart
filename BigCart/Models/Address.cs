@@ -9,7 +9,7 @@ namespace BigCart.Models
         private string _value;
         private string _city;
         private string _zipCode;
-        private string _country;
+        private Country _country;
         private bool _isDefault;
         private bool _isExpanded;
 
@@ -39,10 +39,10 @@ namespace BigCart.Models
             get => _zipCode;
             set => SetProperty(ref _zipCode, value?.Trim());
         }
-        public string Country
+        public Country Country
         {
             get => _country;
-            set => SetProperty(ref _country, value?.Trim());
+            set => SetProperty(ref _country, value);
         }
         public bool IsDefault
         {

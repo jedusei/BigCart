@@ -1,4 +1,6 @@
-﻿namespace BigCart.Services.Address
+﻿using BigCart.Models;
+
+namespace BigCart.Services.Address
 {
     public record AddAddressInput
     {
@@ -7,6 +9,6 @@
         public string Value { get; init; }
         public string City { get; init; }
         public string ZipCode { get; init; }
-        public string Country { get; init; }
+        public Country Country { get; init; }
     }
 }
