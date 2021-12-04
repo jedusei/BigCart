@@ -1,5 +1,6 @@
 ﻿using BigCart.Models;
 using BigCart.Pages;
+using BigCart.Services.Address;
 using BigCart.Services.CreditCards;
 using BigCart.Services.Orders;
 using System.Threading.Tasks;
@@ -11,15 +12,19 @@ namespace BigCart.ViewModels
 {
     public class CheckoutViewModel : ViewModel
     {
+        private readonly IAddressService _addressService;
         private readonly ICreditCardService _creditCardService;
         private readonly IOrderService _orderService;
         private int _currentStep;
         private int _stepsCompleted;
         private DeliveryMethod _deliveryMethod;
         private PaymentMethod _paymentMethod;
+        private Address _address;
+        private bool _hasLoadedAddress;
         private CreditCard _card = new();
         private CreditCard _defaultCard;
         private bool _hasLoadedCard;
+        private bool _saveAddress = true;
         private bool _saveCard = true;
 
         public string Title { get; private set; }
@@ -43,6 +48,16 @@ namespace BigCart.ViewModels
             get => _deliveryMethod;
             set => SetProperty(ref _deliveryMethod, value);
         }
+        public Address Address
+        {
+            get => _address;
+            private set => SetProperty(ref _address, value);
+        }
+        public bool SaveAddress
+        {
+            get => _saveAddress;
+            set => SetProperty(ref _saveAddress, value);
+        }
         public CreditCard Card
         {
             get => _card;
@@ -57,8 +72,9 @@ namespace BigCart.ViewModels
         public ICommand SetPaymentMethodCommand { get; }
         public ICommand NextStepCommand { get; }
 
-        public CheckoutViewModel(ICreditCardService creditCardService, IOrderService orderService)
+        public CheckoutViewModel(IAddressService addressService, ICreditCardService creditCardService, IOrderService orderService)
         {
+            _addressService = addressService;
             _creditCardService = creditCardService;
             _orderService = orderService;
 
@@ -98,11 +114,23 @@ namespace BigCart.ViewModels
                 if (_stepsCompleted < _currentStep)
                     StepsCompleted++;
 
-                if (_currentStep == 2 && !_hasLoadedCard)
+                if (_currentStep == 1)
                 {
-                    await Task.Delay(400);
-                    await GetCreditCardAsync();
-                    _hasLoadedCard = true;
+                    if (!_hasLoadedAddress)
+                    {
+                        await Task.Delay(400);
+                        await GetAddressAsync();
+                        _hasLoadedAddress = true;
+                    }
+                }
+                else if (_currentStep == 2)
+                {
+                    if (!_hasLoadedCard)
+                    {
+                        await Task.Delay(400);
+                        await GetCreditCardAsync();
+                        _hasLoadedCard = true;
+                    }
                 }
             }
             else
@@ -110,6 +138,15 @@ namespace BigCart.ViewModels
                 StepsCompleted = 3;
                 await MakePaymentAsync();
             }
+        }
+
+        private async Task GetAddressAsync()
+        {
+            _modalService.ShowLoading("Getting address details...");
+
+            Address = await _addressService.GetDefaultAddressAsync() ?? new();
+
+            _modalService.HideLoading();
         }
 
         private async Task GetCreditCardAsync()
@@ -130,7 +167,25 @@ namespace BigCart.ViewModels
         {
             _modalService.ShowLoading("Making payment...");
 
-            Order order = await _orderService.CreateOrderAsync(new(_paymentMethod, (_paymentMethod == PaymentMethod.CreditCard) ? _card : null, _deliveryMethod));
+            Order order = await _orderService.CreateOrderAsync(new(_paymentMethod, _address, (_paymentMethod == PaymentMethod.CreditCard) ? _card : null, _deliveryMethod));
+
+            if (_saveAddress)
+            {
+                if (_address.Id != 0)
+                    await _addressService.UpdateAddressAsync(_address);
+                else
+                {
+                    await _addressService.AddAddressAsync(new()
+                    {
+                        Name = _address.Name,
+                        PhoneNumber = _address.PhoneNumber,
+                        Value = _address.Value,
+                        City = _address.City,
+                        ZipCode = _address.ZipCode,
+                        Country = _address.Country
+                    });
+                }
+            }
 
             if (_saveCard)
             {

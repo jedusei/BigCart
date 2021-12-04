@@ -3,6 +3,7 @@
     x:Class="BigCart.Pages.CheckoutPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:droid="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
@@ -14,7 +15,6 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:txt="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     Title="{Binding Title}"
     vm:ViewModelLocator.AutoWireViewModel="True"
     x:DataType="vm:CheckoutViewModel"
@@ -230,6 +230,12 @@
                 </StackLayout>
 
                 <StackLayout Padding="30,0" Spacing="10">
+                    <StackLayout.Resources>
+                        <Style TargetType="txt:SfTextInputLayout">
+                            <Setter Property="InputViewPadding" Value="0,15" />
+                        </Style>
+                    </StackLayout.Resources>
+
                     <txt:SfTextInputLayout>
                         <txt:SfTextInputLayout.LeadingView>
                             <ContentView>
@@ -243,7 +249,12 @@
                                 </Image>
                             </ContentView>
                         </txt:SfTextInputLayout.LeadingView>
-                        <Entry Placeholder="Name" ReturnType="Next" />
+
+                        <Entry
+                            Placeholder="Name"
+                            ReturnType="Next"
+                            Text="{Binding Address.Name}" />
+
                     </txt:SfTextInputLayout>
                     <txt:SfTextInputLayout>
                         <txt:SfTextInputLayout.LeadingView>
@@ -258,12 +269,14 @@
                                 </Image>
                             </ContentView>
                         </txt:SfTextInputLayout.LeadingView>
+
                         <Entry
                             Keyboard="Email"
                             Placeholder="Email address"
                             ReturnType="Next"
                             TabIndex="1" />
                     </txt:SfTextInputLayout>
+
                     <txt:SfTextInputLayout>
                         <txt:SfTextInputLayout.LeadingView>
                             <ContentView>
@@ -277,12 +290,15 @@
                                 </Image>
                             </ContentView>
                         </txt:SfTextInputLayout.LeadingView>
+
                         <Entry
                             Keyboard="Telephone"
                             Placeholder="Phone number"
                             ReturnType="Next"
-                            TabIndex="2" />
+                            TabIndex="2"
+                            Text="{Binding Address.PhoneNumber}" />
                     </txt:SfTextInputLayout>
+
                     <txt:SfTextInputLayout>
                         <txt:SfTextInputLayout.LeadingView>
                             <ContentView>
@@ -296,11 +312,14 @@
                                 </Image>
                             </ContentView>
                         </txt:SfTextInputLayout.LeadingView>
+
                         <Entry
                             Placeholder="Address"
                             ReturnType="Next"
-                            TabIndex="3" />
+                            TabIndex="3"
+                            Text="{Binding Address.Value}" />
                     </txt:SfTextInputLayout>
+
                     <txt:SfTextInputLayout>
                         <txt:SfTextInputLayout.LeadingView>
                             <ContentView>
@@ -314,14 +333,17 @@
                                 </Image>
                             </ContentView>
                         </txt:SfTextInputLayout.LeadingView>
+
                         <Entry
                             Keyboard="Numeric"
                             MaxLength="5"
                             Placeholder="Zip Code"
                             ReturnType="Next"
-                            TabIndex="4" />
+                            TabIndex="4"
+                            Text="{Binding Address.ZipCode}" />
                     </txt:SfTextInputLayout>
-                    <txt:SfTextInputLayout>
+
+                    <txt:SfTextInputLayout x:Name="cityText">
                         <txt:SfTextInputLayout.LeadingView>
                             <ContentView>
                                 <Image Style="{StaticResource Icon}">
@@ -334,17 +356,21 @@
                                 </Image>
                             </ContentView>
                         </txt:SfTextInputLayout.LeadingView>
+
                         <Entry
                             Placeholder="City"
                             ReturnType="Done"
-                            TabIndex="5" />
+                            TabIndex="5"
+                            Text="{Binding Address.City}" />
                     </txt:SfTextInputLayout>
+
+                    <controls:CountryPicker Country="{Binding Address.Country}" HeightRequest="60" />
 
                     <StackLayout
                         Padding="15,10,0,0"
                         Orientation="Horizontal"
                         Spacing="0">
-                        <controls:SwitchEx IsOn="True" />
+                        <controls:SwitchEx IsOn="{Binding SaveAddress}" />
                         <Label FontFamily="{StaticResource MediumFontFamily}" Text="Save this address" />
                     </StackLayout>
                 </StackLayout>

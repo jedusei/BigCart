@@ -1,17 +1,20 @@
 ﻿using BigCart.Models;
 using System;
+using AddressModel = BigCart.Models.Address;
 
 namespace BigCart.Services.Orders
 {
     public record CreateOrderInput
     {
         public PaymentMethod PaymentMethod { get; }
+        public AddressModel ShippingAddress { get; }
         public CreditCard CreditCard { get; }
         public DeliveryMethod DeliveryMethod { get; }
 
-        public CreateOrderInput(PaymentMethod paymentMethod, CreditCard creditCard = null, DeliveryMethod deliveryMethod = DeliveryMethod.Standard)
+        public CreateOrderInput(PaymentMethod paymentMethod, AddressModel shippingAddress, CreditCard creditCard = null, DeliveryMethod deliveryMethod = DeliveryMethod.Standard)
         {
             PaymentMethod = paymentMethod;
+            ShippingAddress = shippingAddress;
             DeliveryMethod = deliveryMethod;
 
             if (paymentMethod == PaymentMethod.CreditCard)
