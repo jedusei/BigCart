@@ -39,9 +39,17 @@ namespace BigCart
             MessagingCenter.Send((Application)this, MessageKeys.Stop);
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
-            _ = StartAsync();
+            if (_isFirstTimeLoad)
+                _isFirstTimeLoad = false;
+            else
+                await Task.Delay(1500);
+
+            DependencyResolver.Get<INavigationService>().Initialize();
+            Status = AppStatus.Running;
+            if (Device.RuntimePlatform == Device.iOS)
+                MessagingCenter.Send((Application)this, MessageKeys.Start); // On Android this will be called by the page renderer right before it is drawn.
         }
 
         protected override void OnSleep()
@@ -60,19 +68,6 @@ namespace BigCart
                 Status = AppStatus.Running;
                 MessagingCenter.Send((Application)this, MessageKeys.Resume);
             }
-        }
-
-        private async Task StartAsync()
-        {
-            if (_isFirstTimeLoad)
-                _isFirstTimeLoad = false;
-            else
-                await Task.Delay(1500);
-
-            DependencyResolver.Get<INavigationService>().Initialize();
-            Status = AppStatus.Running;
-            if (Device.RuntimePlatform == Device.iOS)
-                MessagingCenter.Send((Application)this, MessageKeys.Start); // On Android this will be called by the page renderer right before it is drawn.
         }
     }
 }
