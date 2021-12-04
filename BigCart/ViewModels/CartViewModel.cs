@@ -43,6 +43,7 @@ namespace BigCart.ViewModels
             get => _total;
             private set => SetProperty(ref _total, value);
         }
+        public IAsyncCommand ClearCartCommand { get; }
         public ICommand RemoveItemCommand { get; }
         public ICommand UpdateCostsCommand { get; }
         public ICommand CheckoutCommand { get; }
@@ -50,6 +51,7 @@ namespace BigCart.ViewModels
         public CartViewModel(ICartService cartService)
         {
             _cartService = cartService;
+            ClearCartCommand = new AsyncCommand(ClearCartAsync, _ => Items?.Count > 0);
             RemoveItemCommand = new AsyncCommand<Product>(RemoveItemAsync);
             UpdateCostsCommand = new Command(UpdateCosts);
             CheckoutCommand = new AsyncCommand(() => _navigationService.PushAsync<CheckoutPage>(), allowsMultipleExecutions: false);
@@ -77,15 +79,26 @@ namespace BigCart.ViewModels
 
             Items = await _cartService.GetItemsAsync();
             OnPropertyChanged(nameof(Items));
-            UpdateCosts();
+            OnCartChanged(this, null);
 
             if (!_isWatchingCollection)
             {
                 ((INotifyCollectionChanged)Items).CollectionChanged += OnCartChanged;
                 _isWatchingCollection = true;
             }
+        }
 
-            LoadState = (Items.Count > 0) ? LayoutState.Success : LayoutState.Empty;
+        private async Task ClearCartAsync()
+        {
+            bool confirmed = await _modalService.ConfirmAsync("Are you sure you want to remove all items from the cart?", "Clear Cart");
+            if (!confirmed)
+                return;
+
+            _modalService.ShowLoading("Clearing cart...");
+
+            await _cartService.ClearCartAsync();
+
+            _modalService.HideLoading();
         }
 
         private async Task RemoveItemAsync(Product product)
@@ -101,6 +114,7 @@ namespace BigCart.ViewModels
         {
             UpdateCosts();
             LoadState = (Items.Count > 0) ? LayoutState.Success : LayoutState.Empty;
+            ClearCartCommand.RaiseCanExecuteChanged();
         }
 
         private void UpdateCosts()

@@ -3,19 +3,31 @@
     x:Class="BigCart.Pages.CartPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     xmlns:controls="clr-namespace:BigCart.Controls"
     xmlns:ev="clr-namespace:Syncfusion.XForms.EffectsView;assembly=Syncfusion.Core.XForms"
     xmlns:icons="clr-namespace:BigCart.Icons"
     xmlns:models="clr-namespace:BigCart.Models"
     xmlns:pages="clr-namespace:BigCart.Pages"
     xmlns:vm="clr-namespace:BigCart.ViewModels"
-    xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
     x:Name="root"
     Title="Shopping Cart"
     vm:ViewModelLocator.AutoWireViewModel="True"
     x:DataType="vm:CartViewModel"
     BackgroundColor="{StaticResource BackgroundPrimaryColor}"
     Style="{StaticResource PageWithTitleBar}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding ClearCartCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource
+                    FontFamily="{StaticResource AppIcons}"
+                    Glyph="{Static icons:AppIcons.Trash}"
+                    Size="20"
+                    Color="Black" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
     <StackLayout
         Margin="-15,0"
         xct:StateLayout.AnimateStateChanges="False"
