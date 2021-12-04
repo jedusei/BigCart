@@ -216,6 +216,16 @@
                                             TouchUpCommand="{Binding Command}"
                                             TouchUpCommandParameter="{Binding CommandParameter}"
                                             WidthRequest="50">
+                                            <View.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding IsEnabled}"
+                                                    TargetType="ev:SfEffectsView"
+                                                    Value="False">
+                                                    <Setter Property="Opacity" Value="0.5" />
+                                                    <Setter Property="ShouldIgnoreTouches" Value="True" />
+                                                </DataTrigger>
+                                            </View.Triggers>
+
                                             <Image
                                                 HorizontalOptions="Center"
                                                 Source="{Binding IconImageSource}"
