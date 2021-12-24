@@ -1,6 +1,9 @@
 ﻿using Android.App;
 using Android.Runtime;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using ExportFontAttribute = Xamarin.Forms.ExportFontAttribute;
 
 namespace BigCart.Droid
 {
@@ -22,9 +25,13 @@ namespace BigCart.Droid
             // Delete cached icon fonts
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                string[] iconFontFilenames = new[] { "AppIcons.ttf" };
+                IEnumerable<string> fontFileNames = typeof(App)
+                    .Assembly
+                    .GetCustomAttributes(typeof(ExportFontAttribute), false)
+                    .Select(a => (a as ExportFontAttribute).FontFileName);
+
                 string cacheDirectory = CacheDir.AbsolutePath;
-                foreach (string filename in iconFontFilenames)
+                foreach (string filename in fontFileNames)
                     System.IO.File.Delete(System.IO.Path.Combine(cacheDirectory, filename));
             }
 #endif
