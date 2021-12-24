@@ -43,12 +43,12 @@ namespace BigCart.Droid
             Window?.DecorView.SetBackgroundColor(Color.White);
         }
 
-        protected override void OnPause()
+        protected override void OnStop()
         {
-            base.OnPause();
+            base.OnStop();
             if (IsFinishing)
                 App.Current?.Stop();
-        }
+        } 
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
