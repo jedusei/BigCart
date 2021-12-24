@@ -73,7 +73,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Effects\SafeAreaEffectRouter.cs" />
-    <Compile Include="IosModule.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\DatePickerExRenderer.cs" />

@@ -1,4 +1,7 @@
-﻿using Foundation;
+﻿using BigCart.iOS.Services;
+using BigCart.Services.Platform;
+using Foundation;
+using Microsoft.Extensions.DependencyInjection;
 using UIKit;
 
 namespace BigCart.iOS
@@ -18,7 +21,7 @@ namespace BigCart.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            IosModule.Instance.Initialize();
+            Startup.Init(ConfigureServices);
 
             global::Xamarin.Forms.Forms.Init();
 
@@ -36,6 +39,11 @@ namespace BigCart.iOS
             Syncfusion.SfRating.XForms.iOS.SfRatingRenderer.Init();
 
             return base.FinishedLaunching(app, options);
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<IPlatformService, PlatformService>();
         }
     }
 }

@@ -1,11 +1,10 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Models;
+﻿using BigCart.Models;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace BigCart.Services.Products
 {
-    public interface IProductService : IDependency
+    public interface IProductService
     {
         Task<Product[]> GetProductsAsync(ProductFilter filter = null);
         void SetFavoriteStatus(Product product, bool isFavorite);

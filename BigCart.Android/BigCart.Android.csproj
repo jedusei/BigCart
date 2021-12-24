@@ -99,7 +99,6 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AndroidModule.cs" />
     <Compile Include="ApplicationEx.cs" />
     <Compile Include="Effects\SafeAreaEffectRouter.cs" />
     <Compile Include="MainActivity.cs" />

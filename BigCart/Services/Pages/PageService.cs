@@ -1,11 +1,10 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.ViewModels;
+﻿using BigCart.ViewModels;
 using System;
 using Xamarin.Forms;
 
 namespace BigCart.Services.Pages
 {
-    public class PageService : IPageService, ISingletonDependency
+    public class PageService : IPageService
     {
         public Page MainPage
         {

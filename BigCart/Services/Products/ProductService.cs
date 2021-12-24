@@ -1,5 +1,4 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Models;
+﻿using BigCart.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,9 +8,9 @@ using Xamarin.Forms;
 
 namespace BigCart.Services.Products
 {
-    public class ProductService : IProductService, ISingletonDependency
+    public class ProductService : IProductService
     {
-        private static Product[] _products = new Product[] {
+        private static readonly Product[] _products = new Product[] {
             new()
             {
                 Name = "Fresh Peach",

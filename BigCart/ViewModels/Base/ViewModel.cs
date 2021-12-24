@@ -1,12 +1,11 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Services.Modal;
+﻿using BigCart.Services.Modal;
 using BigCart.Services.Navigation;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.ObjectModel;
 
 namespace BigCart.ViewModels
 {
-    public abstract class ViewModel : ObservableObject, IDependency
+    public abstract class ViewModel : ObservableObject
     {
         protected readonly INavigationService _navigationService;
         protected readonly IModalService _modalService;
@@ -15,8 +14,8 @@ namespace BigCart.ViewModels
 
         public ViewModel()
         {
-            _navigationService = DependencyResolver.Get<INavigationService>();
-            _modalService = DependencyResolver.Get<IModalService>();
+            _navigationService = ServiceProvider.GetService<INavigationService>();
+            _modalService = ServiceProvider.GetService<IModalService>();
             GoBackCommand = new AsyncCommand(async () =>
             {
                 if (!OnBackButtonPressed())

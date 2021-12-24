@@ -1,10 +1,9 @@
-﻿using BigCart.DependencyInjection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace BigCart.Services.Modal
 {
-    public interface IModalService : IDependency
+    public interface IModalService
     {
         Task AlertAsync(string message, string title = null, string okText = null);
         Task<bool> ConfirmAsync(string message, string title = null, string okText = null, string cancelText = null);

@@ -1,5 +1,4 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Pages;
+﻿using BigCart.Pages;
 using BigCart.Services.Pages;
 using BigCart.Services.Platform;
 using System.Threading.Tasks;
@@ -8,7 +7,7 @@ using Page = BigCart.Pages.Page;
 
 namespace BigCart.Services.Navigation
 {
-    public class NavigationService : INavigationService, ISingletonDependency
+    public class NavigationService : INavigationService
     {
         private readonly IPlatformService _platformService;
         private readonly IPageService _pageService;

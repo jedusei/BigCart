@@ -1,10 +1,9 @@
 ﻿using Android.App;
-using BigCart.DependencyInjection;
 using BigCart.Services.Platform;
 
 namespace BigCart.Droid.Services
 {
-    public class PlatformService : IPlatformService, ISingletonDependency
+    public class PlatformService : IPlatformService
     {
         static Activity _activity;
 

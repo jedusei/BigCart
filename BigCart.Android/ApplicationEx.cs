@@ -1,5 +1,8 @@
 ﻿using Android.App;
 using Android.Runtime;
+using BigCart.Droid.Services;
+using BigCart.Services.Platform;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +16,12 @@ namespace BigCart.Droid
         public ApplicationEx(IntPtr handle, JniHandleOwnership transer)
            : base(handle, transer)
         {
-            return;
         }
 
         public override void OnCreate()
         {
             base.OnCreate();
-            AndroidModule.Instance.Initialize();
+            Startup.Init(ConfigureServices);
 
 #if DEBUG
             // Delete cached icon fonts
@@ -35,6 +37,11 @@ namespace BigCart.Droid
                     System.IO.File.Delete(System.IO.Path.Combine(cacheDirectory, filename));
             }
 #endif
+        }
+
+        private void ConfigureServices(IServiceCollection services)
+        {
+            services.AddSingleton<IPlatformService, PlatformService>();
         }
     }
 }

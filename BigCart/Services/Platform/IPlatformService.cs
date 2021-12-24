@@ -1,8 +1,6 @@
-﻿using BigCart.DependencyInjection;
-
-namespace BigCart.Services.Platform
+﻿namespace BigCart.Services.Platform
 {
-    public interface IPlatformService : IDependency
+    public interface IPlatformService
     {
         void Quit();
     }

@@ -1,5 +1,4 @@
-﻿using BigCart.DependencyInjection;
-using System;
+﻿using System;
 using Xamarin.Forms;
 
 namespace BigCart.ViewModels
@@ -35,7 +34,7 @@ namespace BigCart.ViewModels
 
                 Type viewModelType = Type.GetType(viewModelName);
                 if (viewModelType != null)
-                    view.BindingContext = DependencyResolver.Container.GetInstance(viewModelType);
+                    view.BindingContext = ServiceProvider.GetService(viewModelType);
             }
         }
     }

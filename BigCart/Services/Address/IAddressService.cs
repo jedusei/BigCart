@@ -1,11 +1,10 @@
-﻿using BigCart.DependencyInjection;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using AddressModel = BigCart.Models.Address;
 
 namespace BigCart.Services.Address
 {
-    public interface IAddressService : IDependency
+    public interface IAddressService
     {
         Task<ReadOnlyObservableCollection<AddressModel>> GetAddressesAsync();
         Task<AddressModel> AddAddressAsync(AddAddressInput input);

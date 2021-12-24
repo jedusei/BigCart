@@ -1,5 +1,4 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Models;
+﻿using BigCart.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BigCart.Services.CreditCards
 {
-    class CreditCardService : ICreditCardService, ISingletonDependency
+    public class CreditCardService : ICreditCardService
     {
         private readonly ObservableCollection<CreditCard> _creditCards;
         private readonly ReadOnlyObservableCollection<CreditCard> _creditCardsReadOnly;

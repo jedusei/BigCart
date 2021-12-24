@@ -1,11 +1,10 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Models;
+﻿using BigCart.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BigCart.Services.Transactions
 {
-    public class TransactionService : ITransactionService, ISingletonDependency
+    public class TransactionService : ITransactionService
     {
         private static int _nextTransactionId = 123456;
         private readonly List<Transaction> _transactions = new()

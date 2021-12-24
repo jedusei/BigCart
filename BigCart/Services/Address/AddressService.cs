@@ -1,5 +1,4 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Models;
+﻿using BigCart.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +6,7 @@ using AddressModel = BigCart.Models.Address;
 
 namespace BigCart.Services.Address
 {
-    public class AddressService : IAddressService, ISingletonDependency
+    public class AddressService : IAddressService
     {
         private readonly ObservableCollection<AddressModel> _addresses;
         private readonly ReadOnlyObservableCollection<AddressModel> _addressesReadOnly;

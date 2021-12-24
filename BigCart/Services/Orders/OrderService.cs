@@ -1,5 +1,4 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Models;
+﻿using BigCart.Models;
 using BigCart.Services.Cart;
 using BigCart.Services.Transactions;
 using System;
@@ -9,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace BigCart.Services.Orders
 {
-    public class OrderService : IOrderService, ISingletonDependency
+    public class OrderService : IOrderService
     {
         private static int _nextOrderId = 90897;
         private readonly ICartService _cartService;
         private readonly ITransactionService _transactionService;
-        private List<Order> _orders = new()
+        private readonly List<Order> _orders = new()
         {
             new()
             {

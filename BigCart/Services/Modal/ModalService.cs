@@ -1,5 +1,4 @@
 ﻿using Acr.UserDialogs;
-using BigCart.DependencyInjection;
 using BigCart.Services.Pages;
 using BigCart.ViewModels;
 using System.Threading.Tasks;
@@ -7,7 +6,7 @@ using Xamarin.Forms;
 
 namespace BigCart.Services.Modal
 {
-    public class ModalService : IModalService, ISingletonDependency
+    public class ModalService : IModalService
     {
         private readonly IPageService _pageService;
 

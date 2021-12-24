@@ -1,5 +1,4 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Models;
+﻿using BigCart.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,9 +7,9 @@ using Xamarin.Forms;
 
 namespace BigCart.Services.Reviews
 {
-    public class ReviewService : IReviewService, ISingletonDependency
+    public class ReviewService : IReviewService
     {
-        private static Dictionary<Product, ObservableCollection<Review>> _reviews = new();
+        private static readonly Dictionary<Product, ObservableCollection<Review>> _reviews = new();
         private static Review[] _defaultReviews;
 
         public async Task<ReadOnlyObservableCollection<Review>> GetReviewsAsync(Product product)

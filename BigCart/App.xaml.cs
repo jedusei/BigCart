@@ -1,5 +1,4 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Messaging;
+﻿using BigCart.Messaging;
 using BigCart.Services.Navigation;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -21,11 +20,6 @@ namespace BigCart
         public static new App Current => Application.Current as App;
         public AppStatus Status { get; private set; }
 
-        static App()
-        {
-            SharedModule.Instance.Initialize();
-        }
-
         public App()
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDk1MjMxQDMxMzkyZTMyMmUzMFJWajRpaEhtMzlnQ1FPNStqREVtY1luTm9NeG9sOUljL29mR2U5TE8wWk09");
@@ -46,7 +40,7 @@ namespace BigCart
             else
                 await Task.Delay(1500);
 
-            DependencyResolver.Get<INavigationService>().Initialize();
+            ServiceProvider.GetService<INavigationService>().Initialize();
             Status = AppStatus.Running;
             if (Device.RuntimePlatform == Device.iOS)
                 MessagingCenter.Send((Application)this, MessageKeys.Start); // On Android this will be called by the page renderer right before it is drawn.

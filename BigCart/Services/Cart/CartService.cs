@@ -1,5 +1,4 @@
-﻿using BigCart.DependencyInjection;
-using BigCart.Models;
+﻿using BigCart.Models;
 using BigCart.Services.Products;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BigCart.Services.Cart
 {
-    public class CartService : ICartService, ISingletonDependency
+    public class CartService : ICartService
     {
         private readonly IProductService _productService;
         private ObservableCollection<Product> _items;
