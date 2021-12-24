@@ -33,14 +33,13 @@ namespace BigCart.Droid.Renderers
         private readonly PlatformServicesProxy _platformServicesProxy;
         private readonly FragmentManager _fragmentManager;
         private TaskCompletionSource<bool> _transitionTcs;
-        private int _exitTransitionDuration;
 
         public NavigationPageRenderer(Context context) : base(context)
         {
             _platformServicesProxy = new PlatformServicesProxy();
             _fragmentManager = context.GetFragmentManager();
             using Animator exitAnimator = AnimatorInflater.LoadAnimator(context, Resource.Animator.fragment_open_exit);
-            _exitTransitionDuration = (int?)exitAnimator?.TotalDuration ?? TransitionDuration;
+            TransitionDuration = (int?)exitAnimator?.TotalDuration ?? TransitionDuration;
         }
 
         public Fragment GetCurrentFragment()
@@ -100,9 +99,6 @@ namespace BigCart.Droid.Renderers
 
             bool result = await base.OnPopViewAsync(page, animated);
 
-            if (animated)
-                await Task.Delay(_exitTransitionDuration);
-
             previousPage?.Resume();
 
             return result;
@@ -113,9 +109,6 @@ namespace BigCart.Droid.Renderers
             var rootPage = page.Navigation.NavigationStack[0] as PageEx;
 
             bool result = await base.OnPopToRootAsync(page, animated);
-
-            if (animated)
-                await Task.Delay(_exitTransitionDuration);
 
             rootPage?.Resume();
 
