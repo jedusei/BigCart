@@ -21,7 +21,7 @@ namespace BigCart.Droid
         public override void OnCreate()
         {
             base.OnCreate();
-            Startup.Init(ConfigureServices);
+            ServiceProvider.Init(ConfigureServices);
 
 #if DEBUG
             // Delete cached icon fonts

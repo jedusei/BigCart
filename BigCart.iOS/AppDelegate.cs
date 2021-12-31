@@ -21,7 +21,7 @@ namespace BigCart.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Startup.Init(ConfigureServices);
+            ServiceProvider.Init(ConfigureServices);
 
             global::Xamarin.Forms.Forms.Init();
 
