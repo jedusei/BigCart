@@ -1,7 +1,7 @@
 # BigCart
-Real Estate mobile app developed with Xamarin Forms based on a design that I found [here](https://ui8.net/ohsamahussain/products/big-cart?rel=wh3v4).  
+A mobile app developed with Xamarin Forms based on a design that I found [here](https://ui8.net/ohsamahussain/products/big-cart?rel=wh3v4).  
 
-You can download the APK [here](https://drive.google.com/file/d/19jfhmz_4LBXxpfjMIPqjxjRBAHsyxMgW/view?usp=sharing).
+You can download the APK [here](https://drive.google.com/file/d/1hP2Hu5vL7wZLRrDQyjOz3SxTiv5L-YZJ/view?usp=sharing).
 
 ## Screenshots
 <div style="display: flex">
