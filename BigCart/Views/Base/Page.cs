@@ -40,6 +40,7 @@ namespace BigCart.Pages
 
         public Page()
         {
+            AutomationId = GetType().Name;
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             On<iOS>().SetUseSafeArea(false);
         }
