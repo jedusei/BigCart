@@ -10,6 +10,7 @@
     x:DataType="vm:OnboardingViewModel">
     <AbsoluteLayout>
         <CarouselView
+            AutomationId="CarouselView"
             HorizontalScrollBarVisibility="Never"
             IndicatorView="{Reference indicatorView}"
             IsBounceEnabled="False"
@@ -62,7 +63,9 @@
                 IndicatorColor="#DCDCDC"
                 IndicatorSize="8"
                 SelectedIndicatorColor="{StaticResource PrimaryColor}" />
-            <Button Command="{Binding NextCommand}" Text="Next">
+            <Button
+                Command="{Binding NextCommand}"
+                Text="Next">
                 <Button.Triggers>
                     <DataTrigger
                         Binding="{Binding CurrentSlideIndex}"

@@ -35,8 +35,14 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\AppExtensions.cs" />
+    <Compile Include="Extensions\ViewExtensions.cs" />
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="AppInitializer.cs" />
+    <Compile Include="Views\Pages\OnboardingPage.cs" />
+    <Compile Include="Views\Pages\Page.cs" />
+    <Compile Include="Views\View.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

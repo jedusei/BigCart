@@ -1,7 +1,6 @@
-﻿using NUnit.Framework;
-using System.Linq;
+﻿using BigCart.UITests.Views.Pages;
+using NUnit.Framework;
 using Xamarin.UITest;
-using Xamarin.UITest.Queries;
 
 namespace BigCart.UITests
 {
@@ -23,10 +22,16 @@ namespace BigCart.UITests
         }
 
         [Test]
-        public void OnboardingPageIsDisplayed()
+        public void OnboardingPageTest()
         {
-            AppResult[] results = app.WaitForElement("OnboardingPage");
-            Assert.IsTrue(results.Any());
+            new OnboardingPage()
+                 .Next()
+                 .Invoke(page => Assert.AreEqual(1, page.CurrentSlide))
+                 .Back()
+                 .Invoke(page => Assert.AreEqual(0, page.CurrentSlide))
+                 .GoToEnd()
+                 .GetStarted()
+                 .WaitUntilHidden();
         }
     }
 }

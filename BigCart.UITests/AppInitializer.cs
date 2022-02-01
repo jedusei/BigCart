@@ -1,8 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Reflection;
 using Xamarin.UITest;
-using Xamarin.UITest.Queries;
+using Xamarin.UITest.Utils;
 
 namespace BigCart.UITests
 {
@@ -16,16 +14,27 @@ namespace BigCart.UITests
             {
                 App = ConfigureApp.Android
                     .InstalledApp("com.joe.bigcart")
+                    .WaitTimes(new WaitTimes())
                     .StartApp();
             }
             else
             {
                 App = ConfigureApp.iOS
                     .InstalledApp("com.joe.bigcart")
+                    .WaitTimes(new WaitTimes())
                     .StartApp();
             }
 
             return App;
+        }
+
+        private class WaitTimes : IWaitTimes
+        {
+            public TimeSpan WaitForTimeout => TimeSpan.FromSeconds(5);
+
+            public TimeSpan GestureWaitTimeout => TimeSpan.FromSeconds(1);
+
+            public TimeSpan GestureCompletionTimeout => TimeSpan.FromSeconds(1);
         }
     }
 }
