@@ -16,7 +16,9 @@
     StatusBarStyle="LightContent"
     WindowSoftInputModeAdjust="Resize">
     <ContentPage.Resources>
-        <Style x:Key="Tab" TargetType="StackLayout">
+        <Style
+            x:Key="Tab"
+            TargetType="StackLayout">
             <Setter Property="Padding" Value="20" />
             <Setter Property="Spacing" Value="0" />
             <Setter Property="IsVisible" Value="False" />
@@ -43,7 +45,9 @@
             Orientation="Horizontal"
             StyleClass="FillAbsoluteLayout">
             <AbsoluteLayout>
-                <Image x:Name="_homeImage" Source="welcome_1.png" />
+                <Image
+                    x:Name="_homeImage"
+                    Source="welcome_1.png" />
                 <Image
                     x:Name="_loginImage"
                     IsVisible="False"
@@ -56,14 +60,18 @@
         </controls:ScrollViewEx>
 
         <!--  DARK GRADIENT OVERLAY  -->
-        <ContentView AbsoluteLayout.LayoutBounds="0,0,1,AutoSize" AbsoluteLayout.LayoutFlags="WidthProportional">
+        <ContentView
+            AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
+            AbsoluteLayout.LayoutFlags="WidthProportional">
             <ContentView.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                     <GradientStop Offset="0" Color="Black" />
                     <GradientStop Offset="1" Color="Transparent" />
                 </LinearGradientBrush>
             </ContentView.Background>
-            <BoxView effects:SafeAreaEffect.SafeArea="Top" HeightRequest="80" />
+            <BoxView
+                effects:SafeAreaEffect.SafeArea="Top"
+                HeightRequest="80" />
         </ContentView>
 
         <!--  TITLE  -->
@@ -121,7 +129,9 @@
                             x:Name="_homeView"
                             IsVisible="True"
                             Style="{StaticResource Tab}">
-                            <Label Style="{StaticResource SectionTitle}" Text="Welcome" />
+                            <Label
+                                Style="{StaticResource SectionTitle}"
+                                Text="Welcome" />
                             <Label
                                 FontFamily="{StaticResource MediumFontFamily}"
                                 Style="{StaticResource SectionTextSecondary}"
@@ -148,9 +158,13 @@
 
                             <Button
                                 Margin="0,0,0,20"
+                                AutomationId="SignupLink"
                                 Clicked="SignupLinkTapped"
                                 Text="Create an account" />
-                            <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
+                            <Label
+                                AutomationId="LoginLink"
+                                HorizontalOptions="Center"
+                                Style="{StaticResource SectionTextSecondary}">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="Already have an account? " />
@@ -168,9 +182,15 @@
                             </Label>
                         </StackLayout>
 
-                        <StackLayout x:Name="_loginView" Style="{StaticResource Tab}">
-                            <Label Style="{StaticResource SectionTitle}" Text="Welcome back!" />
-                            <Label Style="{StaticResource SectionTextSecondary}" Text="Sign in to your account" />
+                        <StackLayout
+                            x:Name="_loginView"
+                            Style="{StaticResource Tab}">
+                            <Label
+                                Style="{StaticResource SectionTitle}"
+                                Text="Welcome back!" />
+                            <Label
+                                Style="{StaticResource SectionTextSecondary}"
+                                Text="Sign in to your account" />
 
                             <txt:SfTextInputLayout Margin="0,30,0,10">
                                 <txt:SfTextInputLayout.LeadingView>
@@ -184,6 +204,7 @@
                                     </Image>
                                 </txt:SfTextInputLayout.LeadingView>
                                 <Entry
+                                    AutomationId="EmailField"
                                     Keyboard="Email"
                                     Placeholder="Email Address"
                                     ReturnType="Next" />
@@ -200,6 +221,7 @@
                                     </Image>
                                 </txt:SfTextInputLayout.LeadingView>
                                 <Entry
+                                    AutomationId="PasswordField"
                                     IsPassword="True"
                                     Placeholder="Password"
                                     ReturnType="Done" />
@@ -208,8 +230,10 @@
                                 </txt:SfTextInputLayout.TrailingView>
                             </txt:SfTextInputLayout>
 
-                            <FlexLayout Margin="10,20" AlignItems="Center">
-                                <controls:SwitchEx />
+                            <FlexLayout
+                                Margin="10,20"
+                                AlignItems="Center">
+                                <controls:SwitchEx AutomationId="RememberMe" />
                                 <Label
                                     FlexLayout.Grow="1"
                                     FontFamily="{StaticResource MediumFontFamily}"
@@ -217,6 +241,7 @@
                                     Text="Remember me" />
 
                                 <Label
+                                    AutomationId="ForgotPasswordLink"
                                     FontFamily="{StaticResource MediumFontFamily}"
                                     HorizontalOptions="EndAndExpand"
                                     Style="{StaticResource SectionTextSecondary}"
@@ -230,10 +255,14 @@
 
                             <Button
                                 Margin="0,0,0,20"
+                                AutomationId="LoginButton"
                                 Command="{Binding LoginCommand}"
                                 Text="Login" />
 
-                            <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
+                            <Label
+                                AutomationId="SignupLink"
+                                HorizontalOptions="Center"
+                                Style="{StaticResource SectionTextSecondary}">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="Don't have an account? " />
@@ -251,9 +280,15 @@
                             </Label>
                         </StackLayout>
 
-                        <StackLayout x:Name="_signupView" Style="{StaticResource Tab}">
-                            <Label Style="{StaticResource SectionTitle}" Text="Create account" />
-                            <Label Style="{StaticResource SectionTextSecondary}" Text="Quickly create account" />
+                        <StackLayout
+                            x:Name="_signupView"
+                            Style="{StaticResource Tab}">
+                            <Label
+                                Style="{StaticResource SectionTitle}"
+                                Text="Create account" />
+                            <Label
+                                Style="{StaticResource SectionTextSecondary}"
+                                Text="Quickly create account" />
 
                             <txt:SfTextInputLayout Margin="0,30,0,0">
                                 <txt:SfTextInputLayout.LeadingView>
@@ -267,6 +302,7 @@
                                     </Image>
                                 </txt:SfTextInputLayout.LeadingView>
                                 <Entry
+                                    AutomationId="EmailField"
                                     Keyboard="Email"
                                     Placeholder="Email Address"
                                     ReturnType="Next" />
@@ -283,6 +319,7 @@
                                     </Image>
                                 </txt:SfTextInputLayout.LeadingView>
                                 <Entry
+                                    AutomationId="PhoneNumberField"
                                     Keyboard="Telephone"
                                     Placeholder="Phone number"
                                     ReturnType="Next" />
@@ -299,6 +336,7 @@
                                     </Image>
                                 </txt:SfTextInputLayout.LeadingView>
                                 <Entry
+                                    AutomationId="PasswordField"
                                     IsPassword="True"
                                     Placeholder="Password"
                                     ReturnType="Done" />
@@ -309,14 +347,18 @@
 
                             <Button
                                 Margin="0,20"
+                                AutomationId="SignupButton"
                                 Command="{Binding SignupCommand}"
                                 Text="Signup" />
 
-                            <Label HorizontalOptions="Center" Style="{StaticResource SectionTextSecondary}">
+                            <Label
+                                HorizontalOptions="Center"
+                                Style="{StaticResource SectionTextSecondary}">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="Already have an account? " />
                                         <Span
+                                            AutomationId="LoginLink"
                                             FontFamily="{StaticResource MediumFontFamily}"
                                             FontSize="15"
                                             Text="Login"
@@ -335,14 +377,18 @@
         </ContentView>
 
         <!--  SECOND GRADIENT OVERLAY  -->
-        <ContentView AbsoluteLayout.LayoutBounds="0,0,1,AutoSize" AbsoluteLayout.LayoutFlags="WidthProportional">
+        <ContentView
+            AbsoluteLayout.LayoutBounds="0,0,1,AutoSize"
+            AbsoluteLayout.LayoutFlags="WidthProportional">
             <ContentView.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                     <GradientStop Offset="0" Color="Black" />
                     <GradientStop Offset="1" Color="Transparent" />
                 </LinearGradientBrush>
             </ContentView.Background>
-            <BoxView effects:SafeAreaEffect.SafeArea="Top" HeightRequest="0" />
+            <BoxView
+                effects:SafeAreaEffect.SafeArea="Top"
+                HeightRequest="0" />
         </ContentView>
     </AbsoluteLayout>
 </pages:Page>

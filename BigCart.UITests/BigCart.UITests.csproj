@@ -38,10 +38,13 @@
     <Compile Include="Extensions\AppExtensions.cs" />
     <Compile Include="Extensions\ViewExtensions.cs" />
     <Compile Include="GlobalUsings.cs" />
-    <Compile Include="Tests.cs" />
     <Compile Include="AppInitializer.cs" />
+    <Compile Include="Tests\OnboardingPage_Tests.cs" />
+    <Compile Include="TestClass.cs" />
+    <Compile Include="Tests\WelcomePage_Tests.cs" />
     <Compile Include="Views\Pages\OnboardingPage.cs" />
     <Compile Include="Views\Pages\Page.cs" />
+    <Compile Include="Views\Pages\WelcomePage.cs" />
     <Compile Include="Views\View.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

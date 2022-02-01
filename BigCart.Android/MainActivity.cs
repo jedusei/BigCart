@@ -5,6 +5,10 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using BigCart.Messaging;
+using BigCart.Pages;
+using BigCart.Services.Navigation;
+using Java.Interop;
+using System;
 using System.Threading.Tasks;
 using FormsApplication = Xamarin.Forms.Application;
 using MessagingCenter = Xamarin.Forms.MessagingCenter;
@@ -48,7 +52,7 @@ namespace BigCart.Droid
             base.OnStop();
             if (IsFinishing)
                 App.Current?.Stop();
-        } 
+        }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
@@ -74,6 +78,19 @@ namespace BigCart.Droid
             var winParams = Window.Attributes;
             winParams.Flags &= ~(WindowManagerFlags.TranslucentStatus | WindowManagerFlags.TranslucentNavigation);
             Window.Attributes = winParams;
+        }
+
+        [Export]
+        public void GoToPage(string pageClass)
+        {
+            var pageType = typeof(App).Assembly.GetType($"BigCart.Pages.{pageClass}") ??
+                throw new ArgumentException($"Page class '{pageClass}' not found!", nameof(pageClass));
+
+            var navigationService = ServiceProvider.GetService<INavigationService>();
+            var pushMethod = typeof(INavigationService).GetMethod(nameof(INavigationService.PushAsync))
+                .MakeGenericMethod(pageType);
+
+            pushMethod.Invoke(navigationService, new[] { new NavigationOptions { ClearHistory = true } });
         }
     }
 }

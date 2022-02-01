@@ -2,23 +2,13 @@
 using NUnit.Framework;
 using Xamarin.UITest;
 
-namespace BigCart.UITests
+namespace BigCart.UITests.Tests
 {
     [TestFixture(Platform.Android)]
-    public class Tests
+    public class OnboardingPage_Tests : TestClass
     {
-        IApp app;
-        Platform platform;
-
-        public Tests(Platform platform)
+        public OnboardingPage_Tests(Platform platform) : base(platform)
         {
-            this.platform = platform;
-        }
-
-        [SetUp]
-        public void BeforeEachTest()
-        {
-            app = AppInitializer.StartApp(platform);
         }
 
         [Test]
